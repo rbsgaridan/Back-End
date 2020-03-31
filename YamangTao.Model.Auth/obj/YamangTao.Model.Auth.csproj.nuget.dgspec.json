@@ -1,0 +1,122 @@
+{
+  "format": 1,
+  "restore": {
+    "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model.Auth\\YamangTao.Model.Auth.csproj": {}
+  },
+  "projects": {
+    "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model.Auth\\YamangTao.Model.Auth.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model.Auth\\YamangTao.Model.Auth.csproj",
+        "projectName": "YamangTao.Model.Auth",
+        "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model.Auth\\YamangTao.Model.Auth.csproj",
+        "packagesPath": "C:\\Users\\Ralph Butch\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model.Auth\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Ralph Butch\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {
+              "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model\\YamangTao.Model.csproj": {
+                "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model\\YamangTao.Model.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "dependencies": {
+            "Microsoft.AspNetCore.Identity": {
+              "target": "Package",
+              "version": "[2.2.0, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model\\YamangTao.Model.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model\\YamangTao.Model.csproj",
+        "projectName": "YamangTao.Model",
+        "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model\\YamangTao.Model.csproj",
+        "packagesPath": "C:\\Users\\Ralph Butch\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Ralph Butch\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.102\\RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

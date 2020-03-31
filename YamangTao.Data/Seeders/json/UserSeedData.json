@@ -1,0 +1,56 @@
+[
+    {
+      "id": "08-01845",
+      "userName": "08-01845",
+      "knownAs": "RALPH BUTCH S. GARIDAN",
+      "employeeId": "08-01845",
+      "employee": {
+        "id": "08-01845",
+        "lastname" : "Garidan",
+        "firstname" : "Ralph Butch",
+        "middleName" : "Sarte",
+        "MI" : "G."
+      }
+    },
+    {
+      "id": "00-00573",
+      "userName": "00-00573",
+      "knownAs": "MELECIO A. CORDERO, JR.",
+      "employeeId": "00-00573",
+      "employee": {
+        "id": "00-00573",
+        "lastname" : "CORDERO",
+        "firstname" : "MELECIO",
+        "middleName" : "A.",
+        "MI" : "A.",
+        "Suffix": "JR."
+      }
+    },
+    {
+      "id": "00-00587",
+      "userName": "00-00587",
+      "knownAs": "WILLIE JONES B. SALILING",
+      "employeeId": "00-00587",
+      "employee": {
+        "id": "00-00587",
+        "lastname" : "SALILING",
+        "firstname" : "WILLIE JONES",
+        "middleName" : "Bayotlang",
+        "MI" : "B."
+      }
+    },
+    {
+      "id": "01-00118",
+      "userName": "01-00118",
+      "knownAs": "MARCELINA A. BAGNI",
+      "employeeId": "01-00118",
+      "employee": {
+        "id": "01-00118",
+        "lastname" : "BAGNI",
+        "firstname" : "MARCELINA",
+        "middleName" : "A.",
+        "MI" : "A."
+      }
+    }
+    
+  ]

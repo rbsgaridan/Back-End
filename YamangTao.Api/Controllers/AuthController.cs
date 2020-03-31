@@ -1,0 +1,164 @@
+using System.Reflection.Metadata.Ecma335;
+using System;
+using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using System.Threading.Tasks;
+using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.IdentityModel.Tokens;
+using YamangTao.Api.Dtos;
+using YamangTao.Model.Auth;
+
+namespace YamangTao.Api.Controllers
+{
+    
+    [Route("api/[controller]")]
+    [ApiController]
+    public class AuthController : ControllerBase
+    {
+
+        private readonly IConfiguration _config;
+        private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
+        private readonly RoleManager<Role> _roleManager;
+
+        public AuthController(IConfiguration config, IMapper mapper,
+                              UserManager<User> userManager, SignInManager<User> signInManager,
+                              RoleManager<Role> roleManager)
+        {
+            _signInManager = signInManager;
+            _roleManager = roleManager;
+            _userManager = userManager;
+            _config = config;
+            _mapper = mapper;
+
+
+        }
+
+        // [Authorize(Policy = "RequireAdminRole")]
+        [HttpPost("register")]
+        public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
+        {
+            var userToCreate = _mapper.Map<User>(userForRegisterDto);
+            var result = await _userManager.CreateAsync(userToCreate, userForRegisterDto.Password);
+
+            
+            if (result.Succeeded)
+            {
+                var createdUser = await _userManager.FindByIdAsync(userToCreate.UserName);
+                _userManager.AddToRoleAsync(createdUser, "Employee").Wait();
+                var userToReturn = _mapper.Map<UserForDetailsDto>(createdUser);
+                return CreatedAtRoute("GetUser", new { controller = "Users", id = createdUser.Id }, userToReturn);
+            }
+
+            return BadRequest(result.Errors);        
+        }
+
+        [AllowAnonymous]
+        [HttpPost("login")]
+        public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
+        {
+            var user = await _userManager.FindByNameAsync(userForLoginDto.Username);
+            var result = await _signInManager.CheckPasswordSignInAsync(user, userForLoginDto.Password, false);
+
+            if (result.Succeeded)
+            {
+                var appUser = await _userManager.Users.Include(p => p.Photos)
+                    .FirstOrDefaultAsync(u => u.NormalizedUserName == userForLoginDto.Username.ToUpper());
+                
+                var userToReturn = _mapper.Map<UserForListDto>(appUser);
+                
+                return Ok(new
+                {
+                    token = GenerateJwtTokenAsync(appUser).Result,
+                    user = userToReturn
+                });
+            }
+
+            //We wanna return as an object to our cllient
+           
+            return Unauthorized();
+        }
+
+        
+        private async Task<string> GenerateJwtTokenAsync(User user)
+        {
+            //Build Token
+
+            //First store the claims
+            var claims = new List<Claim>
+            {
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName)
+
+            };
+            
+            var roles = await _userManager.GetRolesAsync(user);
+
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
+
+            // Add AppSettings to appsettings.json
+            var key = new SymmetricSecurityKey(Encoding.UTF8
+                .GetBytes(_config.GetSection("AppSettings:Token").Value));
+
+            //Generate signing credentials key
+            var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
+
+            //Create security token descriptor which contains claims, expirydate, and credentials
+            var tokenDescriptor = new SecurityTokenDescriptor
+            {
+                Subject = new ClaimsIdentity(claims),
+                Expires = DateTime.Now.AddDays(1),
+                SigningCredentials = creds
+            };
+
+            //Create token Handler
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            //Using the token handler we can create a token and pass in the token descriptor
+            var token = tokenHandler.CreateToken(tokenDescriptor);
+
+            return tokenHandler.WriteToken(token);
+        }
+
+        [AllowAnonymous]
+        [HttpPost("addrole")]
+        public async Task<IActionResult> AddRole(Role roleToBeAdded)
+        {
+            //TODO: Implement Realistic Implementation
+          
+          var result = await _roleManager.CreateAsync(roleToBeAdded);
+
+          if (result.Succeeded)
+          {
+              return Ok();
+          }
+
+          return BadRequest();
+        }
+
+        [AllowAnonymous]
+        [HttpGet("resetusers")]
+        public async Task<IActionResult> ResetUsers()
+        {
+            //TODO: Implement Realistic Implementation
+          
+          foreach (var user in _userManager.Users)
+          {
+              await _userManager.DeleteAsync(user);
+          }
+
+          return Ok();
+        }
+    }
+}
