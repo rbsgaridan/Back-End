@@ -105,6 +105,8 @@ namespace YamangTao.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());
             app.UseHsts();
             app.UseHttpsRedirection();
 
