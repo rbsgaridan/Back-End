@@ -13,6 +13,7 @@ using YamangTao.Model;
 namespace YamangTao.Api.Controllers
 {
     [ApiController]
+    [Route("api/[controller]")]
     public class EmployeesController : ControllerBase
     {
         private readonly IEmployeeRepository _repo;
@@ -21,10 +22,9 @@ namespace YamangTao.Api.Controllers
         {
             _mapper = mapper;
             _repo = repo;
-
         }
 
-        [HttpGet("{Id}", Name = "GetEmployee")]
+        [HttpGet("{id}", Name = "GetEmployee")]
         public async Task<IActionResult> GetEmployee(string id)
         {
             //TODO: Implement Realistic Implementation
@@ -46,7 +46,7 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateEmployee(int id, EmployeeDto employeeForUpdate)
+        public async Task<IActionResult> UpdateEmployee(string id, EmployeeDto employeeForUpdate)
         {
             var employeeFromRepo = await _repo.GetEmployeeByID(employeeForUpdate.Id);
             _mapper.Map(employeeForUpdate, employeeFromRepo);
@@ -82,7 +82,7 @@ namespace YamangTao.Api.Controllers
             {
                 return NoContent();
             }
-            throw new Exception("Error deleting the truck");
+            throw new Exception("Error deleting the employee");
         }
     }
 }

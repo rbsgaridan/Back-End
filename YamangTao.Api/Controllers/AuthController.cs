@@ -207,9 +207,7 @@ namespace YamangTao.Api.Controllers
                 if (result.Succeeded)
                 {
                     var admin = _userManager.FindByNameAsync("admin@root").Result;
-                    _userManager.AddToRolesAsync(admin, new [] {"Admin", "Unit Head"}).Wait();
-                    
-                    
+                    await _userManager.AddToRolesAsync(admin, new [] {"Admin", "Unit Head"});
                 }
 
         }

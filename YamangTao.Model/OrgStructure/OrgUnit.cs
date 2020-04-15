@@ -13,6 +13,7 @@ namespace YamangTao.Model.OrgStructure
         public string NameOfHead { get; set; }
         public Employee CurrentHead { get; set; }
         public string Location { get; set; }
+        public int ParentOrgUnitId { get; set; }
         public OrgUnit ParentUnit { get; set; }
         public ICollection OrgUnitChildren { get; set; }
 

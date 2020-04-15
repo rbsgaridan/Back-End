@@ -39,7 +39,7 @@ namespace YamangTao.Data.Repositories
 
         public async Task<Employee> GetEmployeeByID(string id)
         {
-            return await _context.Employees.FirstOrDefaultAsync(e => e.Id == id);
+            return await _context.Employees.FirstOrDefaultAsync(e => e.Id.Equals(id));
         }
 
         public async Task<PagedList<Employee>> GetEmployees(EmployeeParams employeeParams)
@@ -52,6 +52,7 @@ namespace YamangTao.Data.Repositories
                                                 || s.Firstname.ToUpper().Contains(employeeParams.Keyword.ToUpper())
                                                 || s.MiddleName.ToUpper().Contains(employeeParams.Keyword.ToUpper())
                                                 || s.MI.ToUpper().Contains(employeeParams.Keyword.ToUpper())
+                                                || s.Id.ToUpper().Contains(employeeParams.Keyword.ToUpper())
                                                 );
             }
 
@@ -67,12 +68,8 @@ namespace YamangTao.Data.Repositories
                     employees = employees.OrderBy(s => s.Firstname);
                     break;
 
-                    case "middleName":
+                    case "id":
                     employees = employees.OrderBy(s => s.MiddleName);
-                    break;
-
-                    case "mI":
-                    employees = employees.OrderBy(s => s.MI);
                     break;
 
                     default:
