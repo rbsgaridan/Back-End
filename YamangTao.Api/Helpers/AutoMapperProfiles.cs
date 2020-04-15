@@ -2,8 +2,7 @@ using System.Linq;
 using AutoMapper;
 using YamangTao.Model.Auth;
 using YamangTao.Api.Dtos;
-
-
+using YamangTao.Model;
 
 namespace YamangTao.Api.Helpers
 {
@@ -11,6 +10,7 @@ namespace YamangTao.Api.Helpers
     {
         public AutoMapperProfiles()
         {
+            CreateMap<Employee, EmployeeDto>().ReverseMap();
             CreateMap<User, UserForListDto>()
             .ForMember(dest => dest.PhotoUrl, opt => {
                 opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);

@@ -32,15 +32,15 @@ namespace YamangTao.Data.Seeders
 
                 var roles = new List<Role>
                 {
-                    new Role{Name = "Employee"},
-                    new Role{Name = "Department Head"},
-                    new Role{Name = "Unit Head"},
-                    new Role{Name = "VP"},
-                    new Role{Name = "President"},
-                    new Role{Name = "PMG"},
-                    new Role{Name = "Planning"},
-                    new Role{Name = "HR"},
-                    new Role{Name = "Admin"}
+                    new Role{Id = "Employee", Name = "Employee"},
+                    new Role{Id = "Department Head",Name = "Department Head"},
+                    new Role{Id = "Unit Head",Name = "Unit Head"},
+                    new Role{Id = "VP",Name = "VP"},
+                    new Role{Id = "President",Name = "President"},
+                    new Role{Id = "PMG",Name = "PMG"},
+                    new Role{Id = "Planning",Name = "Planning"},
+                    new Role{Id = "HR",Name = "HR"},
+                    new Role{Id = "Admin",Name = "Admin"}
                 
                 };
 
@@ -65,6 +65,7 @@ namespace YamangTao.Data.Seeders
                 if (result.Succeeded)
                 {
                     var admin = _userManager.FindByNameAsync("admin@root").Result;
+
                     _userManager.AddToRolesAsync(admin, new [] {"Admin", "Director" }).Wait();;
                 }
 

@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Reflection.Metadata.Ecma335;
 using System;
 using System.Collections.Generic;
@@ -55,7 +56,7 @@ namespace YamangTao.Api.Controllers
                 var createdUser = await _userManager.FindByIdAsync(userToCreate.UserName);
                 _userManager.AddToRoleAsync(createdUser, "Employee").Wait();
                 var userToReturn = _mapper.Map<UserForDetailsDto>(createdUser);
-                return CreatedAtRoute("GetUser", new { controller = "Users", id = createdUser.Id }, userToReturn);
+                return CreatedAtRoute("GetUser", new { controller = "Users", id = userToReturn.Id});
             }
 
             return BadRequest(result.Errors);        
@@ -145,6 +146,72 @@ namespace YamangTao.Api.Controllers
           }
 
           return BadRequest();
+        }
+
+        [AllowAnonymous]
+        [HttpPost("seedroles")]
+        public async Task<IActionResult> SeedRoles()
+        {
+            //TODO: Implement Realistic Implementation
+           var roles = new List<Role>
+                {
+                   new Role{Id = "Employee", Name = "Employee"},
+                    new Role{Id = "Department Head",Name = "Department Head"},
+                    new Role{Id = "Unit Head",Name = "Unit Head"},
+                    new Role{Id = "VP",Name = "VP"},
+                    new Role{Id = "President",Name = "President"},
+                    new Role{Id = "PMG",Name = "PMG"},
+                    new Role{Id = "Planning",Name = "Planning"},
+                    new Role{Id = "HR",Name = "HR"},
+                    new Role{Id = "Admin",Name = "Admin"}
+                
+                };
+
+            foreach (var role in roles)
+            {
+                await _roleManager.CreateAsync(role);
+            }
+
+          return Ok();
+        }
+
+        [AllowAnonymous]
+        [HttpPost("addrolestoadmin")]
+        public async Task<IActionResult> AddRolesToAdmin()
+        {
+            //TODO: Implement Realistic Implementation
+          
+            var admin = _userManager.FindByNameAsync("admin@root").Result;
+            var result = await _userManager.AddToRolesAsync(admin, new [] {"Admin", "Unit Head"});
+            if (result.Succeeded)
+            {
+                return Ok();
+            }
+            
+            return BadRequest();
+        }
+
+        [AllowAnonymous]
+        [HttpPost("seedadmin")]
+        public async void SeedAdmin()
+        {
+            
+           var superUser = new User
+                {
+                    UserName = "admin@root",
+                    Id = "admin@root"
+                };
+                
+                IdentityResult result = _userManager.CreateAsync(superUser,"L!fe7352").Result;
+                
+                if (result.Succeeded)
+                {
+                    var admin = _userManager.FindByNameAsync("admin@root").Result;
+                    _userManager.AddToRolesAsync(admin, new [] {"Admin", "Unit Head"}).Wait();
+                    
+                    
+                }
+
         }
 
         [AllowAnonymous]

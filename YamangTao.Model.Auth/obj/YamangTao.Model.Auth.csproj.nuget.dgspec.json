@@ -4,6 +4,56 @@
     "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model.Auth\\YamangTao.Model.Auth.csproj": {}
   },
   "projects": {
+    "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\YamangTao.Core.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\YamangTao.Core.csproj",
+        "projectName": "YamangTao.Core",
+        "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\YamangTao.Core.csproj",
+        "packagesPath": "C:\\Users\\Ralph Butch\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\Ralph Butch\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "netstandard2.1"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "netstandard2.1": {
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "netstandard2.1": {
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "NETStandard.Library": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.201\\RuntimeIdentifierGraph.json"
+        }
+      }
+    },
     "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model.Auth\\YamangTao.Model.Auth.csproj": {
       "version": "1.0.0",
       "restore": {
@@ -88,7 +138,11 @@
         },
         "frameworks": {
           "netstandard2.1": {
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\YamangTao.Core.csproj": {
+                "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\YamangTao.Core.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

@@ -7,3 +7,6 @@ D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Model\bin\Debug\netstandard2.1\Y
 D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Model\obj\Debug\netstandard2.1\YamangTao.Model.dll
 D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Model\obj\Debug\netstandard2.1\YamangTao.Model.pdb
 D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Model\obj\Debug\netstandard2.1\YamangTao.Model.csproj.CoreCompileInputs.cache
+D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Model\bin\Debug\netstandard2.1\YamangTao.Core.dll
+D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Model\bin\Debug\netstandard2.1\YamangTao.Core.pdb
+D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Model\obj\Debug\netstandard2.1\YamangTao.Model.csproj.CopyComplete

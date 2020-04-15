@@ -622,6 +622,9 @@
         }
       },
       "YamangTao.Model/1.0.0": {
+        "dependencies": {
+          "YamangTao.Core": "1.0.0"
+        },
         "runtime": {
           "YamangTao.Model.dll": {}
         }

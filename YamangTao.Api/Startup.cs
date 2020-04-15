@@ -15,12 +15,13 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using YamangTao.Data;
 using Swashbuckle.AspNetCore.Swagger;
-using YamangTao.Data.Seeders;
 using Microsoft.AspNetCore.Identity;
 using YamangTao.Model.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using YamangTao.Core.Repository;
+using YamangTao.Data.Repositories;
 
 namespace YamangTao.Api
 {
@@ -39,9 +40,9 @@ namespace YamangTao.Api
             
             
             services.AddAutoMapper(typeof(Startup));
-            // services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("MySQLConnection")));
+            services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("MySQLConnection")));
             // services.AddDbContext<DataContext>(options => options.UseMySql(Configuration.GetConnectionString("MySQLConnection"), x => x.MigrationsAssembly("YamangTao.Data")));
-            services.AddDbContext<DataContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection"), x => x.MigrationsAssembly("YamangTao.Data")));
+            // services.AddDbContext<DataContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection"), x => x.MigrationsAssembly("YamangTao.Data")));
             services.AddControllers();
 
             //Swagger Options from SwashBuckle.AspNetCore package
@@ -96,6 +97,8 @@ namespace YamangTao.Api
             services.AddCors();
             services.AddMvc();
             // services.AddTransient<SeedUsers>();
+            services.AddScoped<IEmployeeRepository, EmployeeRepository>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

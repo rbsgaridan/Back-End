@@ -45,3 +45,10 @@ YamangTao.Core/obj/YamangTao.Core.csproj.nuget.g.props
 YamangTao.Core/obj/Debug/netstandard2.1/YamangTao.Core.csproj.FileListAbsolute.txt
 YamangTao.Core/obj/Debug/netstandard2.1/YamangTao.Core.csprojAssemblyReference.cache
 YamangTao.Core/obj/Debug/netstandard2.1/YamangTao.Core.dll
+YamangTao.Core/obj/Debug/netstandard2.1/YamangTao.Core.assets.cache
+YamangTao.Data/obj/Debug/netcoreapp3.1/YamangTao.Data.assets.cache
+YamangTao.Data/obj/Debug/netcoreapp3.1/YamangTao.Data.csprojAssemblyReference.cache
+YamangTao.Model/obj/Debug/netstandard2.1/YamangTao.Model.assets.cache
+YamangTao.Model/obj/Debug/netstandard2.1/YamangTao.Model.csprojAssemblyReference.cache
+YamangTao.Model.Auth/obj/Debug/netstandard2.1/YamangTao.Model.Auth.assets.cache
+YamangTao.Model.Auth/obj/Debug/netstandard2.1/YamangTao.Model.Auth.csprojAssemblyReference.cache

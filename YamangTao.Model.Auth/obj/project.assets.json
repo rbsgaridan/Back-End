@@ -745,9 +745,22 @@
           "lib/netstandard2.0/System.Threading.Tasks.Extensions.dll": {}
         }
       },
+      "YamangTao.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "compile": {
+          "bin/placeholder/YamangTao.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/YamangTao.Core.dll": {}
+        }
+      },
       "YamangTao.Model/1.0.0": {
         "type": "project",
         "framework": ".NETStandard,Version=v2.1",
+        "dependencies": {
+          "YamangTao.Core": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/YamangTao.Model.dll": {}
         },
@@ -1922,6 +1935,11 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "YamangTao.Core/1.0.0": {
+      "type": "project",
+      "path": "../YamangTao.Core/YamangTao.Core.csproj",
+      "msbuildProject": "../YamangTao.Core/YamangTao.Core.csproj"
     },
     "YamangTao.Model/1.0.0": {
       "type": "project",

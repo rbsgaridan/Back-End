@@ -224,7 +224,11 @@
         },
         "frameworks": {
           "netstandard2.1": {
-            "projectReferences": {}
+            "projectReferences": {
+              "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\YamangTao.Core.csproj": {
+                "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\YamangTao.Core.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

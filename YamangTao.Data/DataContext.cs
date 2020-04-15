@@ -32,6 +32,17 @@ namespace YamangTao.Data
                     .IsRequired();
             });
 
+            builder.Entity<Employee>().Property(e => e.EmployeeGroup).HasMaxLength(30);
+            builder.Entity<Employee>().Property(e => e.CurrentStatus).HasMaxLength(30);
+            builder.Entity<Employee>().Property(e => e.Lastname).HasMaxLength(50);
+            builder.Entity<Employee>().Property(e => e.Firstname).HasMaxLength(50);
+            builder.Entity<Employee>().Property(e => e.MiddleName).HasMaxLength(50);
+            builder.Entity<Employee>().Property(e => e.MI).HasMaxLength(3);
+            builder.Entity<Employee>().Property(e => e.Suffix).HasMaxLength(3);
+            builder.Entity<Employee>().Property(e => e.Sex).HasMaxLength(15);
+            builder.Entity<Employee>().Property(e => e.Telephone).HasMaxLength(50);
+            builder.Entity<Employee>().Property(e => e.MobileNumber).HasMaxLength(50);
+
             // builder.Entity<Like>()
             //     .HasKey(k => new {k.LikeeId, k.LikerId});
             

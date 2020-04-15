@@ -10,3 +10,5 @@ D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Model.Auth\obj\Debug\netstandard
 D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Model.Auth\obj\Debug\netstandard2.1\YamangTao.Model.Auth.dll
 D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Model.Auth\obj\Debug\netstandard2.1\YamangTao.Model.Auth.pdb
 D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Model.Auth\obj\Debug\netstandard2.1\YamangTao.Model.Auth.csproj.CoreCompileInputs.cache
+D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Model.Auth\bin\Debug\netstandard2.1\YamangTao.Core.dll
+D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Model.Auth\bin\Debug\netstandard2.1\YamangTao.Core.pdb

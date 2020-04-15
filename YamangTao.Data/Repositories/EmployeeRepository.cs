@@ -84,9 +84,9 @@ namespace YamangTao.Data.Repositories
         }
 
 
-        public Task<bool> SaveAll()
+        public async Task<bool> SaveAll()
         {
-            throw new NotImplementedException();
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

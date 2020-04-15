@@ -1,9 +1,8 @@
-using System.Data;
 using System;
 
-namespace YamangTao.Model
+namespace YamangTao.Api.Dtos
 {
-    public class Employee
+    public class EmployeeDto
     {
         public string Id { get; set; }
         public string EmployeeGroup { get; set; } //Teaching or Non-Teaching
@@ -33,12 +32,6 @@ namespace YamangTao.Model
             }
         }
 
-        public string GetAge() 
-        { 
-                return DateTime.Now.Subtract(BirthDate ?? DateTime.Now).ToString();
-        }
-
        
-        
     }
 }

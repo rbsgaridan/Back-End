@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    ".NETStandard,Version=v2.1": {}
+    ".NETStandard,Version=v2.1": {
+      "YamangTao.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETStandard,Version=v2.1",
+        "compile": {
+          "bin/placeholder/YamangTao.Core.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/YamangTao.Core.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "YamangTao.Core/1.0.0": {
+      "type": "project",
+      "path": "../YamangTao.Core/YamangTao.Core.csproj",
+      "msbuildProject": "../YamangTao.Core/YamangTao.Core.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETStandard,Version=v2.1": []
+    ".NETStandard,Version=v2.1": [
+      "YamangTao.Core >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\Ralph Butch\\.nuget\\packages\\": {}
@@ -30,7 +49,11 @@
       },
       "frameworks": {
         "netstandard2.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\YamangTao.Core.csproj": {
+              "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\YamangTao.Core.csproj"
+            }
+          }
         }
       },
       "warningProperties": {
