@@ -10,6 +10,7 @@ namespace YamangTao.Core.Repository
     {
         Task<PagedList<Employee>> GetEmployees(EmployeeParams employeeParams);
         Task<Employee> GetEmployeeByID(string id);
-        
+
+        Task<bool> VerifyEmployee(string id, string lastname, string firstname);
     }
 }

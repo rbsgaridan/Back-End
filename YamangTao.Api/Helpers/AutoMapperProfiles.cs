@@ -30,8 +30,8 @@ namespace YamangTao.Api.Helpers
             CreateMap<UserForUpdateDto, User>();
             CreateMap<Photo, PhotoForReturnDto>();
             CreateMap<PhotoForCreationDto, Photo>();
-            CreateMap<UserForRegisterDto, User>()
-                 .ForMember(dest => dest.Id, opt => opt.MapFrom(source => source.Username));
+            // CreateMap<UserForRegisterDto, User>()
+            //      .ForMember(dest => dest.Id, opt => opt.MapFrom(source => source.Username));
             
             // CreateMap<EmployeeToReturnDto, Employee>().ReverseMap();
             // CreateMap<EmployeeForUpdateDto, Employee>().ReverseMap();

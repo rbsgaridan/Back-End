@@ -22,6 +22,10 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using YamangTao.Core.Repository;
 using YamangTao.Data.Repositories;
+using YamangTao.Api.Helpers;
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
 
 namespace YamangTao.Api
 {
@@ -51,14 +55,15 @@ namespace YamangTao.Api
                 options.SwaggerDoc("v1", new OpenApiInfo { Title = "YamangTao", Version = "v1" });
             });
             
-            // IdentityBuilder builder = services.AddIdentityCore<User>(opt => {
-            //     opt.Password.RequireDigit = false;
-            //     opt.Password.RequiredLength = 4;
-            //     opt.Password.RequireNonAlphanumeric = false;
-            //     opt.Password.RequireUppercase = false;
-            // }); 
+            IdentityBuilder builder = services.AddIdentityCore<User>(opt => {
+                opt.Password.RequireDigit = false;
+                opt.Password.RequiredLength = 4;
+                opt.Password.RequireNonAlphanumeric = false;
+                opt.Password.RequireUppercase = false;
+                opt.Password.RequireLowercase = false;
+            }); 
             // Create a new instance of the IdentityBuilder for adding EF services in Identity
-            IdentityBuilder builder = services.AddIdentityCore<User>();
+            // IdentityBuilder builder = services.AddIdentityCore<User>();
             builder = new IdentityBuilder(builder.UserType, typeof(Role), builder.Services);
             builder.AddEntityFrameworkStores<DataContext>();
             // builder.AddRoleValidator<RoleValidator<Role>>();
@@ -107,6 +112,21 @@ namespace YamangTao.Api
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+            else 
+            {
+                // Global Exception Handler
+                app.UseExceptionHandler(builder => {
+                    builder.Run(async context => {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                        var error = context.Features.Get<IExceptionHandlerFeature>();
+                        if (error != null)
+                        {
+                            context.Response.AddApplicationError(error.Error.Message);
+                            await context.Response.WriteAsync(error.Error.Message);
+                        }
+                    });
+                });
             }
 
             app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin());

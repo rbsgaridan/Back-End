@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Globalization;
 using System.Reflection.Metadata.Ecma335;
 using System;
@@ -15,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using YamangTao.Api.Dtos;
 using YamangTao.Model.Auth;
+using YamangTao.Core.Repository;
 
 namespace YamangTao.Api.Controllers
 {
@@ -29,13 +31,16 @@ namespace YamangTao.Api.Controllers
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<Role> _roleManager;
+        private readonly IEmployeeRepository _repo;
 
         public AuthController(IConfiguration config, IMapper mapper,
                               UserManager<User> userManager, SignInManager<User> signInManager,
-                              RoleManager<Role> roleManager)
+                              RoleManager<Role> roleManager,
+                              IEmployeeRepository repo)
         {
             _signInManager = signInManager;
             _roleManager = roleManager;
+            _repo = repo;
             _userManager = userManager;
             _config = config;
             _mapper = mapper;
@@ -47,16 +52,33 @@ namespace YamangTao.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
-            var userToCreate = _mapper.Map<User>(userForRegisterDto);
+            // 1 Check if the user is already an employee
+            bool verified = await _repo.VerifyEmployee(userForRegisterDto.Id.ToUpper(), 
+                                                        userForRegisterDto.Lastname.ToUpper(), 
+                                                        userForRegisterDto.Firstname.ToUpper());
+            if (!verified)
+            {
+                throw new Exception($"The system DOES NOT RECOGNIZE this user as an employee. Please contact HRMD Office");
+            }
+            // 2 Create the user with role Employee
+            // 3 Return Created 
+            var userToCreate = new User {
+                Id = userForRegisterDto.Id.ToUpper(),
+                UserName = userForRegisterDto.Id.ToUpper(),
+                Email = userForRegisterDto.Email,
+                KnownAs = userForRegisterDto.Firstname + " " + userForRegisterDto.Lastname,
+                Created = userForRegisterDto.Created,
+                LastActive = userForRegisterDto.LastActive,
+                EmployeeId = userForRegisterDto.Id
+            };
             var result = await _userManager.CreateAsync(userToCreate, userForRegisterDto.Password);
 
-            
             if (result.Succeeded)
             {
                 var createdUser = await _userManager.FindByIdAsync(userToCreate.UserName);
                 _userManager.AddToRoleAsync(createdUser, "Employee").Wait();
                 var userToReturn = _mapper.Map<UserForDetailsDto>(createdUser);
-                return CreatedAtRoute("GetUser", new { controller = "Users", id = userToReturn.Id});
+                return CreatedAtRoute("GetUser", new { controller = "users", id = userToReturn.Id}, userToReturn);
             }
 
             return BadRequest(result.Errors);        

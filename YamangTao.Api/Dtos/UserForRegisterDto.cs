@@ -9,18 +9,18 @@ namespace YamangTao.Api.Dtos
     public class UserForRegisterDto
     {
         [Required]
-        public string Username { get; set; }   
+        public string Id { get; set; }   
 
         [Required]
         [StringLength(8, MinimumLength = 4, ErrorMessage = "You must specify password between 4 and 8 characters")]  
         public string Password { get; set; }
 
-        public string Gender { get; set; }
+        public string Email { get; set; }
 
-        public string KnownAs { get; set; }
-
-        public DateTime DateOfBirth { get; set; }
-        public string City { get; set; }
+        public string Mobile { get; set; }
+        public string Lastname { get; set; }
+        public string Firstname { get; set; }
+        public string Middlename { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
         

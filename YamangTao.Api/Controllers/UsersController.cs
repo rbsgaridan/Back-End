@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace YamangTao.Api.Controllers
 {   
     // [ServiceFilter(typeof(LogUserActivity))]
-    [Route("api/[controller]")]
+    [Route("api/users")]
     [ApiController]
     public class UsersController : ControllerBase
     {
@@ -44,7 +44,7 @@ namespace YamangTao.Api.Controllers
         [HttpGet("{id}", Name = "GetUser")]
         public async Task<IActionResult> GetUser(string id)
         {
-            var isCurrentUser = User.FindFirst(ClaimTypes.NameIdentifier).Value == id;
+            // var isCurrentUser = User.FindFirst(ClaimTypes.NameIdentifier).Value == id;
             // var user = await _repo.GetUser(id, isCurrentUser);
             var user = await _userManager.FindByIdAsync(id);
 
