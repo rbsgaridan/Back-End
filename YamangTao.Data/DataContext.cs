@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using YamangTao.Model;
 using YamangTao.Model.Auth;
+using YamangTao.Model.OrgStructure;
 
 namespace YamangTao.Data
 {
@@ -14,6 +15,8 @@ namespace YamangTao.Data
         // using Microsoft.EntityFrameworkCore;
         
         public DbSet<Employee> Employees { get; set; }
+        public DbSet<BranchCampus> BranchCampuses { get; set; }
+        // public DbSet<OrgUnit> OrgUnits { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -32,6 +35,7 @@ namespace YamangTao.Data
                     .IsRequired();
             });
 
+            // Employee
             builder.Entity<Employee>().Property(e => e.EmployeeGroup).HasMaxLength(30);
             builder.Entity<Employee>().Property(e => e.CurrentStatus).HasMaxLength(30);
             builder.Entity<Employee>().Property(e => e.Lastname).HasMaxLength(50);
@@ -42,6 +46,11 @@ namespace YamangTao.Data
             builder.Entity<Employee>().Property(e => e.Sex).HasMaxLength(15);
             builder.Entity<Employee>().Property(e => e.Telephone).HasMaxLength(50);
             builder.Entity<Employee>().Property(e => e.MobileNumber).HasMaxLength(50);
+            
+
+            // Branch Campus
+            builder.Entity<BranchCampus>().Property(b => b.Campus).HasMaxLength(100);
+            builder.Entity<BranchCampus>().Property(b => b.Address).HasMaxLength(200);
 
             // builder.Entity<Like>()
             //     .HasKey(k => new {k.LikeeId, k.LikerId});

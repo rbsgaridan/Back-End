@@ -3,6 +3,7 @@ using AutoMapper;
 using YamangTao.Model.Auth;
 using YamangTao.Api.Dtos;
 using YamangTao.Model;
+using YamangTao.Model.OrgStructure;
 
 namespace YamangTao.Api.Helpers
 {
@@ -23,6 +24,8 @@ namespace YamangTao.Api.Helpers
             .ForMember(dest => dest.PhotoUrl, opt => {
                 opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);
             });
+
+            CreateMap<BranchCampus, BranchDto>().ReverseMap();
             // .ForMember(dest => dest.Age, opt => {
             //     opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
             // });

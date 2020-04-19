@@ -60,7 +60,14 @@ namespace YamangTao.Api.Controllers
             {
                 throw new Exception($"The system DOES NOT RECOGNIZE this user as an employee. Please contact HRMD Office");
             }
-            // 2 Create the user with role Employee
+            // 2 Check if the user already exists
+            var user = await _userManager.FindByIdAsync(userForRegisterDto.Id);
+                if (user != null)
+                {
+                    throw new Exception($"The user id already exists");
+                }
+            
+            
             // 3 Return Created 
             var userToCreate = new User {
                 Id = userForRegisterDto.Id.ToUpper(),

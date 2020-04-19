@@ -26,6 +26,7 @@ using YamangTao.Api.Helpers;
 using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+using YamangTao.Data.Core;
 
 namespace YamangTao.Api
 {
@@ -103,7 +104,7 @@ namespace YamangTao.Api
             services.AddMvc();
             // services.AddTransient<SeedUsers>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
-            
+            services.AddScoped<IBranchCampusRepository, BranchCampusRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

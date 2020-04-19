@@ -1,8 +1,6 @@
-using System.Collections.Generic;
-
-namespace YamangTao.Model.OrgStructure
+namespace YamangTao.Api.Dtos
 {
-    public class BranchCampus
+    public class BranchDto
     {
         public int Id { get; set; }
         public string Campus { get; set; }

@@ -1,5 +1,6 @@
 using System.Data;
 using System;
+using YamangTao.Model.OrgStructure;
 
 namespace YamangTao.Model
 {
@@ -26,6 +27,10 @@ namespace YamangTao.Model
         public DateTime? DateTerminated { get; set; }
         public bool Retired { get; set; }
         public DateTime? DateRetired { get; set; }
+        public int? BrachCampusId { get; set; }
+        public BranchCampus CurrentCampus { get; set; }
+        // public int OrgUnitId { get; set; }
+        // public OrgUnit CurrentUnit { get; set; }
         public string FullName 
         { 
             get {
