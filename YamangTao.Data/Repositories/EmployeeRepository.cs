@@ -86,14 +86,22 @@ namespace YamangTao.Data.Repositories
             return await _context.SaveChangesAsync() > 0;
         }
 
-        public async Task<bool> VerifyEmployee(string id, string lastname, string firstname)
+        public async Task<bool> VerifyEmployee(string lastname, string firstname, string middleName)
         {
-            var employee = await _context.Employees.FirstOrDefaultAsync(e => e.Id.Equals(id) && e.Lastname.Equals(lastname) && e.Firstname.Equals(firstname));
-            if (employee != null)
-            {
-                return true;
-            }
-            return false;
+            // var employee = await _context.Employees.FirstOrDefaultAsync(e => e.Id.Equals(id) && e.Lastname.Equals(lastname) && e.Firstname.Equals(firstname));
+            // if (employee != null)
+            // {
+            //     return true;
+            // }
+            // return false;
+            return await _context.Employees.AnyAsync(e => e.Lastname.ToUpper().Equals(lastname) 
+                                                    && e.Firstname.ToUpper().Equals(firstname) 
+                                                    && e.MiddleName.ToUpper().Equals(middleName));
+        }
+
+        public async Task<bool> IdExists(string id)
+        {
+            return await _context.Employees.AnyAsync(e => e.Id.Equals(id));
         }
     }
 }

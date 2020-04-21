@@ -4,6 +4,7 @@ using YamangTao.Model.Auth;
 using YamangTao.Api.Dtos;
 using YamangTao.Model;
 using YamangTao.Model.OrgStructure;
+using YamangTao.Model.RSP;
 
 namespace YamangTao.Api.Helpers
 {
@@ -26,6 +27,8 @@ namespace YamangTao.Api.Helpers
             });
 
             CreateMap<BranchCampus, BranchDto>().ReverseMap();
+            CreateMap<JobPosition, JobPositionDto>().ReverseMap();
+
             // .ForMember(dest => dest.Age, opt => {
             //     opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());
             // });

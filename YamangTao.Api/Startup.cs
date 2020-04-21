@@ -46,6 +46,7 @@ namespace YamangTao.Api
             
             services.AddAutoMapper(typeof(Startup));
             services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("MySQLConnection")));
+            // services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("DebianMariaDb")));
             // services.AddDbContext<DataContext>(options => options.UseMySql(Configuration.GetConnectionString("MySQLConnection"), x => x.MigrationsAssembly("YamangTao.Data")));
             // services.AddDbContext<DataContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection"), x => x.MigrationsAssembly("YamangTao.Data")));
             services.AddControllers();
@@ -105,6 +106,8 @@ namespace YamangTao.Api
             // services.AddTransient<SeedUsers>();
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IBranchCampusRepository, BranchCampusRepository>();
+            services.AddScoped<IJobPositionRepository, JobPositionRepository>();
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

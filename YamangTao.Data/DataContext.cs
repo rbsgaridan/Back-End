@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using YamangTao.Model;
 using YamangTao.Model.Auth;
 using YamangTao.Model.OrgStructure;
+using YamangTao.Model.RSP;
 
 namespace YamangTao.Data
 {
@@ -17,6 +18,7 @@ namespace YamangTao.Data
         public DbSet<Employee> Employees { get; set; }
         public DbSet<BranchCampus> BranchCampuses { get; set; }
         // public DbSet<OrgUnit> OrgUnits { get; set; }
+        public DbSet<JobPosition> JobPositions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -52,6 +54,10 @@ namespace YamangTao.Data
             builder.Entity<BranchCampus>().Property(b => b.Campus).HasMaxLength(100);
             builder.Entity<BranchCampus>().Property(b => b.Address).HasMaxLength(200);
 
+            // Job Positions
+            builder.Entity<JobPosition>().Property(b => b.Name).HasMaxLength(100);
+            builder.Entity<JobPosition>().Property(b => b.SalaryGrade).HasMaxLength(5);
+            
             // builder.Entity<Like>()
             //     .HasKey(k => new {k.LikeeId, k.LikerId});
             

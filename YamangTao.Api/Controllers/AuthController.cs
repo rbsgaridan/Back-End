@@ -52,14 +52,20 @@ namespace YamangTao.Api.Controllers
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
-            // 1 Check if the user is already an employee
-            bool verified = await _repo.VerifyEmployee(userForRegisterDto.Id.ToUpper(), 
-                                                        userForRegisterDto.Lastname.ToUpper(), 
-                                                        userForRegisterDto.Firstname.ToUpper());
+            // 1 Check if the ID and user is already an employee
+            if (await _repo.IdExists(userForRegisterDto.Id))
+            {
+                throw new Exception($"The ID NUMBER: {userForRegisterDto.Id} already exists!");
+            }
+            
+            bool verified = await _repo.VerifyEmployee(userForRegisterDto.Lastname.ToUpper(), 
+                                                        userForRegisterDto.Firstname.ToUpper(),
+                                                        userForRegisterDto.Middlename.ToUpper());
             if (!verified)
             {
                 throw new Exception($"The system DOES NOT RECOGNIZE this user as an employee. Please contact HRMD Office");
             }
+
             // 2 Check if the user already exists
             var user = await _userManager.FindByIdAsync(userForRegisterDto.Id);
                 if (user != null)
