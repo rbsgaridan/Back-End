@@ -28,6 +28,9 @@ namespace YamangTao.Api.Helpers
 
             CreateMap<BranchCampus, BranchDto>().ReverseMap();
             CreateMap<JobPosition, JobPositionDto>().ReverseMap();
+            CreateMap<OrgUnit, OrgUnitDto>()
+                .ForMember(dest => dest.ParentUnitId, 
+                opt => opt.MapFrom(source => source.ParentUnit.Id));
 
             // .ForMember(dest => dest.Age, opt => {
             //     opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());

@@ -17,7 +17,7 @@ namespace YamangTao.Data
         
         public DbSet<Employee> Employees { get; set; }
         public DbSet<BranchCampus> BranchCampuses { get; set; }
-        // public DbSet<OrgUnit> OrgUnits { get; set; }
+        public DbSet<OrgUnit> OrgUnits { get; set; }
         public DbSet<JobPosition> JobPositions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
@@ -58,6 +58,18 @@ namespace YamangTao.Data
             builder.Entity<JobPosition>().Property(b => b.Name).HasMaxLength(100);
             builder.Entity<JobPosition>().Property(b => b.SalaryGrade).HasMaxLength(5);
             
+            //OrgUnits
+            builder.Entity<OrgUnit>()
+                .HasOne(p => p.ParentUnit)
+                .WithMany(c => c.OrgUnitChildren)
+                .OnDelete(DeleteBehavior.Cascade);
+            builder.Entity<OrgUnit>().Property(o => o.UnitName).HasMaxLength(200);
+            builder.Entity<OrgUnit>().Property(o => o.Code).HasMaxLength(10);
+            builder.Entity<OrgUnit>().Property(o => o.UnitType).HasMaxLength(30);
+            builder.Entity<OrgUnit>().Property(o => o.NameOfHead).HasMaxLength(100);
+            builder.Entity<OrgUnit>().Property(o => o.Location).HasMaxLength(150);
+            
+
             // builder.Entity<Like>()
             //     .HasKey(k => new {k.LikeeId, k.LikerId});
             

@@ -1,10 +1,8 @@
-// An OrgUnit is an office, department, or college.
-// It should act as a node for the heirachy of the organizational structure.
 using System.Collections.Generic;
 
-namespace YamangTao.Model.OrgStructure
+namespace YamangTao.Api.Dtos
 {
-    public class OrgUnit
+    public class OrgUnitDto
     {
         public int Id { get; set; }
         public string UnitName { get; set; }
@@ -13,12 +11,12 @@ namespace YamangTao.Model.OrgStructure
         // Unit Types: College, Office, Center, Department 
         public string UnitType { get; set; }
         public string NameOfHead { get; set; }
-        public Employee CurrentHead { get; set; }
+        public EmployeeDto CurrentHead { get; set; }
         public string Location { get; set; }
-        public OrgUnit ParentUnit { get; set; }
+        public int ParentUnitId { get; set; }
         
         // Child Units
-        public ICollection<OrgUnit> OrgUnitChildren { get; set; }
+        public ICollection<OrgUnitDto> OrgUnitChildren { get; set; }
 
     }
 }

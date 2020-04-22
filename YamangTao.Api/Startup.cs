@@ -107,6 +107,7 @@ namespace YamangTao.Api
             services.AddScoped<IEmployeeRepository, EmployeeRepository>();
             services.AddScoped<IBranchCampusRepository, BranchCampusRepository>();
             services.AddScoped<IJobPositionRepository, JobPositionRepository>();
+            services.AddScoped<IOrgUnitRepository, OrgUnitRepository>();
             
         }
 
