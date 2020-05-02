@@ -9,8 +9,8 @@ using YamangTao.Data;
 namespace YamangTao.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200419135932_ModifiedEmployee")]
-    partial class ModifiedEmployee
+    [Migration("20200430140401_Ratings")]
+    partial class Ratings
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -189,7 +189,7 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("EmployeeId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4");
 
                     b.Property<string>("KnownAs")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -262,7 +262,8 @@ namespace YamangTao.Data.Migrations
             modelBuilder.Entity("YamangTao.Model.Employee", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
 
                     b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime(6)");
@@ -319,6 +320,9 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
                         .HasMaxLength(50);
 
+                    b.Property<int>("OrgUnitId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Resigned")
                         .HasColumnType("tinyint(1)");
 
@@ -344,6 +348,8 @@ namespace YamangTao.Data.Migrations
 
                     b.HasIndex("CurrentCampusId");
 
+                    b.HasIndex("OrgUnitId");
+
                     b.ToTable("Employees");
                 });
 
@@ -364,6 +370,112 @@ namespace YamangTao.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("BranchCampuses");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.OrgStructure.OrgUnit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("varchar(10) CHARACTER SET utf8mb4")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("CurrentHeadId")
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Location")
+                        .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
+                        .HasMaxLength(150);
+
+                    b.Property<string>("NameOfHead")
+                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasMaxLength(100);
+
+                    b.Property<int?>("ParentUnitId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UnitName")
+                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("UnitType")
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrentHeadId");
+
+                    b.HasIndex("ParentUnitId");
+
+                    b.ToTable("OrgUnits");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.Rating", b =>
+                {
+                    b.Property<uint>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int unsigned");
+
+                    b.Property<string>("Desciption")
+                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasMaxLength(100);
+
+                    b.Property<sbyte>("Rate")
+                        .HasColumnType("tinyint");
+
+                    b.Property<uint>("RatingMatrixId")
+                        .HasColumnType("int unsigned");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("RatingMatrixId");
+
+                    b.ToTable("Ratings");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.RatingMatrix", b =>
+                {
+                    b.Property<uint>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int unsigned");
+
+                    b.Property<string>("Dimension")
+                        .HasColumnType("varchar(15) CHARACTER SET utf8mb4")
+                        .HasMaxLength(15);
+
+                    b.Property<string>("MeansOfVerification")
+                        .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
+                        .HasMaxLength(150);
+
+                    b.Property<int>("PerformanceIndicatorId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RatingMatrix");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.RSP.JobPosition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("SalaryGrade")
+                        .HasColumnType("varchar(5) CHARACTER SET utf8mb4")
+                        .HasMaxLength(5);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JobPositions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -436,6 +548,33 @@ namespace YamangTao.Data.Migrations
                     b.HasOne("YamangTao.Model.OrgStructure.BranchCampus", "CurrentCampus")
                         .WithMany()
                         .HasForeignKey("CurrentCampusId");
+
+                    b.HasOne("YamangTao.Model.OrgStructure.OrgUnit", "CurrentUnit")
+                        .WithMany("Employees")
+                        .HasForeignKey("OrgUnitId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("YamangTao.Model.OrgStructure.OrgUnit", b =>
+                {
+                    b.HasOne("YamangTao.Model.Employee", "CurrentHead")
+                        .WithMany("HeadedUnits")
+                        .HasForeignKey("CurrentHeadId");
+
+                    b.HasOne("YamangTao.Model.OrgStructure.OrgUnit", "ParentUnit")
+                        .WithMany("OrgUnitChildren")
+                        .HasForeignKey("ParentUnitId")
+                        .OnDelete(DeleteBehavior.NoAction);
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.Rating", b =>
+                {
+                    b.HasOne("YamangTao.Model.PM.RatingMatrix", "Matrix")
+                        .WithMany("Ratings")
+                        .HasForeignKey("RatingMatrixId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

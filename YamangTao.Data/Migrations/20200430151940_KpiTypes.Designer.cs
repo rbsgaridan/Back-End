@@ -9,8 +9,8 @@ using YamangTao.Data;
 namespace YamangTao.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200413135907_InitialModel")]
-    partial class InitialModel
+    [Migration("20200430151940_KpiTypes")]
+    partial class KpiTypes
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -189,7 +189,7 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("EmployeeId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4");
 
                     b.Property<string>("KnownAs")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -262,13 +262,21 @@ namespace YamangTao.Data.Migrations
             modelBuilder.Entity("YamangTao.Model.Employee", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
 
                     b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int?>("BrachCampusId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CurrentCampusId")
+                        .HasColumnType("int");
+
                     b.Property<string>("CurrentStatus")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
 
                     b.Property<DateTime?>("DateHired")
                         .HasColumnType("datetime(6)");
@@ -286,25 +294,34 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("EmployeeGroup")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Firstname")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasMaxLength(50);
 
                     b.Property<bool>("InActive")
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Lastname")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasMaxLength(50);
 
                     b.Property<string>("MI")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(3) CHARACTER SET utf8mb4")
+                        .HasMaxLength(3);
 
                     b.Property<string>("MiddleName")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasMaxLength(50);
 
                     b.Property<string>("MobileNumber")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasMaxLength(50);
+
+                    b.Property<int>("OrgUnitId")
+                        .HasColumnType("int");
 
                     b.Property<bool>("Resigned")
                         .HasColumnType("tinyint(1)");
@@ -313,20 +330,235 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("Sex")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(15) CHARACTER SET utf8mb4")
+                        .HasMaxLength(15);
 
                     b.Property<string>("Suffix")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(3) CHARACTER SET utf8mb4")
+                        .HasMaxLength(3);
 
                     b.Property<string>("Telephone")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasMaxLength(50);
 
                     b.Property<bool>("Terminated")
                         .HasColumnType("tinyint(1)");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CurrentCampusId");
+
+                    b.HasIndex("OrgUnitId");
+
                     b.ToTable("Employees");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.OrgStructure.BranchCampus", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Address")
+                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("Campus")
+                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BranchCampuses");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.OrgStructure.OrgUnit", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("varchar(10) CHARACTER SET utf8mb4")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("CurrentHeadId")
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Location")
+                        .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
+                        .HasMaxLength(150);
+
+                    b.Property<string>("NameOfHead")
+                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasMaxLength(100);
+
+                    b.Property<int?>("ParentUnitId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UnitName")
+                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
+                        .HasMaxLength(200);
+
+                    b.Property<string>("UnitType")
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CurrentHeadId");
+
+                    b.HasIndex("ParentUnitId");
+
+                    b.ToTable("OrgUnits");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.Kpi", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("ActualAccomplishment")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("Code")
+                        .HasColumnType("varchar(20) CHARACTER SET utf8mb4")
+                        .HasMaxLength(20);
+
+                    b.Property<int>("EfficiencyRating")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("HasEfficiency")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("HasQuality")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<bool>("HasTimeliness")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("KpiTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("OrderNumber")
+                        .HasColumnType("varchar(10) CHARACTER SET utf8mb4")
+                        .HasMaxLength(10);
+
+                    b.Property<int>("QualityRating")
+                        .HasColumnType("int");
+
+                    b.Property<string>("SuccessIndicator")
+                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasMaxLength(256);
+
+                    b.Property<string>("TaskId")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("TimelinessRating")
+                        .HasColumnType("int");
+
+                    b.Property<float>("Weight")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KpiTypeId");
+
+                    b.ToTable("KPIs");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.KpiType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("KpiTypes");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.Rating", b =>
+                {
+                    b.Property<uint>("id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int unsigned");
+
+                    b.Property<string>("Desciption")
+                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasMaxLength(100);
+
+                    b.Property<sbyte>("Rate")
+                        .HasColumnType("tinyint");
+
+                    b.Property<uint>("RatingMatrixId")
+                        .HasColumnType("int unsigned");
+
+                    b.HasKey("id");
+
+                    b.HasIndex("RatingMatrixId");
+
+                    b.ToTable("Ratings");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.RatingMatrix", b =>
+                {
+                    b.Property<uint>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int unsigned");
+
+                    b.Property<string>("Dimension")
+                        .HasColumnType("varchar(15) CHARACTER SET utf8mb4")
+                        .HasMaxLength(15);
+
+                    b.Property<int?>("KpiEId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("KpiQId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("KpiTId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MeansOfVerification")
+                        .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
+                        .HasMaxLength(150);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KpiEId");
+
+                    b.HasIndex("KpiQId");
+
+                    b.HasIndex("KpiTId");
+
+                    b.ToTable("RatingMatrix");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.RSP.JobPosition", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("SalaryGrade")
+                        .HasColumnType("varchar(5) CHARACTER SET utf8mb4")
+                        .HasMaxLength(5);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("JobPositions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -392,6 +624,67 @@ namespace YamangTao.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("YamangTao.Model.Employee", b =>
+                {
+                    b.HasOne("YamangTao.Model.OrgStructure.BranchCampus", "CurrentCampus")
+                        .WithMany()
+                        .HasForeignKey("CurrentCampusId");
+
+                    b.HasOne("YamangTao.Model.OrgStructure.OrgUnit", "CurrentUnit")
+                        .WithMany("Employees")
+                        .HasForeignKey("OrgUnitId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("YamangTao.Model.OrgStructure.OrgUnit", b =>
+                {
+                    b.HasOne("YamangTao.Model.Employee", "CurrentHead")
+                        .WithMany("HeadedUnits")
+                        .HasForeignKey("CurrentHeadId");
+
+                    b.HasOne("YamangTao.Model.OrgStructure.OrgUnit", "ParentUnit")
+                        .WithMany("OrgUnitChildren")
+                        .HasForeignKey("ParentUnitId")
+                        .OnDelete(DeleteBehavior.NoAction);
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.Kpi", b =>
+                {
+                    b.HasOne("YamangTao.Model.PM.KpiType", "KpiType")
+                        .WithMany("KPIs")
+                        .HasForeignKey("KpiTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.Rating", b =>
+                {
+                    b.HasOne("YamangTao.Model.PM.RatingMatrix", "Matrix")
+                        .WithMany("Ratings")
+                        .HasForeignKey("RatingMatrixId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.RatingMatrix", b =>
+                {
+                    b.HasOne("YamangTao.Model.PM.Kpi", "KpiE")
+                        .WithMany("EfficiencyMatrix")
+                        .HasForeignKey("KpiEId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("YamangTao.Model.PM.Kpi", "KpiQ")
+                        .WithMany("QualityMatrix")
+                        .HasForeignKey("KpiQId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("YamangTao.Model.PM.Kpi", "KpiT")
+                        .WithMany("TimelinessMatrix")
+                        .HasForeignKey("KpiTId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

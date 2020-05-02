@@ -8,12 +8,18 @@ using YamangTao.Model.Auth;
 using YamangTao.Data;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authorization;
+using YamangTao.Core.HttpParams;
+using YamangTao.Data.Helpers;
+using YamangTao.Api.Helpers;
+using System.Collections.Generic;
 
 namespace YamangTao.Api.Controllers
 {   
     // [ServiceFilter(typeof(LogUserActivity))]
     [Route("api/users")]
     [ApiController]
+    [Authorize(Policy="RequireAdminRole")]
     public class UsersController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
@@ -27,19 +33,7 @@ namespace YamangTao.Api.Controllers
             _context = context;
         }
 
-        // [HttpGet]
-        // public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams)
-        // {
-        //     var currentUserId = User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        //     var userFromRepo = await _repo.GetUser(currentUserId, false);
-
-        //     userParams.UserId = currentUserId;
-
-        //     var users = await _repo.GetUsers(userParams);
-        //     var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(users);
-        //     Response.AddPagination(users.CurrentPage, users.TotalCount, users.PageSize,  users.TotalPages);
-        //     return Ok(usersToReturn);
-        // }
+        
 
         [HttpGet("{id}", Name = "GetUser")]
         public async Task<IActionResult> GetUser(string id)
@@ -55,14 +49,16 @@ namespace YamangTao.Api.Controllers
         [HttpGet("withroles", Name = "GetUserRoles")]
         public async Task<IActionResult> GetUsersWithRoles()
         {
-            var userList = await (from user in _context.Users orderby user.UserName
+            var userList = await (from user in _context.Users orderby user.KnownAs
                                     select new 
                                     {
                                         Id = user.Id,
                                         UserName = user.UserName,
                                         KnownAs = user.KnownAs,
+                                        Created = user.Created,
+                                        LastActive = user.LastActive,
                                         Roles = (from userRole in user.UserRoles
-                                                 join role in _context.Roles
+                                                  join role in _context.Roles
                                                  on userRole.RoleId
                                                  equals role.Id
                                                  select role.Name).ToList()
@@ -70,6 +66,7 @@ namespace YamangTao.Api.Controllers
                                     
             return Ok(userList);
         }
+        
         // [HttpPut("{id}")]
         // public async Task<IActionResult> UpdateUser(string id, UserForUpdateDto userForUpdateDto)
         // {

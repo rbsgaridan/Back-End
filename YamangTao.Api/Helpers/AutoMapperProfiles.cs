@@ -1,3 +1,4 @@
+using System.Runtime.InteropServices;
 using System.Linq;
 using AutoMapper;
 using YamangTao.Model.Auth;
@@ -5,6 +6,8 @@ using YamangTao.Api.Dtos;
 using YamangTao.Model;
 using YamangTao.Model.OrgStructure;
 using YamangTao.Model.RSP;
+using YamangTao.Api.Dtos.Pms;
+using YamangTao.Model.PM;
 
 namespace YamangTao.Api.Helpers
 {
@@ -31,6 +34,27 @@ namespace YamangTao.Api.Helpers
             CreateMap<OrgUnit, OrgUnitDto>()
                 .ForMember(dest => dest.ParentUnitId, 
                 opt => opt.MapFrom(source => source.ParentUnit.Id));
+            
+            CreateMap<OrgUnit, OrgUnitListDto>().ReverseMap();
+            CreateMap<OrgUnitUpdateDto, OrgUnit>();
+            
+            CreateMap<RatingDto, Rating>().ReverseMap();
+            CreateMap<RatingMatrixDto, RatingMatrix>().ReverseMap();
+            CreateMap<KpiDto, Kpi>().ReverseMap();
+            CreateMap<IpcrDto, Ipcr>().ReverseMap();
+            CreateMap<Ipcr, IpcrDto>()
+                .ForMember(dto => dto.Ratee, opt => opt.MapFrom(ipcr => ipcr.Ratee.FullName))
+                .ForMember(dto => dto.Position, opt => opt.MapFrom(ipcr => ipcr.Position.Name))
+                .ForMember(dto => dto.Unit, opt => opt.MapFrom(ipcr => ipcr.Unit.UnitName))
+                .ForMember(dto => dto.CompiledBy, opt => opt.MapFrom(ipcr => ipcr.CompiledBy.FullName))
+                .ForMember(dto => dto.ReviewedBy, opt => opt.MapFrom(ipcr => ipcr.ReviewedBy.FullName))
+                .ForMember(dto => dto.ApprovedBy, opt => opt.MapFrom(ipcr => ipcr.ApprovedBy.FullName));
+
+
+
+
+
+            
 
             // .ForMember(dest => dest.Age, opt => {
             //     opt.ResolveUsing(d => d.DateOfBirth.CalculateAge());

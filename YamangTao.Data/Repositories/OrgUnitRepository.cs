@@ -34,7 +34,8 @@ namespace YamangTao.Data.Repositories
 
         public async Task<IEnumerable<OrgUnit>> GetAllOrgUnitsWithChildren()
         {
-            return await _context.OrgUnits.Include(o => o.OrgUnitChildren).ToListAsync();
+            return await _context.OrgUnits.Include(o => o.OrgUnitChildren)
+                    .ThenInclude(c => c.OrgUnitChildren).ToListAsync();
         }
 
         public async Task<OrgUnit> GetOrgUnit(int id)
@@ -44,7 +45,13 @@ namespace YamangTao.Data.Repositories
 
         public async Task<OrgUnit> GetOrgUnitWithChildren(int id)
         {
-            return await _context.OrgUnits.Include(o => o.OrgUnitChildren).FirstOrDefaultAsync(o => o.Id == id);
+            return await _context.OrgUnits
+                    .Include(o => o.ParentUnit)
+                    .Include(o => o.OrgUnitChildren)
+                    .ThenInclude(o => o.OrgUnitChildren)
+                    .ThenInclude(o => o.OrgUnitChildren)
+                    .ThenInclude(o => o.OrgUnitChildren)
+                    .FirstOrDefaultAsync(o => o.Id == id);
         }
 
         public void Remove(OrgUnit entity)

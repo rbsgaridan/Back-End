@@ -45,9 +45,9 @@ namespace YamangTao.Api
             
             
             services.AddAutoMapper(typeof(Startup));
-            services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("MySQLConnection")));
+            // services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             // services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("DebianMariaDb")));
-            // services.AddDbContext<DataContext>(options => options.UseMySql(Configuration.GetConnectionString("MySQLConnection"), x => x.MigrationsAssembly("YamangTao.Data")));
+            services.AddDbContext<DataContext>(options => options.UseMySql(Configuration.GetConnectionString("MySQLConnection"), x => x.MigrationsAssembly("YamangTao.Data")));
             // services.AddDbContext<DataContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection"), x => x.MigrationsAssembly("YamangTao.Data")));
             services.AddControllers();
 
@@ -100,6 +100,10 @@ namespace YamangTao.Api
                 opt.AddPolicy("RequireSupervisorRole", policy => policy.RequireRole("Admin" ,"Supervisor"));
                 opt.AddPolicy("RequireDirectorRole", policy => policy.RequireRole("Admin", "Director"));
                 opt.AddPolicy("RequireVPRole", policy => policy.RequireRole("Admin", "VP"));
+                opt.AddPolicy("RequirePMTRole", policy => policy.RequireRole("HR", "PMG", "Planning", "President"));
+                opt.AddPolicy("RequireHRrole", policy => policy.RequireRole("HR", "Admin", "President"));
+                opt.AddPolicy("RequirePresidentRole", policy => policy.RequireRole("Admin", "President"));
+                
             });
             services.AddCors();
             services.AddMvc();
@@ -108,6 +112,7 @@ namespace YamangTao.Api
             services.AddScoped<IBranchCampusRepository, BranchCampusRepository>();
             services.AddScoped<IJobPositionRepository, JobPositionRepository>();
             services.AddScoped<IOrgUnitRepository, OrgUnitRepository>();
+            services.AddScoped<IPmsRepository, PmsRepository>();
             
         }
 

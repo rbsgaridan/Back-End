@@ -7,6 +7,8 @@ using YamangTao.Core.Repository;
 using YamangTao.Model;
 using YamangTao.Model.RSP;
 using YamangTao.Data.Core;
+using YamangTao.Model.Auth;
+using Microsoft.AspNetCore.Identity;
 
 namespace YamangTao.Api.Controllers
 {
@@ -16,8 +18,12 @@ namespace YamangTao.Api.Controllers
     {
         private readonly IEmployeeRepository _repoEmp;
         private readonly IJobPositionRepository _jpRep;
-        public SeederController(IEmployeeRepository empRep, IJobPositionRepository jpRep)
+        private readonly UserManager<User> _userManager;
+        private readonly RoleManager<Role> _roleManager;
+        public SeederController(IEmployeeRepository empRep, IJobPositionRepository jpRep, UserManager<User> userManager, RoleManager<Role> roleManager)
         {
+            _roleManager = roleManager;
+            _userManager = userManager;
             _jpRep = jpRep;
             _repoEmp = empRep;
 
@@ -29,10 +35,11 @@ namespace YamangTao.Api.Controllers
 
             var employeeData = System.IO.File.ReadAllText("D:/Projects/dotnet3/YamangTao/Backend/YamangTao.Data/Seeders/json/usmemployees.json", Encoding.UTF8);
             var employees = JsonConvert.DeserializeObject<List<Employee>>(employeeData);
-
+            // bool result = false;
             foreach (var employee in employees)
             {
                 _repoEmp.AddAsync(employee).Wait();
+                // result = await _repoEmp.SaveAll();    
             }
 
             var result = await _repoEmp.SaveAll();
@@ -61,6 +68,48 @@ namespace YamangTao.Api.Controllers
                 return Created("", null);
             }
             return BadRequest();
+        }
+
+        [HttpPost("seedall")]
+        public async Task<IActionResult> SeedAdmin()
+        {
+            var roles = new List<Role>
+                {
+                   new Role{Id = "Employee", Name = "Employee"},
+                    new Role{Id = "Department Head",Name = "Department Head"},
+                    new Role{Id = "Unit Head",Name = "Unit Head"},
+                    new Role{Id = "VP",Name = "VP"},
+                    new Role{Id = "President",Name = "President"},
+                    new Role{Id = "PMG",Name = "PMG"},
+                    new Role{Id = "Planning",Name = "Planning"},
+                    new Role{Id = "HR",Name = "HR"},
+                    new Role{Id = "Admin",Name = "Admin"}
+
+                };
+
+            foreach (var role in roles)
+            {
+                await _roleManager.CreateAsync(role);
+            }
+
+            
+            
+            // Seed Admin
+             var superUser = new User
+                {
+                    UserName = "admin@root",
+                    Id = "admin@root"
+                };
+                
+                IdentityResult result = _userManager.CreateAsync(superUser,"L!fe7352").Result;
+                
+                if (result.Succeeded)
+                {
+                    var admin = _userManager.FindByNameAsync("admin@root").Result;
+                    await _userManager.AddToRolesAsync(admin, new [] {"Admin", "Unit Head"});
+                }
+
+            return Ok("Seeded Roles and Admin");
         }
     }
 }

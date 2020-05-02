@@ -17,6 +17,9 @@ using Microsoft.IdentityModel.Tokens;
 using YamangTao.Api.Dtos;
 using YamangTao.Model.Auth;
 using YamangTao.Core.Repository;
+using YamangTao.Core.HttpParams;
+using YamangTao.Data.Helpers;
+using YamangTao.Api.Helpers;
 
 namespace YamangTao.Api.Controllers
 {
@@ -53,10 +56,10 @@ namespace YamangTao.Api.Controllers
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
         {
             // 1 Check if the ID and user is already an employee
-            if (await _repo.IdExists(userForRegisterDto.Id))
-            {
-                throw new Exception($"The ID NUMBER: {userForRegisterDto.Id} already exists!");
-            }
+            // if (await _repo.IdExists(userForRegisterDto.Id))
+            // {
+            //     throw new Exception($"The ID NUMBER: {userForRegisterDto.Id} already exists!");
+            // }
             
             bool verified = await _repo.VerifyEmployee(userForRegisterDto.Lastname.ToUpper(), 
                                                         userForRegisterDto.Firstname.ToUpper(),
@@ -167,7 +170,7 @@ namespace YamangTao.Api.Controllers
             return tokenHandler.WriteToken(token);
         }
 
-        [AllowAnonymous]
+        [Authorize(Policy="RequireAdminRole")]
         [HttpPost("addrole")]
         public async Task<IActionResult> AddRole(Role roleToBeAdded)
         {
@@ -183,7 +186,7 @@ namespace YamangTao.Api.Controllers
           return BadRequest();
         }
 
-        [AllowAnonymous]
+        // [Authorize(Policy="RequireAdminRole")]
         [HttpPost("seedroles")]
         public async Task<IActionResult> SeedRoles()
         {
@@ -210,7 +213,7 @@ namespace YamangTao.Api.Controllers
           return Ok();
         }
 
-        [AllowAnonymous]
+        // [Authorize(Policy="RequireAdminRole")]
         [HttpPost("addrolestoadmin")]
         public async Task<IActionResult> AddRolesToAdmin()
         {
@@ -226,7 +229,7 @@ namespace YamangTao.Api.Controllers
             return BadRequest();
         }
 
-        [AllowAnonymous]
+        // [Authorize(Policy="RequireAdminRole")]
         [HttpPost("seedadmin")]
         public async void SeedAdmin()
         {
@@ -247,18 +250,55 @@ namespace YamangTao.Api.Controllers
 
         }
 
-        [AllowAnonymous]
-        [HttpGet("resetusers")]
-        public async Task<IActionResult> ResetUsers()
-        {
-            //TODO: Implement Realistic Implementation
+        // [Authorize(Policy="RequireAdminRole")]
+        // [HttpPost("resetusers")]
+        // public async Task<IActionResult> ResetUsers()
+        // {
+        //     //TODO: Implement Realistic Implementation
           
-          foreach (var user in _userManager.Users)
-          {
-              await _userManager.DeleteAsync(user);
-          }
+        //   foreach (var user in _userManager.Users)
+        //   {
+        //       if (!user.Id.Equals("admin@root"))
+        //       {
+        //         await _userManager.DeleteAsync(user);
+        //       }
+        //   }
+        //   return Ok();
+        // }
 
-          return Ok();
+        [HttpGet("users")]
+        [Authorize(Policy="RequireAdminRole")]
+        public async Task<IActionResult> GetUsers([FromQuery]UserParams userParams)
+        {
+            var users = await _userManager.Users.Where(u => u.KnownAs.ToUpper().Contains(userParams.Keyword) 
+                                                    || u.Email.ToUpper().Contains(userParams.Keyword) 
+                                                    || u.Id.ToUpper().Contains(userParams.Keyword)
+                                                ).ToListAsync();
+            // if (!string.IsNullOrEmpty(userParams.OrderBy))
+            // {
+            //     switch (userParams.OrderBy)
+            //     {
+            //         case "knownAs":
+            //         users = users.OrderBy(s => s.KnownAs);
+            //         break;
+
+            //         case "id":
+            //         users = users.OrderBy(s => s.Id);
+            //         break;
+
+            //         case "email":
+            //         users = users.OrderBy(s => s.Email);
+            //         break;
+
+            //         default:
+            //         break;
+            //     }
+            // }
+            // // users = users.Include(u => u.UserRoles);
+            // var pagedUsersToReturn = await PagedList<User>.CreateAsync(users, userParams.PageNumber, userParams.PageSize);
+            // var usersToReturn = _mapper.Map<IEnumerable<UserForListDto>>(pagedUsersToReturn);
+            // Response.AddPagination(pagedUsersToReturn.CurrentPage, pagedUsersToReturn.TotalCount, pagedUsersToReturn.PageSize,  pagedUsersToReturn.TotalPages);
+            return Ok(users);
         }
     }
 }

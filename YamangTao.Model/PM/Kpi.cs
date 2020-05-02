@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Security.AccessControl;
 // Key Performance Indicators
 // 1 - Organizational Objectives (Refer to GAA)
@@ -9,14 +9,15 @@ using System.Security.AccessControl;
 
 namespace YamangTao.Model.PM
 {
-    public class PerformanceIndicator
+    public class Kpi
     {
         public int Id { get; set; }
-        public int PerformanceIndicatorId { get; set; }
+        public string Code { get; set; }
         public string OrderNumber { get; set; }
         public int IpcrId { get; set; }
+        public virtual Ipcr Ipcr { get; set; }
         public int KpiTypeId { get; set; }
-        public KpiType KpiType { get; set; }
+        public virtual KpiType KpiType { get; set; }
         public float Weight { get; set; }
         public string SuccessIndicator { get; set; }
         public string ActualAccomplishment { get; set; }

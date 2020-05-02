@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using YamangTao.Api.Dtos;
 using YamangTao.Data.Core;
@@ -11,6 +12,7 @@ namespace YamangTao.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize(Policy="RequireAdminRole")]
     public class BranchesController : ControllerBase
     {
         private readonly IBranchCampusRepository _repo;

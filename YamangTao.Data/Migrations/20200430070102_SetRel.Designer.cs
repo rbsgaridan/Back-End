@@ -9,8 +9,8 @@ using YamangTao.Data;
 namespace YamangTao.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200422162708_ModifiedOrgUnits")]
-    partial class ModifiedOrgUnits
+    [Migration("20200430070102_SetRel")]
+    partial class SetRel
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -189,7 +189,7 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("tinyint(1)");
 
                     b.Property<string>("EmployeeId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4");
 
                     b.Property<string>("KnownAs")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
@@ -262,7 +262,8 @@ namespace YamangTao.Data.Migrations
             modelBuilder.Entity("YamangTao.Model.Employee", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
 
                     b.Property<DateTime?>("BirthDate")
                         .HasColumnType("datetime(6)");
@@ -319,6 +320,9 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
                         .HasMaxLength(50);
 
+                    b.Property<int>("OrgUnitId")
+                        .HasColumnType("int");
+
                     b.Property<bool>("Resigned")
                         .HasColumnType("tinyint(1)");
 
@@ -343,6 +347,8 @@ namespace YamangTao.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CurrentCampusId");
+
+                    b.HasIndex("OrgUnitId");
 
                     b.ToTable("Employees");
                 });
@@ -377,7 +383,8 @@ namespace YamangTao.Data.Migrations
                         .HasMaxLength(10);
 
                     b.Property<string>("CurrentHeadId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
 
                     b.Property<string>("Location")
                         .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
@@ -496,18 +503,24 @@ namespace YamangTao.Data.Migrations
                     b.HasOne("YamangTao.Model.OrgStructure.BranchCampus", "CurrentCampus")
                         .WithMany()
                         .HasForeignKey("CurrentCampusId");
+
+                    b.HasOne("YamangTao.Model.OrgStructure.OrgUnit", "CurrentUnit")
+                        .WithMany("Employees")
+                        .HasForeignKey("OrgUnitId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("YamangTao.Model.OrgStructure.OrgUnit", b =>
                 {
                     b.HasOne("YamangTao.Model.Employee", "CurrentHead")
-                        .WithMany()
+                        .WithMany("HeadedUnits")
                         .HasForeignKey("CurrentHeadId");
 
                     b.HasOne("YamangTao.Model.OrgStructure.OrgUnit", "ParentUnit")
                         .WithMany("OrgUnitChildren")
                         .HasForeignKey("ParentUnitId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.NoAction);
                 });
 #pragma warning restore 612, 618
         }
