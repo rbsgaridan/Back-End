@@ -9,8 +9,8 @@ using YamangTao.Data;
 namespace YamangTao.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200430144642_KPI")]
-    partial class KPI
+    [Migration("20200503075841_ModeKpiParentId")]
+    partial class ModeKpiParentId
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -414,6 +414,120 @@ namespace YamangTao.Data.Migrations
                     b.ToTable("OrgUnits");
                 });
 
+            modelBuilder.Entity("YamangTao.Model.PM.Ipcr", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("AdjectivalRating")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("Approved")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("ApprovedById")
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("ApproverDesignation")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("Compiled")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("CompiledById")
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("CompilerDesignation")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<DateTime?>("DateApproved")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DateLastModified")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DateLastPrinted")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DateReviewed")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DateTargetApproved")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
+
+                    b.Property<double>("FinalAverageRating")
+                        .HasColumnType("double");
+
+                    b.Property<double>("FinalErating")
+                        .HasColumnType("double");
+
+                    b.Property<double>("FinalQrating")
+                        .HasColumnType("double");
+
+                    b.Property<double>("FinalTrating")
+                        .HasColumnType("double");
+
+                    b.Property<bool>("IsTemplate")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("JobPositionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LandDRecommendation")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<int>("OrgUnitId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PeriodFrom")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("PeriodTo")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<bool>("Reviewed")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("ReviewedById")
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("ReviewerDesignation")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<string>("RnRRecommendation")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+
+                    b.Property<bool>("isLocked")
+                        .HasColumnType("tinyint(1)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApprovedById");
+
+                    b.HasIndex("CompiledById");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("JobPositionId");
+
+                    b.HasIndex("OrgUnitId");
+
+                    b.HasIndex("ReviewedById");
+
+                    b.ToTable("Ipcrs");
+                });
+
             modelBuilder.Entity("YamangTao.Model.PM.Kpi", b =>
                 {
                     b.Property<int>("Id")
@@ -424,12 +538,15 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
                         .HasMaxLength(256);
 
+                    b.Property<float>("AverageRating")
+                        .HasColumnType("float");
+
                     b.Property<string>("Code")
                         .HasColumnType("varchar(20) CHARACTER SET utf8mb4")
                         .HasMaxLength(20);
 
-                    b.Property<int>("EfficiencyRating")
-                        .HasColumnType("int");
+                    b.Property<float>("EfficiencyRating")
+                        .HasColumnType("float");
 
                     b.Property<bool>("HasEfficiency")
                         .HasColumnType("tinyint(1)");
@@ -440,12 +557,21 @@ namespace YamangTao.Data.Migrations
                     b.Property<bool>("HasTimeliness")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<int>("IpcrId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KpiTypeId")
+                        .HasColumnType("int");
+
                     b.Property<string>("OrderNumber")
                         .HasColumnType("varchar(10) CHARACTER SET utf8mb4")
                         .HasMaxLength(10);
 
-                    b.Property<int>("QualityRating")
+                    b.Property<int?>("ParentKpiId")
                         .HasColumnType("int");
+
+                    b.Property<float>("QualityRating")
+                        .HasColumnType("float");
 
                     b.Property<string>("SuccessIndicator")
                         .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
@@ -454,36 +580,51 @@ namespace YamangTao.Data.Migrations
                     b.Property<string>("TaskId")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("TimelinessRating")
-                        .HasColumnType("int");
+                    b.Property<float>("TimelinessRating")
+                        .HasColumnType("float");
 
                     b.Property<float>("Weight")
                         .HasColumnType("float");
 
                     b.HasKey("Id");
 
+                    b.HasIndex("IpcrId");
+
+                    b.HasIndex("KpiTypeId");
+
+                    b.HasIndex("ParentKpiId");
+
                     b.ToTable("KPIs");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.KpiType", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasMaxLength(30);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("KpiTypes");
                 });
 
             modelBuilder.Entity("YamangTao.Model.PM.Rating", b =>
                 {
-                    b.Property<uint>("id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<uint>("RatingMatrixId")
                         .HasColumnType("int unsigned");
+
+                    b.Property<sbyte>("Rate")
+                        .HasColumnType("tinyint");
 
                     b.Property<string>("Desciption")
                         .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
                         .HasMaxLength(100);
 
-                    b.Property<sbyte>("Rate")
-                        .HasColumnType("tinyint");
-
-                    b.Property<uint>("RatingMatrixId")
-                        .HasColumnType("int unsigned");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("RatingMatrixId");
+                    b.HasKey("RatingMatrixId", "Rate");
 
                     b.ToTable("Ratings");
                 });
@@ -498,13 +639,7 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("varchar(15) CHARACTER SET utf8mb4")
                         .HasMaxLength(15);
 
-                    b.Property<int?>("KpiEId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("KpiQId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("KpiTId")
+                    b.Property<int?>("KpiId")
                         .HasColumnType("int");
 
                     b.Property<string>("MeansOfVerification")
@@ -513,11 +648,7 @@ namespace YamangTao.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("KpiEId");
-
-                    b.HasIndex("KpiQId");
-
-                    b.HasIndex("KpiTId");
+                    b.HasIndex("KpiId");
 
                     b.ToTable("RatingMatrix");
                 });
@@ -631,6 +762,56 @@ namespace YamangTao.Data.Migrations
                         .OnDelete(DeleteBehavior.NoAction);
                 });
 
+            modelBuilder.Entity("YamangTao.Model.PM.Ipcr", b =>
+                {
+                    b.HasOne("YamangTao.Model.Employee", "ApprovedBy")
+                        .WithMany("ApprovedIpcrs")
+                        .HasForeignKey("ApprovedById");
+
+                    b.HasOne("YamangTao.Model.Employee", "CompiledBy")
+                        .WithMany("CompiledIpcrs")
+                        .HasForeignKey("CompiledById");
+
+                    b.HasOne("YamangTao.Model.Employee", "Ratee")
+                        .WithMany("IPCRs")
+                        .HasForeignKey("EmployeeId");
+
+                    b.HasOne("YamangTao.Model.RSP.JobPosition", "Position")
+                        .WithMany("Ipcrs")
+                        .HasForeignKey("JobPositionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("YamangTao.Model.OrgStructure.OrgUnit", "Unit")
+                        .WithMany("IpcrsUnderThisUnit")
+                        .HasForeignKey("OrgUnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("YamangTao.Model.Employee", "ReviewedBy")
+                        .WithMany("ReviewedIpcrs")
+                        .HasForeignKey("ReviewedById");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.Kpi", b =>
+                {
+                    b.HasOne("YamangTao.Model.PM.Ipcr", "Ipcr")
+                        .WithMany("KPIs")
+                        .HasForeignKey("IpcrId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("YamangTao.Model.PM.KpiType", "KpiType")
+                        .WithMany("KPIs")
+                        .HasForeignKey("KpiTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("YamangTao.Model.PM.Kpi", "ParentKpi")
+                        .WithMany("Kpis")
+                        .HasForeignKey("ParentKpiId");
+                });
+
             modelBuilder.Entity("YamangTao.Model.PM.Rating", b =>
                 {
                     b.HasOne("YamangTao.Model.PM.RatingMatrix", "Matrix")
@@ -642,19 +823,9 @@ namespace YamangTao.Data.Migrations
 
             modelBuilder.Entity("YamangTao.Model.PM.RatingMatrix", b =>
                 {
-                    b.HasOne("YamangTao.Model.PM.Kpi", "KpiE")
-                        .WithMany("EfficiencyMatrix")
-                        .HasForeignKey("KpiEId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("YamangTao.Model.PM.Kpi", "KpiQ")
-                        .WithMany("QualityMatrix")
-                        .HasForeignKey("KpiQId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("YamangTao.Model.PM.Kpi", "KpiT")
-                        .WithMany("TimelinessMatrix")
-                        .HasForeignKey("KpiTId")
+                    b.HasOne("YamangTao.Model.PM.Kpi", "Kpi")
+                        .WithMany("RatingMatrices")
+                        .HasForeignKey("KpiId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

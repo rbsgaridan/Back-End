@@ -100,20 +100,19 @@ namespace YamangTao.Data
 
             // Rating
             builder.Entity<Rating>(rating => {
+                rating.HasKey("RatingMatrixId", "Rate");
                 rating.HasOne(r => r.Matrix)
                 .WithMany(m => m.Ratings)
                 .HasForeignKey(r => r.RatingMatrixId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-                rating.Property(r => r.Desciption).HasMaxLength(100);
+                rating.Property(r => r.Description).HasMaxLength(100);
             });
             
             // KPI
             builder.Entity<Kpi>(k => {
-                k.HasMany(p => p.QualityMatrix).WithOne(m => m.KpiQ).HasForeignKey(m => m.KpiQId).OnDelete(DeleteBehavior.Cascade);
-                k.HasMany(p => p.EfficiencyMatrix).WithOne(m => m.KpiE).HasForeignKey(m => m.KpiEId).OnDelete(DeleteBehavior.Cascade);
-                k.HasMany(p => p.TimelinessMatrix).WithOne(m => m.KpiT).HasForeignKey(m => m.KpiTId).OnDelete(DeleteBehavior.Cascade);
-
+                k.HasMany(p => p.RatingMatrices).WithOne(m => m.Kpi).HasForeignKey(m => m.KpiId).OnDelete(DeleteBehavior.Cascade);
+                k.HasMany(p => p.Kpis).WithOne(k => k.ParentKpi).HasForeignKey(p => p.ParentKpiId);
                 k.Property(p => p.SuccessIndicator).HasMaxLength(256);
                 k.Property(p => p.ActualAccomplishment).HasMaxLength(256);
                 k.Property(p => p.OrderNumber).HasMaxLength(10);

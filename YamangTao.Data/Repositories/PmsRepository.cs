@@ -75,7 +75,12 @@ namespace YamangTao.Data.Repositories
             return await PagedList<Ipcr>.CreateAsync(ipcrs, ipcrParams.PageNumber, ipcrParams.PageSize);
         }
 
-        public async Task<bool> SaveAll()
+        public bool SaveAll()
+        {
+            return _context.SaveChanges() > 1;
+        }
+
+        public async Task<bool> SaveAllAsync()
         {
             return await _context.SaveChangesAsync() > 0;
         }

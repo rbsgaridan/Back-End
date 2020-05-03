@@ -42,6 +42,7 @@ namespace YamangTao.Api.Helpers
             CreateMap<RatingMatrixDto, RatingMatrix>().ReverseMap();
             CreateMap<KpiDto, Kpi>().ReverseMap();
             CreateMap<IpcrDto, Ipcr>().ReverseMap();
+            CreateMap<IpcrForCreateDto, Ipcr>();
             CreateMap<Ipcr, IpcrDto>()
                 .ForMember(dto => dto.Ratee, opt => opt.MapFrom(ipcr => ipcr.Ratee.FullName))
                 .ForMember(dto => dto.Position, opt => opt.MapFrom(ipcr => ipcr.Position.Name))
@@ -49,6 +50,7 @@ namespace YamangTao.Api.Helpers
                 .ForMember(dto => dto.CompiledBy, opt => opt.MapFrom(ipcr => ipcr.CompiledBy.FullName))
                 .ForMember(dto => dto.ReviewedBy, opt => opt.MapFrom(ipcr => ipcr.ReviewedBy.FullName))
                 .ForMember(dto => dto.ApprovedBy, opt => opt.MapFrom(ipcr => ipcr.ApprovedBy.FullName));
+            
 
 
 

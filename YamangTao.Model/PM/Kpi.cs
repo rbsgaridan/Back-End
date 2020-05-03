@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Security.AccessControl;
 // Key Performance Indicators
 // 1 - Organizational Objectives (Refer to GAA)
@@ -14,7 +15,7 @@ namespace YamangTao.Model.PM
         public int Id { get; set; }
         public string Code { get; set; }
         public string OrderNumber { get; set; }
-        public int IpcrId { get; set; }
+        public int? IpcrId { get; set; }
         public virtual Ipcr Ipcr { get; set; }
         public int KpiTypeId { get; set; }
         public virtual KpiType KpiType { get; set; }
@@ -24,12 +25,14 @@ namespace YamangTao.Model.PM
         public bool HasQuality { get; set; }
         public bool HasEfficiency { get; set; }
         public bool HasTimeliness { get; set; }
-        public int QualityRating { get; set; }
-        public int EfficiencyRating { get; set; }
-        public int TimelinessRating { get; set; }
-        public List<RatingMatrix> QualityMatrix { get; set; }
-        public List<RatingMatrix> EfficiencyMatrix { get; set; }
-        public List<RatingMatrix> TimelinessMatrix { get; set; }
+        public float QualityRating { get; set; }
+        public float EfficiencyRating { get; set; }
+        public float TimelinessRating { get; set; }
+        public float AverageRating { get; set; }
+        public List<RatingMatrix> RatingMatrices { get; set; }
         public string TaskId { get; set; }
+        public int? ParentKpiId { get; set; }
+        public Kpi ParentKpi { get; set; }
+        public List<Kpi> Kpis { get; set; }
     }
 }

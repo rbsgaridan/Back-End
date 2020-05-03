@@ -15,12 +15,14 @@ namespace YamangTao.Api.Dtos.Pms
         public bool HasQuality { get; set; }
         public bool HasEfficiency { get; set; }
         public bool HasTimeliness { get; set; }
-        public int QualityRating { get; set; }
-        public int EfficiencyRating { get; set; }
-        public int TimelinessRating { get; set; }
-        public List<RatingMatrixDto> QualityMatrix { get; set; }
-        public List<RatingMatrixDto> EfficiencyMatrix { get; set; }
-        public List<RatingMatrixDto> TimelinessMatrix { get; set; }
+        public float QualityRating { get; set; }
+        public float EfficiencyRating { get; set; }
+        public float TimelinessRating { get; set; }
+        public float AverageRating { get; set; }
+        public List<RatingMatrixDto> RatingMatrices { get; set; }
         public string TaskId { get; set; }
+        public int ParentKpiId { get; set; }
+        public KpiDto ParentKpi { get; set; }
+        public List<KpiDto> Kpis { get; set; }
     }
 }

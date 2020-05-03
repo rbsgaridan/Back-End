@@ -27,6 +27,7 @@ using System.Net;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
 using YamangTao.Data.Core;
+using Newtonsoft.Json;
 
 namespace YamangTao.Api
 {
@@ -49,8 +50,8 @@ namespace YamangTao.Api
             // services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("DebianMariaDb")));
             services.AddDbContext<DataContext>(options => options.UseMySql(Configuration.GetConnectionString("MySQLConnection"), x => x.MigrationsAssembly("YamangTao.Data")));
             // services.AddDbContext<DataContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection"), x => x.MigrationsAssembly("YamangTao.Data")));
-            services.AddControllers();
-
+            services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+            // services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             //Swagger Options from SwashBuckle.AspNetCore package
             services.AddSwaggerGen(options =>
             {

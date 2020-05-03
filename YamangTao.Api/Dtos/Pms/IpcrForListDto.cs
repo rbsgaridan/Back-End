@@ -2,7 +2,7 @@ using System;
 
 namespace YamangTao.Api.Dtos.Pms
 {
-    public class IpcrForList
+    public class IpcrForListDto
     {
         public int Id { get; set; }
         public bool IsTemplate { get; set; }
