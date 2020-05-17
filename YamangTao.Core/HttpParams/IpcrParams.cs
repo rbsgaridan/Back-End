@@ -12,5 +12,12 @@ namespace YamangTao.Core.HttpParams
         }
         public string OrderBy { get; set; }
         public string Keyword { get; set; }
+        public string RateeId { get; set; }
+        public string CompiledById { get; set; }
+        public string ReviewedById { get; set; }
+        public string ApprovedById { get; set; }
+        public int JobPositionId { get; set; }
+        public int OrgUnitId { get; set; }
+        
     }
 }

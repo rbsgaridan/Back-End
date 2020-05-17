@@ -66,6 +66,29 @@ namespace YamangTao.Api.Controllers
                                     
             return Ok(userList);
         }
+
+        [Authorize(Policy = "RequireAdminRole")]
+        [HttpPost("editRoles/{userName}")]
+        public async Task<IActionResult> EditRoles(string userName, RoleEditDto roleEditDto)
+        {
+            var user = await _userManager.FindByNameAsync(userName);
+            var userRoles = await _userManager.GetRolesAsync(user);
+            var selectedRoles = roleEditDto.RoleNames;
+            //if null the assign array of string
+            selectedRoles = selectedRoles ?? new string[] {};
+
+            var result = await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles));
+
+            if (!result.Succeeded)
+                return BadRequest("Failed to add roles");
+            
+            result = await _userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles));
+
+            if (!result.Succeeded)
+                return BadRequest("Failed to remove the roles");
+                
+            return Ok(await _userManager.GetRolesAsync(user));
+        }
         
         // [HttpPut("{id}")]
         // public async Task<IActionResult> UpdateUser(string id, UserForUpdateDto userForUpdateDto)

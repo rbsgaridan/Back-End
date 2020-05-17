@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System;
@@ -16,7 +17,7 @@ using YamangTao.Model.PM;
 namespace YamangTao.Api.Controllers
 {
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     [Authorize]
     public class IpcrsController : ControllerBase
     {
@@ -32,8 +33,15 @@ namespace YamangTao.Api.Controllers
         [HttpGet("{id}", Name = "GetIpcr")]
         public async Task<IActionResult> GetIpcr(int id)
         {
-            //TODO: Implement Realistic Implementation
             var ipcr = await _repo.GetIpcrByID(id);
+            var ipcrToReturn = _mapper.Map<IpcrDto>(ipcr);
+            return Ok(ipcrToReturn);
+        }
+
+        [HttpGet("{id}/withchildren", Name = "GetIpcrWithChildren")]
+        public async Task<IActionResult> GetIpcrWithChildren(int id)
+        {
+            var ipcr = await _repo.GetIpcrWithChildrenById(id);
             var ipcrToReturn = _mapper.Map<IpcrDto>(ipcr);
             return Ok(ipcrToReturn);
         }
@@ -41,6 +49,18 @@ namespace YamangTao.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetIpcrsPaged([FromQuery] IpcrParams ipcrParams)
         {
+             // Check if logged in user is the employee requested
+            var isCurrentUserTheEmployee = User.FindFirst(ClaimTypes.NameIdentifier).Value.Equals(ipcrParams.RateeId);
+            if (!isCurrentUserTheEmployee)
+            {
+                // Check if admin
+                var isAdmin = User.FindFirst(ClaimTypes.Role).Value.Equals("Admin");
+                if (!isAdmin)
+                {
+                    return Unauthorized("Not enough clearance to access data");
+                }
+            }
+
             var ipcrs = await _repo.GetIpcrs(ipcrParams);
             var ipcrsToReturn = _mapper.Map<IEnumerable<IpcrForListDto>>(ipcrs);
             Response.AddPagination(ipcrs.CurrentPage, 
@@ -49,6 +69,32 @@ namespace YamangTao.Api.Controllers
                                     ipcrs.TotalPages);
             return Ok(ipcrsToReturn);
         }
+
+        [HttpGet("ofemployee/{empId}")]
+        public async Task<IActionResult> GetIpcrsOfEmployeePaged([FromQuery] IpcrParams ipcrParams, string empId)
+        {
+            // Check if logged in user is the employee requested
+            var isCurrentUserTheEmployee = User.FindFirst(ClaimTypes.NameIdentifier).Value.Equals(empId);
+            if (!isCurrentUserTheEmployee)
+            {
+                // Check if admin
+                var isAdmin = User.FindFirst(ClaimTypes.Role).Value.Equals("Admin");
+                if (!isAdmin)
+                {
+                    return Unauthorized("Not enough clearance to access data");
+                }
+            }
+
+            var ipcrs = await _repo.GetIpcrs(ipcrParams, empId);
+            var ipcrsToReturn = _mapper.Map<IEnumerable<IpcrForListDto>>(ipcrs);
+            Response.AddPagination(ipcrs.CurrentPage, 
+                                    ipcrs.TotalCount, 
+                                    ipcrs.PageSize, 
+                                    ipcrs.TotalPages);
+            return Ok(ipcrsToReturn);
+        }
+
+        
 
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateIpcr(string id, IpcrDto ipcrForUpdate)
@@ -64,115 +110,19 @@ namespace YamangTao.Api.Controllers
             throw new Exception($"Updating Ipcr {ipcrForUpdate.Id} failed on save.");
         }
 
-        [HttpPost("sampleadd")]
-        public async Task<IActionResult> TestAdd() {
-            var ipcr = new Ipcr() {
-                IsTemplate = false,
-                EmployeeId = "08-01845",
-                JobPositionId = 1,
-                OrgUnitId = 1,
-                PeriodFrom = DateTime.Now,
-                PeriodTo = DateTime.Now,
-                FinalQrating = 0,
-                FinalTrating = 0,
-                FinalErating = 0,
-                FinalAverageRating  = 0,
-                DateCreated = DateTime.Now,
-                Reviewed = false,
-                Compiled = false,
-                Approved = false,
-                isLocked = false
-            };
-            var kpi1 = new Kpi() {
-                Code = "Kpi 1",
-                OrderNumber = "1",
-                KpiTypeId = 6,
-                Weight = 80,
-                SuccessIndicator = "Core Functions",
-                HasQuality = false,
-                HasEfficiency = false,
-                HasTimeliness = false,
-                QualityRating = 0,
-                EfficiencyRating = 0,
-                TimelinessRating = 0,
-                AverageRating = 0,
-                TaskId = "Tnon-task"
-            };
-            
-            var kpi2 = new Kpi() {
-                Code = "Kpi 1",
-                OrderNumber = "1",
-                KpiTypeId = 6,
-                Weight = 80,
-                SuccessIndicator = "Instruction",
-                HasQuality = false,
-                HasEfficiency = false,
-                HasTimeliness = false,
-                QualityRating = 0,
-                EfficiencyRating = 0,
-                TimelinessRating = 0,
-                AverageRating = 0,
-                TaskId = "Tnon-task"
-            };
-            
-            var kpi3 = new Kpi() {
-                Code = "Kpi 1",
-                OrderNumber = "1",
-                KpiTypeId = 6,
-                Weight = 80,
-                SuccessIndicator = "Instructional Materials",
-                HasQuality = false,
-                HasEfficiency = false,
-                HasTimeliness = false,
-                QualityRating = 0,
-                EfficiencyRating = 0,
-                TimelinessRating = 0,
-                AverageRating = 0,
-                TaskId = "Tnon-task"
-            };
-            var kpi4 = new Kpi() {
-                Code = "Kpi 1",
-                OrderNumber = "1",
-                KpiTypeId = 6,
-                Weight = 80,
-                SuccessIndicator = "Develops Instructional Materials",
-                HasQuality = true,
-                HasEfficiency = false,
-                HasTimeliness = false,
-                QualityRating = 0,
-                EfficiencyRating = 0,
-                TimelinessRating = 0,
-                AverageRating = 0,
-                TaskId = "Tnon-task"
-            };
-
-            var rm1 = new RatingMatrix() {
-                Dimension = "Quality",
-                MeansOfVerification = "Means 1",
-            };
-            var rr = new Rating() {
-                Rate = 1,
-                Description = "Rating 1"
-            };
-            rm1.Ratings = new List<Rating>();
-            rm1.Ratings.Add(rr);
-            rm1.Ratings.Add(rr);
-            rm1.Ratings.Add(rr);
-            rm1.Ratings.Add(rr);
-            rm1.Ratings.Add(rr);
-            kpi4.RatingMatrices = new List<RatingMatrix>();
-            kpi4.RatingMatrices.Add(rm1);
-            kpi3.Kpis = new List<Kpi>();
-            kpi3.Kpis.Add(kpi4);
-            kpi2.Kpis = new List<Kpi>();
-            kpi2.Kpis.Add(kpi3);
-            kpi1.Kpis = new List<Kpi>();
-            kpi1.Kpis.Add(kpi2);
-            ipcr.KPIs = new List<Kpi>();
-            ipcr.KPIs.Add(kpi1);
+        [HttpPost("anotherway")]
+        public async Task<IActionResult> AnotherWayToAdd(IpcrForCreateDto newIpcrDto)
+        {
+            //TODO: Implement Realistic Implementation
+            var ipcr = _mapper.Map<Ipcr>(newIpcrDto);
             _repo.Add(ipcr);
-            await _repo.SaveAllAsync();
-            return Ok(ipcr);
+            if (await _repo.SaveAllAsync())
+            {
+                var ipcrToReturn = _mapper.Map<IpcrDto>(ipcr);
+                return CreatedAtRoute("GetIpcr", new { id = ipcr.Id }, ipcrToReturn);
+            }
+
+            throw new Exception("Creating the ipcr failed on save");
         }
 
         [HttpPost]
@@ -294,6 +244,10 @@ namespace YamangTao.Api.Controllers
         public async Task<IActionResult> deleteIpcr(int id)
         {
             var ipcrFromRepo = await _repo.GetIpcrByID(id);
+             if (ipcrFromRepo == null)
+            {
+                return BadRequest("Item not found");
+            }
             _repo.Delete(ipcrFromRepo);
             if (await _repo.SaveAllAsync())
             {
@@ -301,5 +255,68 @@ namespace YamangTao.Api.Controllers
             }
             throw new Exception("Error deleting the ipcr");
         }
+
+        // Delete KPI
+        [HttpDelete("kpis/{kpiId}")]
+        public async Task<IActionResult> deleteKpi(int kpiId)
+        {
+            var kpiFromRepo = await _repo.GetKpiById(kpiId);
+            if (kpiFromRepo == null)
+            {
+                return BadRequest("Item not found");
+            }
+            if (kpiFromRepo.Kpis.Count > 0)
+            {
+                return BadRequest("Delete children first!");
+            }
+            _repo.Delete(kpiFromRepo);
+            if (await _repo.SaveAllAsync())
+            {
+                return NoContent();
+            }
+            throw new Exception("Error deleting the ipcr");
+        }
+
+
+        // Delete Rating Matrix
+        [HttpDelete("matrix/{rmId}")]
+        public async Task<IActionResult> deleteRatingMatrix(int rmId)
+        {
+            var ratingMatrix = await _repo.GetRatingMatrix(rmId);
+            if (ratingMatrix == null)
+            {
+                return BadRequest("Can't find item to delete");
+            }
+            if (ratingMatrix.Ratings.Count > 0)
+            {
+                _repo.DeleteRange(ratingMatrix.Ratings);
+            }
+            _repo.Delete(ratingMatrix);
+            if (await _repo.SaveAllAsync())
+            {
+                return NoContent();
+            }
+            throw new Exception("Error deleting the rating");
+        }
+        
+        // Delete Ratings
+        [HttpDelete("matrix/{rmId}/ratings/{rate}")]
+        public async Task<IActionResult> deleteRating(int rmId, sbyte rate)
+        {
+            var rating = await _repo.GetRating(rmId, rate);
+            if (rating == null)
+            {
+                return BadRequest("Can't find item to delete");
+            }
+            _repo.Delete(rating);
+            if (await _repo.SaveAllAsync())
+            {
+                return NoContent();
+            }
+            throw new Exception("Error deleting the rating");
+        }
+
+
+
     }
 }

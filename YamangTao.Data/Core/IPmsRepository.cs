@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using YamangTao.Core.HttpParams;
 using YamangTao.Core.Repository;
@@ -9,10 +10,12 @@ namespace YamangTao.Data.Core
 {
     public interface IPmsRepository : IRepositoryFlex
     {
-        Task<PagedList<Ipcr>> GetIpcrs(IpcrParams employeeParams);
+        Task<PagedList<Ipcr>> GetIpcrs(IpcrParams ipcrParams);
+        Task<PagedList<Ipcr>> GetIpcrs(IpcrParams ipcrParams, string empId);
         Task<Ipcr> GetIpcrByID(int id);
-        
-        
-        
+        Task<Ipcr> GetIpcrWithChildrenById(int id);
+        Task<Kpi> GetKpiById(int id);
+        Task<RatingMatrix> GetRatingMatrix(int id);
+        Task<Rating> GetRating(int rmId, sbyte rate);
     }
 }
