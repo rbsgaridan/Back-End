@@ -11,11 +11,13 @@ using YamangTao.Api.Helpers;
 using YamangTao.Model;
 using YamangTao.Data.Core;
 using YamangTao.Model.RSP;
+using Microsoft.AspNetCore.Authorization;
 
 namespace YamangTao.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class JobPositionsController : ControllerBase
     {
         private readonly IJobPositionRepository _repo;
@@ -39,6 +41,25 @@ namespace YamangTao.Api.Controllers
         public async Task<IActionResult> SearchPositionsPagedPaged([FromQuery] JobPositionParams jobPositionParams)
         {
             var jobPositions = await _repo.SearchPositionsPaged(jobPositionParams);
+            var jobPositionsToReturn = _mapper.Map<IEnumerable<JobPositionDto>>(jobPositions);
+            Response.AddPagination(jobPositions.CurrentPage, 
+                                    jobPositions.TotalCount, 
+                                    jobPositions.PageSize, 
+                                    jobPositions.TotalPages);
+            return Ok(jobPositionsToReturn);
+        }
+
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchPositions([FromQuery] string keyword)
+        {
+            var positionParams = new JobPositionParams 
+                            {
+                                PageNumber = 1,
+                                PageSize = 10,
+                                Keyword = keyword
+                            };
+            var jobPositions = await _repo.SearchPositionsPaged(positionParams);
             var jobPositionsToReturn = _mapper.Map<IEnumerable<JobPositionDto>>(jobPositions);
             Response.AddPagination(jobPositions.CurrentPage, 
                                     jobPositions.TotalCount, 

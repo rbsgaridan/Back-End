@@ -12,7 +12,7 @@ namespace YamangTao.Data.Core
         Task<IEnumerable<OrgUnit>> GetAllOrgUnit();
         Task<IEnumerable<OrgUnit>> GetAllOrgUnitsWithChildren();
         Task<PagedList<OrgUnit>> SearchOrgUnitsPaged(OrgUnitParams positionParams);
-        Task<OrgUnit> GetOrgUnit(int id);
+        Task<OrgUnit> GetOrgUnit(int? id);
         Task<OrgUnit> GetOrgUnitWithChildren(int id);
         Task<bool> VerifyOrgUnit(string positionName);
     }

@@ -103,5 +103,23 @@ namespace YamangTao.Data.Repositories
         {
             return await _context.Employees.AnyAsync(e => e.Id.Equals(id));
         }
+
+        public async Task<List<EmployeeName>> SearchEmployee(string keyword)
+        {
+            if (keyword != null)
+            {
+                var employees = await _context.Employees.Where(e => e.Lastname.ToUpper().Contains(keyword.ToUpper())
+                                                                    || e.Firstname.ToUpper().Contains(keyword.ToUpper())
+                                                                    || e.MiddleName.ToUpper().Contains(keyword.ToUpper()))
+                                        .Select(e => new EmployeeName {
+                                            Id = e.Id,
+                                            Name = String.Join(", ", e.Lastname, e.Firstname, e.MiddleName)})
+                                        .Take(10)
+                                        .ToListAsync();
+
+                return employees;
+            }
+            return null;
+        }
     }
 }

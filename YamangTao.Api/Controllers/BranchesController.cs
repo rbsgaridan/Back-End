@@ -12,7 +12,7 @@ namespace YamangTao.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Policy="RequireAdminRole")]
+    [Authorize]
     public class BranchesController : ControllerBase
     {
         private readonly IBranchCampusRepository _repo;
@@ -42,6 +42,7 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Policy="RequireAdminRole")]
         public async Task<IActionResult> UpdateBranch(int id, BranchDto branchForUpdate)
         {
             var branchFromRepo = await _repo.GetBranchCampus(branchForUpdate.Id);
@@ -56,6 +57,7 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy="RequireAdminRole")]
         public async Task<IActionResult> CreateBranch(BranchDto branchForCreationDto)
         {
             var branch = _mapper.Map<BranchCampus>(branchForCreationDto);
@@ -70,6 +72,7 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpDelete("{id}")]
+        [Authorize(Policy="RequireAdminRole")]
         public async Task<IActionResult> deleteBranch(int id)
         {
             var branchFromRepo = await _repo.GetBranchCampus(id);

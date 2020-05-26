@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YamangTao.Data;
 
@@ -15,23 +16,25 @@ namespace YamangTao.Data.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "3.1.2")
-                .HasAnnotation("Relational:MaxIdentifierLength", 64);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128)
+                .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RoleId")
                         .IsRequired()
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -44,17 +47,18 @@ namespace YamangTao.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ClaimType")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ClaimValue")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -66,17 +70,17 @@ namespace YamangTao.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderKey")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ProviderDisplayName")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("LoginProvider", "ProviderKey");
 
@@ -88,16 +92,16 @@ namespace YamangTao.Data.Migrations
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("LoginProvider")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("Value")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
@@ -108,28 +112,29 @@ namespace YamangTao.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("DateAdded")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Desciption")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("IsApproved")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("IsMain")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("PublicId")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Url")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
@@ -141,25 +146,26 @@ namespace YamangTao.Data.Migrations
             modelBuilder.Entity("YamangTao.Model.Auth.Role", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedName")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedName")
                         .IsUnique()
-                        .HasName("RoleNameIndex");
+                        .HasName("RoleNameIndex")
+                        .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles");
                 });
@@ -167,65 +173,65 @@ namespace YamangTao.Data.Migrations
             modelBuilder.Entity("YamangTao.Model.Auth.User", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("EmployeeId")
-                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("KnownAs")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("LastActive")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("LockoutEnabled")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<DateTimeOffset?>("LockoutEnd")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("NormalizedEmail")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<string>("NormalizedUserName")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("PhoneNumberConfirmed")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("SecurityStamp")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("TwoFactorEnabled")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("UserName")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.HasKey("Id");
@@ -237,7 +243,8 @@ namespace YamangTao.Data.Migrations
 
                     b.HasIndex("NormalizedUserName")
                         .IsUnique()
-                        .HasName("UserNameIndex");
+                        .HasName("UserNameIndex")
+                        .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
                 });
@@ -245,10 +252,10 @@ namespace YamangTao.Data.Migrations
             modelBuilder.Entity("YamangTao.Model.Auth.UserRole", b =>
                 {
                     b.Property<string>("UserId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("RoleId")
-                        .HasColumnType("varchar(255) CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserId", "RoleId");
 
@@ -260,11 +267,11 @@ namespace YamangTao.Data.Migrations
             modelBuilder.Entity("YamangTao.Model.Employee", b =>
                 {
                     b.Property<string>("Id")
-                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<DateTime?>("BirthDate")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<int?>("BrachCampusId")
                         .HasColumnType("int");
@@ -273,74 +280,74 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("CurrentStatus")
-                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<DateTime?>("DateHired")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateResigned")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateRetired")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateTerminated")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("EmailAddress")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EmployeeGroup")
-                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<string>("Firstname")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<bool>("InActive")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("Lastname")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("MI")
-                        .HasColumnType("varchar(3) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(3)")
                         .HasMaxLength(3);
 
                     b.Property<string>("MiddleName")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<string>("MobileNumber")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<int>("OrgUnitId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Resigned")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("Retired")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("Sex")
-                        .HasColumnType("varchar(15) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(15)")
                         .HasMaxLength(15);
 
                     b.Property<string>("Suffix")
-                        .HasColumnType("varchar(3) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(3)")
                         .HasMaxLength(3);
 
                     b.Property<string>("Telephone")
-                        .HasColumnType("varchar(50) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
                     b.Property<bool>("Terminated")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -355,14 +362,15 @@ namespace YamangTao.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Address")
-                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
                     b.Property<string>("Campus")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("Id");
@@ -374,33 +382,37 @@ namespace YamangTao.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Code")
-                        .HasColumnType("varchar(10) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
                     b.Property<string>("CurrentHeadId")
-                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<string>("Location")
-                        .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
                     b.Property<string>("NameOfHead")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
+
+                    b.Property<int>("OrderNumber")
+                        .HasColumnType("int");
 
                     b.Property<int?>("ParentUnitId")
                         .HasColumnType("int");
 
                     b.Property<string>("UnitName")
-                        .HasColumnType("varchar(200) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(200)")
                         .HasMaxLength(200);
 
                     b.Property<string>("UnitType")
-                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.HasKey("Id");
@@ -416,98 +428,99 @@ namespace YamangTao.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("AdjectivalRating")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Approved")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("ApprovedById")
-                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<string>("ApproverDesignation")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Compiled")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("CompiledById")
-                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<string>("CompilerDesignation")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("DateApproved")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateCreated")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateLastModified")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateLastPrinted")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateReviewed")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateTargetApproved")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("EmployeeId")
-                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<double>("FinalAverageRating")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double>("FinalErating")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double>("FinalQrating")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<double>("FinalTrating")
-                        .HasColumnType("double");
+                        .HasColumnType("float");
 
                     b.Property<bool>("IsTemplate")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int>("JobPositionId")
                         .HasColumnType("int");
 
                     b.Property<string>("LandDRecommendation")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OrgUnitId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("PeriodFrom")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime>("PeriodTo")
-                        .HasColumnType("datetime(6)");
+                        .HasColumnType("datetime2");
 
                     b.Property<bool>("Reviewed")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<string>("ReviewedById")
-                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.Property<string>("ReviewerDesignation")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("RnRRecommendation")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("isLocked")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 
@@ -530,30 +543,31 @@ namespace YamangTao.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("ActualAccomplishment")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<float>("AverageRating")
-                        .HasColumnType("float");
+                        .HasColumnType("real");
 
                     b.Property<string>("Code")
-                        .HasColumnType("varchar(20) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
                     b.Property<float>("EfficiencyRating")
-                        .HasColumnType("float");
+                        .HasColumnType("real");
 
                     b.Property<bool>("HasEfficiency")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("HasQuality")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<bool>("HasTimeliness")
-                        .HasColumnType("tinyint(1)");
+                        .HasColumnType("bit");
 
                     b.Property<int?>("IpcrId")
                         .HasColumnType("int");
@@ -562,27 +576,27 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("OrderNumber")
-                        .HasColumnType("varchar(10) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
                     b.Property<int?>("ParentKpiId")
                         .HasColumnType("int");
 
                     b.Property<float>("QualityRating")
-                        .HasColumnType("float");
+                        .HasColumnType("real");
 
                     b.Property<string>("SuccessIndicator")
-                        .HasColumnType("varchar(256) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
                     b.Property<string>("TaskId")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("TimelinessRating")
-                        .HasColumnType("float");
+                        .HasColumnType("real");
 
                     b.Property<float>("Weight")
-                        .HasColumnType("float");
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
@@ -599,10 +613,11 @@ namespace YamangTao.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(30) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
                     b.HasKey("Id");
@@ -612,14 +627,14 @@ namespace YamangTao.Data.Migrations
 
             modelBuilder.Entity("YamangTao.Model.PM.Rating", b =>
                 {
-                    b.Property<uint>("RatingMatrixId")
-                        .HasColumnType("int unsigned");
+                    b.Property<long>("RatingMatrixId")
+                        .HasColumnType("bigint");
 
-                    b.Property<sbyte>("Rate")
-                        .HasColumnType("tinyint");
+                    b.Property<short>("Rate")
+                        .HasColumnType("smallint");
 
                     b.Property<string>("Description")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
                     b.HasKey("RatingMatrixId", "Rate");
@@ -629,19 +644,19 @@ namespace YamangTao.Data.Migrations
 
             modelBuilder.Entity("YamangTao.Model.PM.RatingMatrix", b =>
                 {
-                    b.Property<uint>("Id")
+                    b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int unsigned");
+                        .HasColumnType("bigint");
 
                     b.Property<string>("Dimension")
-                        .HasColumnType("varchar(15) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(15)")
                         .HasMaxLength(15);
 
                     b.Property<int?>("KpiId")
                         .HasColumnType("int");
 
                     b.Property<string>("MeansOfVerification")
-                        .HasColumnType("varchar(150) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(150)")
                         .HasMaxLength(150);
 
                     b.HasKey("Id");
@@ -655,14 +670,15 @@ namespace YamangTao.Data.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(100) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
                     b.Property<string>("SalaryGrade")
-                        .HasColumnType("varchar(5) CHARACTER SET utf8mb4")
+                        .HasColumnType("nvarchar(5)")
                         .HasMaxLength(5);
 
                     b.HasKey("Id");

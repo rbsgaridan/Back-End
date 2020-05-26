@@ -9,11 +9,13 @@ using YamangTao.Model.RSP;
 using YamangTao.Data.Core;
 using YamangTao.Model.Auth;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
 
 namespace YamangTao.Api.Controllers
 {
     [Route("api/seeder")]
     [ApiController]
+    [Authorize(Policy="RequireAdminRole")]
     public class SeederController : ControllerBase
     {
         private readonly IEmployeeRepository _repoEmp;

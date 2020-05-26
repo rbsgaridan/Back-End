@@ -9,11 +9,13 @@ using YamangTao.Core.Repository;
 using System.Collections.Generic;
 using YamangTao.Api.Helpers;
 using YamangTao.Model;
+using Microsoft.AspNetCore.Authorization;
 
 namespace YamangTao.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
+    [Authorize]
     public class EmployeesController : ControllerBase
     {
         private readonly IEmployeeRepository _repo;
@@ -31,6 +33,13 @@ namespace YamangTao.Api.Controllers
             var employee = await _repo.GetEmployeeByID(id);
             var employeeToReturn = _mapper.Map<EmployeeDto>(employee);
             return Ok(employeeToReturn);
+        }
+
+        [HttpGet("search")]
+        public async Task<IActionResult> SearchEmployees([FromQuery] EmployeeParams employeeParams)
+        {
+            var employees = await _repo.SearchEmployee(employeeParams.Keyword);
+            return Ok(employees);
         }
 
         [HttpGet]

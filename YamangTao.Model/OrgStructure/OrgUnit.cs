@@ -8,7 +8,7 @@ namespace YamangTao.Model.OrgStructure
     public class OrgUnit
     {
         public int Id { get; set; }
-        // public int OrderNumber { get; set; }
+        public int OrderNumber { get; set; }
         public string UnitName { get; set; }
         public string Code { get; set; }
 

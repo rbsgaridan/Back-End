@@ -46,9 +46,9 @@ namespace YamangTao.Api
             
             
             services.AddAutoMapper(typeof(Startup));
-            // services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             // services.AddDbContext<DataContext>(x => x.UseMySql(Configuration.GetConnectionString("DebianMariaDb")));
-            services.AddDbContext<DataContext>(options => options.UseMySql(Configuration.GetConnectionString("MySQLConnection"), x => x.MigrationsAssembly("YamangTao.Data")));
+            // services.AddDbContext<DataContext>(options => options.UseMySql(Configuration.GetConnectionString("MySQLConnection"), x => x.MigrationsAssembly("YamangTao.Data")));
             // services.AddDbContext<DataContext>(options => options.UseSqlite(Configuration.GetConnectionString("SqliteConnection"), x => x.MigrationsAssembly("YamangTao.Data")));
             services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
             // services.AddControllers().AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
@@ -64,6 +64,7 @@ namespace YamangTao.Api
                 opt.Password.RequireNonAlphanumeric = false;
                 opt.Password.RequireUppercase = false;
                 opt.Password.RequireLowercase = false;
+                
             }); 
             // Create a new instance of the IdentityBuilder for adding EF services in Identity
             // IdentityBuilder builder = services.AddIdentityCore<User>();
@@ -153,7 +154,6 @@ namespace YamangTao.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                
             });
 
             
@@ -168,6 +168,7 @@ namespace YamangTao.Api
             {
                 c.RoutePrefix = "";
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "YamangTao V1");
+                c.RoutePrefix = "/api";
             });
 
             

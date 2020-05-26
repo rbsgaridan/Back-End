@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using YamangTao.Core.HttpParams;
 using YamangTao.Data.Helpers;
@@ -10,6 +11,7 @@ namespace YamangTao.Core.Repository
     {
         Task<PagedList<Employee>> GetEmployees(EmployeeParams employeeParams);
         Task<Employee> GetEmployeeByID(string id);
+        Task<List<EmployeeName>> SearchEmployee(string keyword);
 
         Task<bool> VerifyEmployee(string lastname, string firstname, string middleName);
         Task<bool> IdExists(string id);

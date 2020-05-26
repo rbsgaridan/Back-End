@@ -38,7 +38,7 @@ namespace YamangTao.Data.Repositories
                     .ThenInclude(c => c.OrgUnitChildren).ToListAsync();
         }
 
-        public async Task<OrgUnit> GetOrgUnit(int id)
+        public async Task<OrgUnit> GetOrgUnit(int? id)
         {
             return await _context.OrgUnits.FirstOrDefaultAsync(o => o.Id == id);
         }

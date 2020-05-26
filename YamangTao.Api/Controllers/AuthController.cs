@@ -51,6 +51,7 @@ namespace YamangTao.Api.Controllers
 
         }
 
+        [AllowAnonymous]
         // [Authorize(Policy = "RequireAdminRole")]
         [HttpPost("register")]
         public async Task<IActionResult> Register(UserForRegisterDto userForRegisterDto)
@@ -66,14 +67,14 @@ namespace YamangTao.Api.Controllers
                                                         userForRegisterDto.Middlename.ToUpper());
             if (!verified)
             {
-                throw new Exception($"The system DOES NOT RECOGNIZE this user as an employee. Please contact HRMD Office");
+                throw new ArgumentException($"The system DOES NOT RECOGNIZE this user as an employee. Please contact HRMD Office");
             }
 
             // 2 Check if the user already exists
             var user = await _userManager.FindByIdAsync(userForRegisterDto.Id);
                 if (user != null)
                 {
-                    throw new Exception($"The user id already exists");
+                    throw new ArgumentException($"The user id already exists");
                 }
             
             
@@ -231,22 +232,25 @@ namespace YamangTao.Api.Controllers
 
         // [Authorize(Policy="RequireAdminRole")]
         [HttpPost("seedadmin")]
-        public async void SeedAdmin()
+        public async Task<IActionResult> SeedAdmin()
         {
             
            var superUser = new User
                 {
                     UserName = "admin@root",
-                    Id = "admin@root"
+                    Id = "admin@root",
+                    
                 };
                 
-                IdentityResult result = _userManager.CreateAsync(superUser,"L!fe7352").Result;
+                IdentityResult result = await _userManager.CreateAsync(superUser,"L!fe7352");
                 
                 if (result.Succeeded)
                 {
                     var admin = _userManager.FindByNameAsync("admin@root").Result;
                     await _userManager.AddToRolesAsync(admin, new [] {"Admin", "Unit Head"});
+                    return Ok(admin);
                 }
+            return BadRequest();
 
         }
 
