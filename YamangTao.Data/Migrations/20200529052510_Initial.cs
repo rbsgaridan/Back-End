@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace YamangTao.Data.Migrations
 {
-    public partial class InitialSQLServer : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -63,6 +63,57 @@ namespace YamangTao.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PersonalDataSheets",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    EmployeeId = table.Column<string>(maxLength: 30, nullable: true),
+                    CivilStatus = table.Column<string>(maxLength: 30, nullable: true),
+                    Height = table.Column<string>(maxLength: 10, nullable: true),
+                    Weight = table.Column<string>(maxLength: 10, nullable: true),
+                    BloodType = table.Column<string>(maxLength: 5, nullable: true),
+                    DateAccomplished = table.Column<DateTime>(nullable: true),
+                    ConsanguinityThird = table.Column<bool>(nullable: false),
+                    ConsanguinityFouth = table.Column<bool>(nullable: false),
+                    ConsanguinityFouthDetails = table.Column<string>(maxLength: 50, nullable: true),
+                    AdministrativeOffense = table.Column<bool>(nullable: false),
+                    AdministrativeOffenseDetails = table.Column<string>(maxLength: 50, nullable: true),
+                    CriminalCharge = table.Column<bool>(nullable: false),
+                    CriminalChargeDateFiled = table.Column<DateTime>(nullable: true),
+                    CriminalChargeStatus = table.Column<string>(maxLength: 50, nullable: true),
+                    Convicted = table.Column<bool>(nullable: false),
+                    ConvictedDetails = table.Column<string>(maxLength: 50, nullable: true),
+                    SeparatedFromService = table.Column<bool>(nullable: false),
+                    SeparatedFromServiceDetails = table.Column<string>(maxLength: 50, nullable: true),
+                    ElectionCandidate = table.Column<bool>(nullable: false),
+                    ElectionCandidateDetails = table.Column<string>(maxLength: 50, nullable: true),
+                    ResignedForElection = table.Column<bool>(nullable: false),
+                    ResignedForElectionDetails = table.Column<string>(maxLength: 50, nullable: true),
+                    Immigrant = table.Column<bool>(nullable: false),
+                    ImmigrantDetails = table.Column<string>(maxLength: 50, nullable: true),
+                    IpMember = table.Column<bool>(nullable: false),
+                    IpMemberDetails = table.Column<string>(maxLength: 50, nullable: true),
+                    PwdMember = table.Column<bool>(nullable: false),
+                    PwdMemberDetails = table.Column<string>(maxLength: 50, nullable: true),
+                    SoloParent = table.Column<bool>(nullable: false),
+                    SoloParentId = table.Column<string>(maxLength: 30, nullable: true),
+                    GovIdType = table.Column<string>(maxLength: 30, nullable: true),
+                    GovIdNumber = table.Column<string>(nullable: true),
+                    GovIdDatePlaceIssued = table.Column<string>(maxLength: 75, nullable: true),
+                    DateSubmitted = table.Column<DateTime>(nullable: true),
+                    Verified = table.Column<bool>(nullable: false),
+                    DateReceived = table.Column<DateTime>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: true),
+                    DateLastModified = table.Column<DateTime>(nullable: true),
+                    DateLastPrinted = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PersonalDataSheets", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -79,6 +130,83 @@ namespace YamangTao.Data.Migrations
                         name: "FK_AspNetRoleClaims_AspNetRoles_RoleId",
                         column: x => x.RoleId,
                         principalTable: "AspNetRoles",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Addresses",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PdsId = table.Column<int>(nullable: false),
+                    EmployeeId = table.Column<string>(maxLength: 30, nullable: true),
+                    Description = table.Column<string>(maxLength: 30, nullable: true),
+                    Block = table.Column<string>(maxLength: 10, nullable: true),
+                    Street = table.Column<string>(maxLength: 100, nullable: true),
+                    Purok = table.Column<string>(maxLength: 30, nullable: true),
+                    Barangay = table.Column<string>(maxLength: 30, nullable: true),
+                    Municipality = table.Column<string>(maxLength: 30, nullable: true),
+                    Province = table.Column<string>(maxLength: 30, nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Addresses", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Addresses_PersonalDataSheets_PdsId",
+                        column: x => x.PdsId,
+                        principalTable: "PersonalDataSheets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Eligibities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PdsId = table.Column<int>(nullable: false),
+                    EmployeeId = table.Column<string>(maxLength: 30, nullable: true),
+                    Description = table.Column<string>(maxLength: 100, nullable: true),
+                    Rating = table.Column<string>(maxLength: 10, nullable: true),
+                    ExamDate = table.Column<DateTime>(nullable: true),
+                    ExamPlace = table.Column<string>(maxLength: 100, nullable: true),
+                    LicenseNumber = table.Column<string>(maxLength: 30, nullable: true),
+                    ValidityDate = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Eligibities", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Eligibities_PersonalDataSheets_PdsId",
+                        column: x => x.PdsId,
+                        principalTable: "PersonalDataSheets",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Identifications",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PdsId = table.Column<int>(nullable: false),
+                    EmployeeId = table.Column<string>(maxLength: 30, nullable: true),
+                    IDType = table.Column<string>(maxLength: 30, nullable: true),
+                    Control = table.Column<string>(maxLength: 10, nullable: true),
+                    DateIssued = table.Column<DateTime>(nullable: true),
+                    ExpirationDate = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Identifications", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Identifications_PersonalDataSheets_PdsId",
+                        column: x => x.PdsId,
+                        principalTable: "PersonalDataSheets",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -190,7 +318,7 @@ namespace YamangTao.Data.Migrations
                     DateRetired = table.Column<DateTime>(nullable: true),
                     BrachCampusId = table.Column<int>(nullable: true),
                     CurrentCampusId = table.Column<int>(nullable: true),
-                    OrgUnitId = table.Column<int>(nullable: false)
+                    OrgUnitId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -432,6 +560,11 @@ namespace YamangTao.Data.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Addresses_PdsId",
+                table: "Addresses",
+                column: "PdsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
                 column: "RoleId");
@@ -476,6 +609,11 @@ namespace YamangTao.Data.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Eligibities_PdsId",
+                table: "Eligibities",
+                column: "PdsId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Employees_CurrentCampusId",
                 table: "Employees",
                 column: "CurrentCampusId");
@@ -484,6 +622,11 @@ namespace YamangTao.Data.Migrations
                 name: "IX_Employees_OrgUnitId",
                 table: "Employees",
                 column: "OrgUnitId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Identifications_PdsId",
+                table: "Identifications",
+                column: "PdsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Ipcrs_ApprovedById",
@@ -605,6 +748,9 @@ namespace YamangTao.Data.Migrations
                 table: "OrgUnits");
 
             migrationBuilder.DropTable(
+                name: "Addresses");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
 
             migrationBuilder.DropTable(
@@ -620,6 +766,12 @@ namespace YamangTao.Data.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "Eligibities");
+
+            migrationBuilder.DropTable(
+                name: "Identifications");
+
+            migrationBuilder.DropTable(
                 name: "Photo");
 
             migrationBuilder.DropTable(
@@ -627,6 +779,9 @@ namespace YamangTao.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
+
+            migrationBuilder.DropTable(
+                name: "PersonalDataSheets");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");

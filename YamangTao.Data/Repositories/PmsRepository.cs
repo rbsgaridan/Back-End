@@ -176,11 +176,12 @@ namespace YamangTao.Data.Repositories
             return await _context.RatingMatrix
                 .Include(rm => rm.Ratings)
                 .FirstOrDefaultAsync(rm => rm.Id == id);
+            
         }
 
         public bool SaveAll()
         {
-            return _context.SaveChanges() > 1;
+            return _context.SaveChanges() > 0;
         }
 
         public async Task<bool> SaveAllAsync()

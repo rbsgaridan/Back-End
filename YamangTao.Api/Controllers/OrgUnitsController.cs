@@ -14,7 +14,7 @@ namespace YamangTao.Api.Controllers
 
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(Policy="RequireAdminRole")]
     public class OrgUnitsController : ControllerBase
     {
         private readonly IOrgUnitRepository _repo;
@@ -27,6 +27,7 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpGet("{id}", Name = "GetOrgUnit")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetOrgUnit(int id)
         {
             var OrgUnit = await _repo.GetOrgUnit(id);
@@ -35,6 +36,7 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpGet("{id}/withchildren", Name = "GetOrgUnitWithChildres")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetOrgUnitWithChildren(int id)
         {
             
@@ -44,6 +46,7 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpGet("search")]
+        [AllowAnonymous]
         public async Task<IActionResult> SearchOrgUnits([FromQuery] string keyword)
         {
             var unitParams = new OrgUnitParams() {

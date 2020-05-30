@@ -10,8 +10,8 @@ using YamangTao.Data;
 namespace YamangTao.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200526024458_InitialSQLServer")]
-    partial class InitialSQLServer
+    [Migration("20200529052510_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -327,7 +327,7 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<int>("OrgUnitId")
+                    b.Property<int?>("OrgUnitId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Resigned")
@@ -688,6 +688,280 @@ namespace YamangTao.Data.Migrations
                     b.ToTable("JobPositions");
                 });
 
+            modelBuilder.Entity("YamangTao.Model.RSP.Pds.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Barangay")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Block")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Municipality")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<int>("PdsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Purok")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PdsId");
+
+                    b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.RSP.Pds.Eligibility", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<DateTime?>("ExamDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ExamPlace")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<string>("LicenseNumber")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<int>("PdsId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Rating")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<DateTime?>("ValidityDate")
+                        .HasColumnType("datetime2");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PdsId");
+
+                    b.ToTable("Eligibities");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.RSP.Pds.Identification", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Control")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<DateTime?>("DateIssued")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<DateTime?>("ExpirationDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("IDType")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<int>("PdsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PdsId");
+
+                    b.ToTable("Identifications");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.RSP.Pds.PersonalDataSheet", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("AdministrativeOffense")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("AdministrativeOffenseDetails")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("BloodType")
+                        .HasColumnType("nvarchar(5)")
+                        .HasMaxLength(5);
+
+                    b.Property<string>("CivilStatus")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<bool>("ConsanguinityFouth")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ConsanguinityFouthDetails")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<bool>("ConsanguinityThird")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Convicted")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ConvictedDetails")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<bool>("CriminalCharge")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("CriminalChargeDateFiled")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CriminalChargeStatus")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime?>("DateAccomplished")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateLastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateLastPrinted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateReceived")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateSubmitted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("ElectionCandidate")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ElectionCandidateDetails")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("GovIdDatePlaceIssued")
+                        .HasColumnType("nvarchar(75)")
+                        .HasMaxLength(75);
+
+                    b.Property<string>("GovIdNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("GovIdType")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("Height")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
+                    b.Property<bool>("Immigrant")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ImmigrantDetails")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<bool>("IpMember")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("IpMemberDetails")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<bool>("PwdMember")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PwdMemberDetails")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<bool>("ResignedForElection")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ResignedForElectionDetails")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<bool>("SeparatedFromService")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SeparatedFromServiceDetails")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
+
+                    b.Property<bool>("SoloParent")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("SoloParentId")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<bool>("Verified")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("Weight")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PersonalDataSheets");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("YamangTao.Model.Auth.Role", null)
@@ -762,8 +1036,7 @@ namespace YamangTao.Data.Migrations
                     b.HasOne("YamangTao.Model.OrgStructure.OrgUnit", "CurrentUnit")
                         .WithMany("Employees")
                         .HasForeignKey("OrgUnitId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
+                        .OnDelete(DeleteBehavior.NoAction);
                 });
 
             modelBuilder.Entity("YamangTao.Model.OrgStructure.OrgUnit", b =>
@@ -841,6 +1114,33 @@ namespace YamangTao.Data.Migrations
                         .WithMany("RatingMatrices")
                         .HasForeignKey("KpiId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("YamangTao.Model.RSP.Pds.Address", b =>
+                {
+                    b.HasOne("YamangTao.Model.RSP.Pds.PersonalDataSheet", "Pds")
+                        .WithMany("Addresses")
+                        .HasForeignKey("PdsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("YamangTao.Model.RSP.Pds.Eligibility", b =>
+                {
+                    b.HasOne("YamangTao.Model.RSP.Pds.PersonalDataSheet", "Pds")
+                        .WithMany("Eligibilities")
+                        .HasForeignKey("PdsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("YamangTao.Model.RSP.Pds.Identification", b =>
+                {
+                    b.HasOne("YamangTao.Model.RSP.Pds.PersonalDataSheet", "Pds")
+                        .WithMany("IdCards")
+                        .HasForeignKey("PdsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

@@ -17,7 +17,7 @@ namespace YamangTao.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(Policy="RequireAdminRole")]
     public class JobPositionsController : ControllerBase
     {
         private readonly IJobPositionRepository _repo;
@@ -29,6 +29,7 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpGet("{id}", Name = "GetJobPosition")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetJobPosition(int id)
         {
             //TODO: Implement Realistic Implementation
@@ -38,6 +39,7 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> SearchPositionsPagedPaged([FromQuery] JobPositionParams jobPositionParams)
         {
             var jobPositions = await _repo.SearchPositionsPaged(jobPositionParams);
@@ -51,6 +53,7 @@ namespace YamangTao.Api.Controllers
 
 
         [HttpGet("search")]
+        [AllowAnonymous]
         public async Task<IActionResult> SearchPositions([FromQuery] string keyword)
         {
             var positionParams = new JobPositionParams 

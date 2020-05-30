@@ -31,7 +31,7 @@ namespace YamangTao.Model
         public DateTime? DateRetired { get; set; }
         public int? BrachCampusId { get; set; }
         public BranchCampus CurrentCampus { get; set; }
-        public int OrgUnitId { get; set; }
+        public int? OrgUnitId { get; set; }
         public OrgUnit CurrentUnit { get; set; }
         public virtual List<OrgUnit> HeadedUnits { get; set; }
         public virtual List<Ipcr> IPCRs { get; set; }

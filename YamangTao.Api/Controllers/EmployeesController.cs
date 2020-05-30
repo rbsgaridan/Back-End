@@ -36,6 +36,7 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpGet("search")]
+        [AllowAnonymous]
         public async Task<IActionResult> SearchEmployees([FromQuery] EmployeeParams employeeParams)
         {
             var employees = await _repo.SearchEmployee(employeeParams.Keyword);

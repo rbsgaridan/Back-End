@@ -8,8 +8,10 @@ using YamangTao.Model;
 using YamangTao.Model.RSP;
 using YamangTao.Data.Core;
 using YamangTao.Model.Auth;
+using YamangTao.Model.OrgStructure;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
+
 
 namespace YamangTao.Api.Controllers
 {
@@ -20,14 +22,24 @@ namespace YamangTao.Api.Controllers
     {
         private readonly IEmployeeRepository _repoEmp;
         private readonly IJobPositionRepository _jpRep;
+        private readonly IOrgUnitRepository _ouRep;
+        private readonly IBranchCampusRepository _bcRep;
+
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
-        public SeederController(IEmployeeRepository empRep, IJobPositionRepository jpRep, UserManager<User> userManager, RoleManager<Role> roleManager)
+        public SeederController(IEmployeeRepository empRep, 
+                                IJobPositionRepository jpRep, 
+                                UserManager<User> userManager, 
+                                RoleManager<Role> roleManager,
+                                IOrgUnitRepository ouRep,
+                                IBranchCampusRepository bcRep)
         {
             _roleManager = roleManager;
             _userManager = userManager;
             _jpRep = jpRep;
             _repoEmp = empRep;
+            _ouRep = ouRep;
+            _bcRep = bcRep;
 
         }
 
@@ -37,14 +49,14 @@ namespace YamangTao.Api.Controllers
 
             var employeeData = System.IO.File.ReadAllText("D:/Projects/dotnet3/YamangTao/Backend/YamangTao.Data/Seeders/json/usmemployees.json", Encoding.UTF8);
             var employees = JsonConvert.DeserializeObject<List<Employee>>(employeeData);
-            // bool result = false;
+            bool result = false;
             foreach (var employee in employees)
             {
                 _repoEmp.AddAsync(employee).Wait();
                 // result = await _repoEmp.SaveAll();    
             }
 
-            var result = await _repoEmp.SaveAll();
+            result = await _repoEmp.SaveAll();
             if (result)
             {
                 return Created("", null);
@@ -72,46 +84,44 @@ namespace YamangTao.Api.Controllers
             return BadRequest();
         }
 
-        [HttpPost("seedall")]
-        public async Task<IActionResult> SeedAdmin()
+        [HttpPost("orgunits")]
+        public async Task<IActionResult> SeedJobOrgUnits()
         {
-            var roles = new List<Role>
-                {
-                   new Role{Id = "Employee", Name = "Employee"},
-                    new Role{Id = "Department Head",Name = "Department Head"},
-                    new Role{Id = "Unit Head",Name = "Unit Head"},
-                    new Role{Id = "VP",Name = "VP"},
-                    new Role{Id = "President",Name = "President"},
-                    new Role{Id = "PMG",Name = "PMG"},
-                    new Role{Id = "Planning",Name = "Planning"},
-                    new Role{Id = "HR",Name = "HR"},
-                    new Role{Id = "Admin",Name = "Admin"}
 
-                };
+            var orgUnitData = System.IO.File.ReadAllText("D:/Projects/dotnet3/YamangTao/Backend/YamangTao.Data/Seeders/json/OrgUnits.json", Encoding.UTF8);
+            var orgUnit = JsonConvert.DeserializeObject<OrgUnit>(orgUnitData);
 
-            foreach (var role in roles)
+           
+                _ouRep.AddAsync(orgUnit).Wait();
+            
+
+            var result = await _ouRep.SaveAll();
+            if (result)
             {
-                await _roleManager.CreateAsync(role);
+                return Created("", null);
             }
+            return BadRequest();
+        }
 
-            
-            
-            // Seed Admin
-             var superUser = new User
-                {
-                    UserName = "admin@root",
-                    Id = "admin@root"
-                };
-                
-                IdentityResult result = _userManager.CreateAsync(superUser,"L!fe7352").Result;
-                
-                if (result.Succeeded)
-                {
-                    var admin = _userManager.FindByNameAsync("admin@root").Result;
-                    await _userManager.AddToRolesAsync(admin, new [] {"Admin", "Unit Head"});
-                }
 
-            return Ok("Seeded Roles and Admin");
+        [HttpPost("branchcampus")]
+        public async Task<IActionResult> Seedbranchcampus()
+        {
+
+            var branchcampusData = System.IO.File.ReadAllText("D:/Projects/dotnet3/YamangTao/Backend/YamangTao.Data/Seeders/json/branches.json", Encoding.UTF8);
+            var branchcampuses = JsonConvert.DeserializeObject<List<BranchCampus>>(branchcampusData);
+
+            foreach (var item in branchcampuses)
+            {
+                _bcRep.AddAsync(item).Wait();
+            }
+                
+            var result = await _bcRep.SaveAll();
+            if (result)
+            {
+                return Created("", null);
+            }
+            return BadRequest();
         }
     }
 }

@@ -6,6 +6,7 @@ using YamangTao.Model.Auth;
 using YamangTao.Model.OrgStructure;
 using YamangTao.Model.PM;
 using YamangTao.Model.RSP;
+using YamangTao.Model.RSP.Pds;
 
 namespace YamangTao.Data
 {
@@ -26,6 +27,10 @@ namespace YamangTao.Data
         public DbSet<Kpi> KPIs { get; set; }
         public DbSet<KpiType> KpiTypes { get; set; }
         public DbSet<Ipcr> Ipcrs { get; set; }
+        public DbSet<PersonalDataSheet> PersonalDataSheets { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Eligibility> Eligibities { get; set; }
+        public DbSet<Identification> Identifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -62,10 +67,6 @@ namespace YamangTao.Data
             builder.Entity<Employee>().Property(e => e.Sex).HasMaxLength(15);
             builder.Entity<Employee>().Property(e => e.Telephone).HasMaxLength(50);
             builder.Entity<Employee>().Property(e => e.MobileNumber).HasMaxLength(50);
-            
-            
-            
-            
 
             // Branch Campus
             builder.Entity<BranchCampus>().Property(b => b.Campus).HasMaxLength(100);
@@ -94,6 +95,7 @@ namespace YamangTao.Data
             
             // Rating Matrix
             builder.Entity<RatingMatrix>(matrix => {
+                
                 matrix.Property(m => m.Dimension).HasMaxLength(15);
                 matrix.Property(m => m.MeansOfVerification).HasMaxLength(150);
             });
@@ -162,7 +164,76 @@ namespace YamangTao.Data
 
             });
 
-            // builder.Entity<Ipcr>(ipcr => {
+            // Personal Data Sheets
+            builder.Entity<PersonalDataSheet>(pds => {
+                pds.HasMany(p => p.Addresses)
+                    .WithOne(a => a.Pds)
+                    .HasForeignKey(a => a.PdsId);
+                pds.HasMany(p => p.Eligibilities)
+                    .WithOne(a => a.Pds)
+                    .HasForeignKey(a => a.PdsId);
+                pds.HasMany(p => p.IdCards)
+                    .WithOne(a => a.Pds)
+                    .HasForeignKey(a => a.PdsId);
+                pds.Property(p => p.EmployeeId).HasMaxLength(30);
+                pds.Property(p => p.CivilStatus).HasMaxLength(30);
+                pds.Property(p => p.Height).HasMaxLength(10);
+                pds.Property(p => p.Weight).HasMaxLength(10);
+                pds.Property(p => p.BloodType).HasMaxLength(5);
+                pds.Property(p => p.ConsanguinityFouthDetails).HasMaxLength(50);
+                pds.Property(p => p.AdministrativeOffenseDetails).HasMaxLength(50);
+                pds.Property(p => p.CriminalChargeStatus).HasMaxLength(50);
+                pds.Property(p => p.ConvictedDetails).HasMaxLength(50);
+                pds.Property(p => p.SeparatedFromServiceDetails).HasMaxLength(50);
+                pds.Property(p => p.ElectionCandidateDetails).HasMaxLength(50);
+                pds.Property(p => p.ResignedForElectionDetails).HasMaxLength(50);
+                pds.Property(p => p.ImmigrantDetails).HasMaxLength(50);
+                pds.Property(p => p.IpMemberDetails).HasMaxLength(50);
+                pds.Property(p => p.PwdMemberDetails).HasMaxLength(50);
+                pds.Property(p => p.SoloParentId).HasMaxLength(30);
+                pds.Property(p => p.GovIdType).HasMaxLength(30);
+                pds.Property(p => p.GovIdDatePlaceIssued).HasMaxLength(75);
+            });
+
+            // Eligibility
+            builder.Entity<Eligibility>(e => {
+                e.HasOne(p => p.Pds)
+                    .WithMany(p => p.Eligibilities)
+                    .HasForeignKey(el => el.PdsId);
+                e.Property(p => p.EmployeeId).HasMaxLength(30);
+                e.Property(p => p.Description).HasMaxLength(100);
+                e.Property(p => p.Rating).HasMaxLength(10);
+                e.Property(p => p.ExamPlace).HasMaxLength(100);
+                e.Property(p => p.LicenseNumber).HasMaxLength(30);
+            });
+
+            // Address
+            builder.Entity<Address>(e => {
+                e.HasOne(p => p.Pds)
+                    .WithMany(p => p.Addresses)
+                    .HasForeignKey(el => el.PdsId);
+                e.Property(p => p.EmployeeId).HasMaxLength(30);
+                e.Property(p => p.Description).HasMaxLength(30);
+                e.Property(p => p.Block).HasMaxLength(10);
+                e.Property(p => p.Street).HasMaxLength(100);
+                e.Property(p => p.Purok).HasMaxLength(30);
+                e.Property(p => p.Barangay).HasMaxLength(30);
+                e.Property(p => p.Municipality).HasMaxLength(30);
+                e.Property(p => p.Province).HasMaxLength(30);
+            });
+            
+            // Identification
+            builder.Entity<Identification>(e => {
+                e.HasOne(p => p.Pds)
+                    .WithMany(p => p.IdCards)
+                    .HasForeignKey(el => el.PdsId);
+                e.Property(p => p.EmployeeId).HasMaxLength(30);
+                e.Property(p => p.IDType).HasMaxLength(30);
+                e.Property(p => p.Control).HasMaxLength(10);
+            });
+            
+
+            // builder.Entity<Ipcr>(ipcr => { Residential Address
             //     ipcr.HasOne(i => i.Ratee)
             //     .WithMany(e => e.IPCRs)
             //     .HasForeignKey(p => p.EmployeeId);

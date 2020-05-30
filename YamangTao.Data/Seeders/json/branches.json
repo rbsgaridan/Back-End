@@ -1,0 +1,26 @@
+[
+    {
+        
+        "campus": "Main Campus",
+        "address": "Kabacan, Cotabato"
+    },
+    {
+        
+        "campus": "Kidapawan City Campus",
+        "address": "Sudapin, Kidapawan City"
+    },
+    {
+        
+        "campus": "Buluan Campus",
+        "address": "Buluan, Maguindanao"
+    },
+    {
+        
+        "campus": "Libungan Campus",
+        "address": "Poblacion, Libungan, Cotabato"
+    },
+    {
+        "campus": "Alamada Campus",
+        "address": "Alamada, Cotabato"
+    }
+]

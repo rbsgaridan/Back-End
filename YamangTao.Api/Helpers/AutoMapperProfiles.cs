@@ -8,6 +8,8 @@ using YamangTao.Model.OrgStructure;
 using YamangTao.Model.RSP;
 using YamangTao.Api.Dtos.Pms;
 using YamangTao.Model.PM;
+using YamangTao.Model.RSP.Pds;
+using YamangTao.Api.Dtos.Rsp;
 
 namespace YamangTao.Api.Helpers
 {
@@ -58,7 +60,12 @@ namespace YamangTao.Api.Helpers
                 .ForMember(dto => dto.CompiledBy, opt => opt.MapFrom(ipcr => ipcr.CompiledBy.FullName))
                 .ForMember(dto => dto.ReviewedBy, opt => opt.MapFrom(ipcr => ipcr.ReviewedBy.FullName))
                 .ForMember(dto => dto.ApprovedBy, opt => opt.MapFrom(ipcr => ipcr.ApprovedBy.FullName));
-        
+
+            // PDS
+            CreateMap<Eligibility, EligibilityDto>().ReverseMap();
+            CreateMap<Address, AddressDto>().ReverseMap();
+            CreateMap<Identification, IdentificationDto>().ReverseMap();
+            CreateMap<PersonalDataSheet, PersonalDataSheetDto>().ReverseMap();
 
 
 

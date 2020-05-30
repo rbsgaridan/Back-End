@@ -14,5 +14,6 @@ namespace YamangTao.Core.HttpParams
         }
         public string OrderBy { get; set; }
         public string Keyword { get; set; }
+        public string EmployeeId { get; set; }
     }
 }
