@@ -5,15 +5,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using YamangTao.Api.Dtos;
 using YamangTao.Api.Dtos.Rsp;
 using YamangTao.Api.Helpers;
 using YamangTao.Core.HttpParams;
 using YamangTao.Data.Core;
-using YamangTao.Model.OrgStructure;
 using YamangTao.Model.RSP.Pds;
 
-namespace YamangTao.Api.Controllers
+namespace YamangTao.Api.Controllers.Rsp.Pds
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -51,9 +49,23 @@ namespace YamangTao.Api.Controllers
             return Ok(pdsToReturn);
         }
 
+        [HttpGet("complete/{id}", Name = "GetPdsComplete")]
+        public async Task<IActionResult> GetPdsCompleteById(int id)
+        {
+            //TODO: Implement Realistic Implementation
+            var pds = await _repo.GetCompletePdsByID(id);
+            var pdsToReturn = _mapper.Map<PersonalDataSheetDto>(pds);
+            return Ok(pdsToReturn);
+        }
+
         [HttpGet("employee/{employeeId}")]
         public async Task<IActionResult> GetPdsByEmployeeId(string employeeId)
         {
+             if (!HasValidRole(employeeId))
+            {
+                return Unauthorized("You do not have clearance to update what is not yours!");
+            }
+
             var pds = await _repo.GetAllPdsByEmployeeID(employeeId);
             var pdsToReturn = _mapper.Map<IEnumerable<PersonalDataSheetDto>>(pds);
             return Ok(pdsToReturn);
@@ -62,6 +74,11 @@ namespace YamangTao.Api.Controllers
         [HttpGet("paged")]
         public async Task<IActionResult> GetPdsPaged([FromQuery] PdsParams pdsParams)
         {
+             if (!HasValidRole(pdsParams.EmployeeId))
+            {
+                return Unauthorized("You do not have clearance to update what is not yours!");
+            }
+
             var pds = await _repo.GetPdsPaged(pdsParams);
             var pdsToReturn = _mapper.Map<IEnumerable<PersonalDataSheetDto>>(pds);
             Response.AddPagination(pds.CurrentPage, 

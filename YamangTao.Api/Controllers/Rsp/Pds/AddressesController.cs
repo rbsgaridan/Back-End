@@ -5,14 +5,13 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using YamangTao.Api.Dtos;
 using YamangTao.Api.Dtos.Rsp;
+using YamangTao.Api.Helpers;
 using YamangTao.Core.HttpParams;
 using YamangTao.Data.Core;
-using YamangTao.Model.OrgStructure;
 using YamangTao.Model.RSP.Pds;
 
-namespace YamangTao.Api.Controllers
+namespace YamangTao.Api.Controllers.Rsp.Pds
 {
     [ApiController]
     [Route("api/[controller]")]
@@ -41,7 +40,7 @@ namespace YamangTao.Api.Controllers
             return true;
         }
 
-        [HttpPost("{pdsId}/address")]
+        [HttpPost]
         public async Task<IActionResult> CreateNewAddress(AddressDto addressDto)
         {
             if (!HasValidRole(addressDto.EmployeeId))
@@ -54,19 +53,36 @@ namespace YamangTao.Api.Controllers
             if (await _repo.SaveAllAsync())
             {
                 var addressToReturn = _mapper.Map<AddressDto>(addressForCreate);
-                return CreatedAtRoute("GetAddress", new { id = addressForCreate.Id }, addressToReturn);
+                return CreatedAtRoute("GetAddressById", new { id = addressForCreate.Id }, addressToReturn);
             }
 
             throw new Exception("Adding the address failed on save");
 
         }
 
-        [HttpGet("address/{id}", Name = "GetAddress")]
+        [HttpGet("{id}", Name = "GetAddressById")]
         public async Task<IActionResult> GetAddressById(int id)
         {
             //TODO: Implement Realistic Implementation
             var address = await _repo.GetById<Address>(id);
             var addressToReturn = _mapper.Map<AddressDto>(address);
+            return Ok(addressToReturn);
+        }
+
+        [HttpGet("paged")]
+        public async Task<IActionResult> GetAddressPaged([FromQuery] PdsParams addressParams)
+        {
+             if (!HasValidRole(addressParams.EmployeeId))
+            {
+                return Unauthorized("You do not have clearance to update what is not yours!");
+            }
+
+            var address = await _repo.GetAddresses(addressParams);
+            var addressToReturn = _mapper.Map<IEnumerable<AddressDto>>(address);
+            Response.AddPagination(address.CurrentPage, 
+                                    address.TotalCount, 
+                                    address.PageSize, 
+                                    address.TotalPages);
             return Ok(addressToReturn);
         }
 
@@ -104,58 +120,82 @@ namespace YamangTao.Api.Controllers
             {
                 return NoContent();
             }
-            throw new Exception("Error deleting the pds");
+            throw new Exception("Error deleting the address");
         }
 
         [AllowAnonymous]
-        [HttpGet("search/street")]
+        [HttpGet("street")]
         public async Task<IActionResult> SearchStreet(string search)
         {
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                return BadRequest("Invalid search parameter!");
+            }
             //TODO: Implement Realistic Implementation
             var streets = await _repo.SearchDistinctStreet(search);
             return Ok(streets);
         }
 
         [AllowAnonymous]
-        [HttpGet("search/block")]
+        [HttpGet("block")]
         public async Task<IActionResult> SearchBlock(string search)
         {
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                return BadRequest("Invalid search parameter!");
+            }
             //TODO: Implement Realistic Implementation
             var blocks = await _repo.SearchDistinctBlock(search);
             return Ok(blocks);
         }
 
         [AllowAnonymous]
-        [HttpGet("search/purok")]
+        [HttpGet("purok")]
         public async Task<IActionResult> SearchPurok(string search)
         {
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                return BadRequest("Invalid search parameter!");
+            }
             //TODO: Implement Realistic Implementation
             var puroks = await _repo.SearchDistinctPurok(search);
             return Ok(puroks);
         }
 
         [AllowAnonymous]
-        [HttpGet("search/barangay")]
+        [HttpGet("barangay")]
         public async Task<IActionResult> SearchBarangay(string search)
         {
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                return BadRequest("Invalid search parameter!");
+            }
             //TODO: Implement Realistic Implementation
             var barangays = await _repo.SearchDistinctBarangay(search);
             return Ok(barangays);
         }
 
         [AllowAnonymous]
-        [HttpGet("search/municipality")]
+        [HttpGet("municipality")]
         public async Task<IActionResult> SearchMunicipality(string search)
         {
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                return BadRequest("Invalid search parameter!");
+            }
             //TODO: Implement Realistic Implementation
             var munis = await _repo.SearchDistinctMunicipality(search);
             return Ok(munis);
         }
 
         [AllowAnonymous]
-        [HttpGet("search/province")]
+        [HttpGet("province")]
         public async Task<IActionResult> SearchProvince(string search)
         {
+            if (string.IsNullOrWhiteSpace(search))
+            {
+                return BadRequest("Invalid search parameter!");
+            }
             //TODO: Implement Realistic Implementation
             var provinces = await _repo.SearchDistinctProvince(search);
             return Ok(provinces);

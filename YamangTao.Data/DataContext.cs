@@ -21,7 +21,7 @@ namespace YamangTao.Data
         public DbSet<BranchCampus> BranchCampuses { get; set; }
         public DbSet<OrgUnit> OrgUnits { get; set; }
         public DbSet<JobPosition> JobPositions { get; set; }
-        // public DbSet<Ipcr> IpcrTemplates { get; set; }
+        public DbSet<Ipcr> IpcrTemplates { get; set; }
         public DbSet<Rating> Ratings { get; set; }
         public DbSet<RatingMatrix> RatingMatrix { get; set; }
         public DbSet<Kpi> KPIs { get; set; }
@@ -229,7 +229,7 @@ namespace YamangTao.Data
                     .HasForeignKey(el => el.PdsId);
                 e.Property(p => p.EmployeeId).HasMaxLength(30);
                 e.Property(p => p.IDType).HasMaxLength(30);
-                e.Property(p => p.Control).HasMaxLength(10);
+                e.Property(p => p.Control).HasMaxLength(30);
             });
             
 
