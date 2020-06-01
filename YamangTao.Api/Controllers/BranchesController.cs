@@ -12,7 +12,7 @@ namespace YamangTao.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(Policy="RequirePMTRole")]
     public class BranchesController : ControllerBase
     {
         private readonly IBranchCampusRepository _repo;
@@ -25,6 +25,7 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpGet("{id}", Name = "GetBranch")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetBranch(int id)
         {
             //TODO: Implement Realistic Implementation
@@ -34,6 +35,7 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpGet]
+        [AllowAnonymous]
         public async Task<IActionResult> GetBranches()
         {
             var branches = await _repo.GetAllCampuses();

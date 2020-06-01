@@ -14,7 +14,7 @@ namespace YamangTao.Api.Controllers
 
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize(Policy="RequireAdminRole")]
+    [Authorize(Policy="RequirePMTRole")]
     public class OrgUnitsController : ControllerBase
     {
         private readonly IOrgUnitRepository _repo;

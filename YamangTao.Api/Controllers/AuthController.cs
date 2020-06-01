@@ -92,6 +92,14 @@ namespace YamangTao.Api.Controllers
 
             if (result.Succeeded)
             {
+                // Update Employee Details
+                var employee = await _repo.GetEmployeeByID(userToCreate.EmployeeId);
+                employee.MobileNumber = userForRegisterDto.Mobile;
+                employee.EmailAddress = userForRegisterDto.Email;
+                employee.BrachCampusId = userForRegisterDto.CampusId;
+                employee.OrgUnitId = userForRegisterDto.OrgUnitId;
+                await _repo.SaveAll();
+
                 var createdUser = await _userManager.FindByIdAsync(userToCreate.UserName);
                 _userManager.AddToRoleAsync(createdUser, "Employee").Wait();
                 var userToReturn = _mapper.Map<UserForDetailsDto>(createdUser);

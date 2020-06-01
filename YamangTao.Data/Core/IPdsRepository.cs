@@ -11,6 +11,7 @@ namespace YamangTao.Data.Core
     public interface IPdsRepository : IRepositoryFlex
     {
         Task<PagedList<PersonalDataSheet>> GetPdsPaged(PdsParams pdsParams);
+
         Task<PersonalDataSheet> GetPdsByID(int id);
         Task<T> GetById<T>(int id) where T: class;
         Task<PersonalDataSheet> GetCompletePdsByID(int id);
