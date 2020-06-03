@@ -121,5 +121,20 @@ namespace YamangTao.Data.Repositories
             }
             return null;
         }
+
+        public async Task<List<string>> GetDistinctLastname()
+        {
+            return await _context.Employees.Select(e => e.Lastname).Distinct().ToListAsync();
+        }
+
+        public async Task<List<string>> GetDistinctFirstname()
+        {
+            return await _context.Employees.Select(e => e.Firstname).Distinct().ToListAsync();
+        }
+
+        public async Task<List<string>> GetDistinctMiddle()
+        {
+            return await _context.Employees.Select(e => e.MiddleName).Distinct().ToListAsync();
+        }
     }
 }

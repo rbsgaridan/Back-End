@@ -40,26 +40,26 @@ namespace YamangTao.Api.Helpers
             CreateMap<OrgUnit, OrgUnitListDto>().ReverseMap();
             CreateMap<OrgUnitUpdateDto, OrgUnit>();
             
-            // CreateMap<RatingDto, Rating>().ReverseMap();
-            // CreateMap<RatingMatrixDto, RatingMatrix>().ReverseMap();
-            // CreateMap<KpiDto, Kpi>().ReverseMap();
-            // CreateMap<IpcrDto, Ipcr>();
-            // CreateMap<IpcrForCreateDto, Ipcr>();
-            // CreateMap<Ipcr, IpcrDto>()
-            //     .ForMember(dto => dto.Ratee, opt => opt.MapFrom(ipcr => ipcr.Ratee.FullName))
-            //     .ForMember(dto => dto.Position, opt => opt.MapFrom(ipcr => ipcr.Position.Name))
-            //     .ForMember(dto => dto.Unit, opt => opt.MapFrom(ipcr => ipcr.Unit.UnitName))
-            //     .ForMember(dto => dto.CompiledBy, opt => opt.MapFrom(ipcr => ipcr.CompiledBy.FullName))
-            //     .ForMember(dto => dto.ReviewedBy, opt => opt.MapFrom(ipcr => ipcr.ReviewedBy.FullName))
-            //     .ForMember(dto => dto.ApprovedBy, opt => opt.MapFrom(ipcr => ipcr.ApprovedBy.FullName))
-            //     .ReverseMap();
-            // CreateMap<Ipcr, IpcrForListDto>()
-            //     .ForMember(dto => dto.Ratee, opt => opt.MapFrom(ipcr => ipcr.Ratee.FullName))
-            //     .ForMember(dto => dto.Position, opt => opt.MapFrom(ipcr => ipcr.Position.Name))
-            //     .ForMember(dto => dto.Unit, opt => opt.MapFrom(ipcr => ipcr.Unit.UnitName))
-            //     .ForMember(dto => dto.CompiledBy, opt => opt.MapFrom(ipcr => ipcr.CompiledBy.FullName))
-            //     .ForMember(dto => dto.ReviewedBy, opt => opt.MapFrom(ipcr => ipcr.ReviewedBy.FullName))
-            //     .ForMember(dto => dto.ApprovedBy, opt => opt.MapFrom(ipcr => ipcr.ApprovedBy.FullName));
+            CreateMap<RatingDto, Rating>().ReverseMap();
+            CreateMap<RatingMatrixDto, RatingMatrix>().ReverseMap();
+            CreateMap<KpiDto, Kpi>().ReverseMap();
+            CreateMap<IpcrDto, Ipcr>();
+            CreateMap<IpcrForCreateDto, Ipcr>();
+            CreateMap<Ipcr, IpcrDto>()
+                .ForMember(dto => dto.Ratee, opt => opt.MapFrom(ipcr => ipcr.Ratee.FullName))
+                .ForMember(dto => dto.Position, opt => opt.MapFrom(ipcr => ipcr.Position.Name))
+                .ForMember(dto => dto.Unit, opt => opt.MapFrom(ipcr => ipcr.Unit.UnitName))
+                .ForMember(dto => dto.CompiledBy, opt => opt.MapFrom(ipcr => ipcr.CompiledBy.FullName))
+                .ForMember(dto => dto.ReviewedBy, opt => opt.MapFrom(ipcr => ipcr.ReviewedBy.FullName))
+                .ForMember(dto => dto.ApprovedBy, opt => opt.MapFrom(ipcr => ipcr.ApprovedBy.FullName))
+                .ReverseMap(); 
+            CreateMap<Ipcr, IpcrForListDto>()
+                .ForMember(dto => dto.Ratee, opt => opt.MapFrom(ipcr => ipcr.Ratee.FullName))
+                .ForMember(dto => dto.Position, opt => opt.MapFrom(ipcr => ipcr.Position.Name))
+                .ForMember(dto => dto.Unit, opt => opt.MapFrom(ipcr => ipcr.Unit.UnitName))
+                .ForMember(dto => dto.CompiledBy, opt => opt.MapFrom(ipcr => ipcr.CompiledBy.FullName))
+                .ForMember(dto => dto.ReviewedBy, opt => opt.MapFrom(ipcr => ipcr.ReviewedBy.FullName))
+                .ForMember(dto => dto.ApprovedBy, opt => opt.MapFrom(ipcr => ipcr.ApprovedBy.FullName));
 
             // PDS
             CreateMap<Eligibility, EligibilityDto>().ReverseMap();

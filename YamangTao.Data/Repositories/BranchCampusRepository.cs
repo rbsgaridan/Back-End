@@ -3,6 +3,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using YamangTao.Data.Core;
+using YamangTao.Model;
 using YamangTao.Model.OrgStructure;
 
 namespace YamangTao.Data.Repositories
@@ -40,6 +41,13 @@ namespace YamangTao.Data.Repositories
         public Task<BranchCampus> GetBranchCampusWithEmployees(int id)
         {
             throw new System.NotImplementedException();
+        }
+
+        public async Task<IEnumerable<KeyValueItem<int, string>>> ListAllCampuses()
+        {
+           return await _context.BranchCampuses
+                    .Select(x => new KeyValueItem<int, string> { Key = x.Id, Value = x.Campus})
+                    .ToListAsync();
         }
 
         public void Remove(BranchCampus entity)

@@ -43,6 +43,13 @@ namespace YamangTao.Api.Controllers
             return Ok(branchesToReturn);
         }
 
+        [HttpGet("list/all")]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetAllBranches()
+        {
+           return Ok(await _repo.ListAllCampuses());
+        }
+
         [HttpPut("{id}")]
         [Authorize(Policy="RequireAdminRole")]
         public async Task<IActionResult> UpdateBranch(int id, BranchDto branchForUpdate)

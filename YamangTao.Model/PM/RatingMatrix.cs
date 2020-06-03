@@ -5,7 +5,7 @@ namespace YamangTao.Model.PM
 {
     public class RatingMatrix
     {
-        public uint Id { get; set; }
+        public long Id { get; set; }
         public int? KpiId { get; set; }
         public virtual Kpi Kpi { get; set; }
         // Dimension: Quality, Efficiency, Timeliness

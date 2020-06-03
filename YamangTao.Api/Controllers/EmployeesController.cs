@@ -35,6 +35,7 @@ namespace YamangTao.Api.Controllers
             return Ok(employeeToReturn);
         }
 
+
         [HttpGet("search")]
         [AllowAnonymous]
         public async Task<IActionResult> SearchEmployees([FromQuery] EmployeeParams employeeParams)
@@ -42,6 +43,14 @@ namespace YamangTao.Api.Controllers
             var employees = await _repo.SearchEmployee(employeeParams.Keyword);
             return Ok(employees);
         }
+
+        [HttpGet("idexists/{id}")]
+        public async Task<IActionResult> IDExists(string id)
+        {
+            return Ok(await _repo.IdExists(id));
+        }
+
+
 
         [HttpGet]
         public async Task<IActionResult> GetEmployeesPaged([FromQuery] EmployeeParams employeeParams)
@@ -101,6 +110,19 @@ namespace YamangTao.Api.Controllers
                 return NoContent();
             }
             throw new Exception("Error deleting the employee");
+        }
+
+        [HttpGet("names")]
+        [Authorize(Policy="RequireHRrole")]
+        public async Task<IActionResult> GetNames()
+        {
+            //TODO: Implement Realistic Implementation
+          var newDto = new {
+              Lastnames = await _repo.GetDistinctLastname(),
+              Firstnames = await _repo.GetDistinctFirstname(),
+              Middlenames = await _repo.GetDistinctMiddle()
+          };
+          return Ok(newDto);
         }
     }
 }

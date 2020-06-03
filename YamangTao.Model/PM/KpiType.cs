@@ -1,9 +1,12 @@
 // Types of KPI
 // 1 - Organizational Objectives
 // 2 - Organizational Outcomes
-// 3 - Function
-// 4 - Key Result Area
-// 5 - Success Indicator
+// 3 - Strategic Goals
+// 4 - Strategic Objectives
+// 5 - Function
+// 6 - Key Result Area
+// 7 - Key Performance Indicator
+// 8 - Success Indicator
 
 using System.Collections.Generic;
 

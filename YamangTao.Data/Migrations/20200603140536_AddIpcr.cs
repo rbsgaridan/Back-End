@@ -147,7 +147,8 @@ namespace YamangTao.Data.Migrations
                 name: "RatingMatrix",
                 columns: table => new
                 {
-                    Id = table.Column<long>(nullable: false),
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     KpiId = table.Column<int>(nullable: true),
                     Dimension = table.Column<string>(maxLength: 15, nullable: true),
                     MeansOfVerification = table.Column<string>(maxLength: 150, nullable: true)

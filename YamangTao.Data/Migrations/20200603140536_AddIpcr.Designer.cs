@@ -10,7 +10,7 @@ using YamangTao.Data;
 namespace YamangTao.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20200530191018_AddIpcr")]
+    [Migration("20200603140536_AddIpcr")]
     partial class AddIpcr
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -648,7 +648,8 @@ namespace YamangTao.Data.Migrations
                 {
                     b.Property<long>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint");
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Dimension")
                         .HasColumnType("nvarchar(15)")

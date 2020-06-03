@@ -4,7 +4,7 @@ namespace YamangTao.Api.Dtos.Pms
 {
     public class RatingMatrixDto
     {
-        public uint Id { get; set; }
+        public long Id { get; set; }
         public int? KpiId { get; set; }
         // Dimension: Quality, Efficiency, Timeliness
         public string Dimension { get; set; } 

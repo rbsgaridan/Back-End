@@ -1,3 +1,4 @@
+using System.Net;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -105,6 +106,13 @@ namespace YamangTao.Api.Controllers
                 return NoContent();
             }
             throw new Exception("Error deleting the orgUnit");
+        }
+
+        [HttpGet("list/all")]
+        public async Task<IActionResult> ListAllOrgUnits()
+        {
+            //TODO: Implement Realistic Implementation
+          return Ok(await _repo.GetAllOrgUnit());
         }
 
     }

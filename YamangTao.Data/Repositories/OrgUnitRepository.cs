@@ -1,3 +1,9 @@
+using System.Collections;
+using System.Security.AccessControl;
+using System.Reflection;
+using System.Security.Cryptography.X509Certificates;
+using System.Runtime.InteropServices;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -6,6 +12,7 @@ using YamangTao.Core.HttpParams;
 using YamangTao.Data.Core;
 using YamangTao.Data.Helpers;
 using YamangTao.Model.OrgStructure;
+using YamangTao.Model;
 
 namespace YamangTao.Data.Repositories
 {
@@ -27,9 +34,11 @@ namespace YamangTao.Data.Repositories
             await _context.OrgUnits.AddRangeAsync(entities);
         }
 
-        public async Task<IEnumerable<OrgUnit>> GetAllOrgUnit()
+        public async Task<IEnumerable<KeyValueItem<int,string>>> GetAllOrgUnit()
         {
-            return await _context.OrgUnits.ToListAsync();
+            return await _context.OrgUnits
+                        .Select(o => new KeyValueItem<int,string> { Key = o.Id, Value = o.UnitName })
+                        .ToListAsync();
         }
 
         public async Task<IEnumerable<OrgUnit>> GetAllOrgUnitsWithChildren()
@@ -104,5 +113,7 @@ namespace YamangTao.Data.Repositories
         {
             return await _context.OrgUnits.AnyAsync(o => o.UnitName.ToUpper().Equals(unitName.ToUpper()));
         }
+
+      
     }
 }
