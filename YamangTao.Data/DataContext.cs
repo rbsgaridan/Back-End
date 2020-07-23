@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using YamangTao.Model;
 using YamangTao.Model.Auth;
+using YamangTao.Model.DocumentTracking;
 using YamangTao.Model.OrgStructure;
 using YamangTao.Model.PM;
 using YamangTao.Model.RSP;
@@ -31,6 +32,7 @@ namespace YamangTao.Data
         public DbSet<Address> Addresses { get; set; }
         public DbSet<Eligibility> Eligibities { get; set; }
         public DbSet<Identification> Identifications { get; set; }
+        public DbSet<DocumentPath> DocumentPaths { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -233,7 +235,7 @@ namespace YamangTao.Data
                 e.Property(p => p.Control).HasMaxLength(30);
             });
             
-
+            
             // builder.Entity<Ipcr>(ipcr => { Residential Address
             //     ipcr.HasOne(i => i.Ratee)
             //     .WithMany(e => e.IPCRs)

@@ -16,6 +16,6 @@ namespace YamangTao.Model.Social
         public DateTime MessageSent { get; set; }
         public bool SenderDeleted { get; set; }
         public bool RecipientDeleted { get; set; }
-        
+        public string UrlAction { get; set; }
     }
 }
