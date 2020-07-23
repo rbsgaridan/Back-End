@@ -1,9 +1,10 @@
-using System.Security.Claims;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Collections.ObjectModel;
+using System.Xml.Serialization;
+using System.Buffers;
+using System.Security.Claims;
 using System;
 using System.Collections.Generic;
-using System.Net;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -30,10 +31,30 @@ namespace YamangTao.Api.Controllers
 
         }
 
+        private bool HasValidRole(string employeeId)
+        {
+            var isCurrentUser = User.FindFirst(ClaimTypes.NameIdentifier).Value == employeeId;
+            var roles = User.FindAll(ClaimTypes.Role);
+            
+            if (!isCurrentUser)
+            {
+                if ((User.IsInRole("Employee") && (roles.Count() == 1) ))
+                    {
+                        return false;
+                    }
+            }
+            return true;
+        }
+
         [HttpGet("{id}", Name = "GetIpcr")]
         public async Task<IActionResult> GetIpcr(int id)
         {
-            var ipcr = await _repo.GetIpcrByID(id);
+            
+            var ipcr = await _repo.GetById<Ipcr, int>(id);
+            if (!HasValidRole(ipcr.EmployeeId))
+            {
+                return Unauthorized("You do not have clearance to update what is not yours!");
+            }
             var ipcrToReturn = _mapper.Map<IpcrDto>(ipcr);
             return Ok(ipcrToReturn);
         }
@@ -41,27 +62,25 @@ namespace YamangTao.Api.Controllers
         [HttpGet("{id}/withchildren", Name = "GetIpcrWithChildren")]
         public async Task<IActionResult> GetIpcrWithChildren(int id)
         {
-            var ipcr = await _repo.GetIpcrWithChildrenById(id);
+            var ipcr = await _repo.GetIpcrWithCompleteKpisById(id);
+             if (!HasValidRole(ipcr.EmployeeId))
+            {
+                return Unauthorized("You do not have clearance to update what is not yours!");
+            }
             var ipcrToReturn = _mapper.Map<IpcrDto>(ipcr);
             return Ok(ipcrToReturn);
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetIpcrsPaged([FromQuery] IpcrParams ipcrParams)
+        public async Task<IActionResult> GetIpcrsPaged([FromQuery] PmsParams ipcrParams)
         {
              // Check if logged in user is the employee requested
-            var isCurrentUserTheEmployee = User.FindFirst(ClaimTypes.NameIdentifier).Value.Equals(ipcrParams.RateeId);
-            if (!isCurrentUserTheEmployee)
-            {
-                // Check if admin
-                var isAdmin = User.FindFirst(ClaimTypes.Role).Value.Equals("Admin");
-                if (!isAdmin)
+             if (!HasValidRole(ipcrParams.EmployeeId))
                 {
-                    return Unauthorized("Not enough clearance to access data");
+                return Unauthorized("You do not have clearance to update what is not yours!");
                 }
-            }
 
-            var ipcrs = await _repo.GetIpcrs(ipcrParams);
+            var ipcrs = await _repo.GetPaged<Ipcr,int>(ipcrParams);
             var ipcrsToReturn = _mapper.Map<IEnumerable<IpcrForListDto>>(ipcrs);
             Response.AddPagination(ipcrs.CurrentPage, 
                                     ipcrs.TotalCount, 
@@ -71,21 +90,15 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpGet("ofemployee/{empId}")]
-        public async Task<IActionResult> GetIpcrsOfEmployeePaged([FromQuery] IpcrParams ipcrParams, string empId)
+        public async Task<IActionResult> GetIpcrsOfEmployeePaged([FromQuery] PmsParams ipcrParams, string empId)
         {
             // Check if logged in user is the employee requested
-            var isCurrentUserTheEmployee = User.FindFirst(ClaimTypes.NameIdentifier).Value.Equals(empId);
-            if (!isCurrentUserTheEmployee)
-            {
-                // Check if admin
-                var isAdmin = User.FindFirst(ClaimTypes.Role).Value.Equals("Admin");
-                if (!isAdmin)
+            if (!HasValidRole(ipcrParams.EmployeeId))
                 {
-                    return Unauthorized("Not enough clearance to access data");
+                return Unauthorized("You do not have clearance to update what is not yours!");
                 }
-            }
 
-            var ipcrs = await _repo.GetIpcrs(ipcrParams, empId);
+            var ipcrs = await _repo.GetPaged<Ipcr, int>(ipcrParams);
             var ipcrsToReturn = _mapper.Map<IEnumerable<IpcrForListDto>>(ipcrs);
             Response.AddPagination(ipcrs.CurrentPage, 
                                     ipcrs.TotalCount, 
@@ -97,9 +110,13 @@ namespace YamangTao.Api.Controllers
         
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateIpcr(string id, IpcrDto ipcrForUpdate)
+        public async Task<IActionResult> UpdateIpcr(int id, IpcrDto ipcrForUpdate)
         {
-            var ipcrFromRepo = await _repo.GetIpcrByID(ipcrForUpdate.Id);
+            if (!HasValidRole(ipcrForUpdate.EmployeeId))
+            {
+                return Unauthorized("You do not have clearance to update what is not yours!");
+            }
+            var ipcrFromRepo = await _repo.GetById<Ipcr, int>(id);
             _mapper.Map(ipcrForUpdate, ipcrFromRepo);
 
             if (await _repo.SaveAllAsync())
@@ -128,6 +145,10 @@ namespace YamangTao.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> CreateIpcr(IpcrForCreateDto newIpcrDto)
         {
+             if (!HasValidRole(newIpcrDto.EmployeeId))
+                {
+                    return Unauthorized("You do not have clearance to update what is not yours!");
+                }
             var ipcr = new Ipcr {
                 IsTemplate = newIpcrDto.IsTemplate,
                 EmployeeId = newIpcrDto.EmployeeId,
@@ -243,10 +264,10 @@ namespace YamangTao.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> deleteIpcr(int id)
         {
-            var ipcrFromRepo = await _repo.GetIpcrByID(id);
+            var ipcrFromRepo = _repo.GetById<Ipcr, int>(id);
              if (ipcrFromRepo == null)
             {
-                return BadRequest("Item not found");
+                return BadRequest("Ipcr not found");
             }
             _repo.Delete(ipcrFromRepo);
             if (await _repo.SaveAllAsync())
@@ -260,7 +281,7 @@ namespace YamangTao.Api.Controllers
         [HttpDelete("kpis/{kpiId}")]
         public async Task<IActionResult> deleteKpi(int kpiId)
         {
-            var kpiFromRepo = await _repo.GetKpiById(kpiId);
+            var kpiFromRepo = await _repo.GetById<Kpi, int>(kpiId);
             if (kpiFromRepo == null)
             {
                 return BadRequest("Item not found");
@@ -282,7 +303,7 @@ namespace YamangTao.Api.Controllers
         [HttpDelete("matrix/{rmId}")]
         public async Task<IActionResult> deleteRatingMatrix(int rmId)
         {
-            var ratingMatrix = await _repo.GetRatingMatrix(rmId);
+            var ratingMatrix = await _repo.GetById<RatingMatrix, int>(rmId);
             if (ratingMatrix == null)
             {
                 return BadRequest("Can't find item to delete");

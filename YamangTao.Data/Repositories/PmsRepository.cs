@@ -7,6 +7,7 @@ using YamangTao.Data.Core;
 using YamangTao.Data.Helpers;
 using YamangTao.Model.PM;
 using System.Collections.Generic;
+using YamangTao.Core.Common;
 
 namespace YamangTao.Data.Repositories
 {
@@ -18,14 +19,15 @@ namespace YamangTao.Data.Repositories
             _context = context;
 
         }
-        public async void Add<T>(T entity) where T : class
+
+        public void Add<T>(T entity) where T : class
         {
-            await _context.AddAsync(entity);
+           _context.Add(entity);
         }
 
         public void Delete<T>(T entity) where T : class
         {
-            _context.Remove(entity);
+             _context.Remove(entity);
         }
 
         public void DeleteRange<T>(IEnumerable<T> entities) where T : class
@@ -33,117 +35,68 @@ namespace YamangTao.Data.Repositories
             _context.RemoveRange(entities);
         }
 
-        public async Task<Ipcr> GetIpcrByID(int id)
+        public async Task<T> GetById<T, K>(K id) where T : class
         {
-            return await _context.Ipcrs
-                            .Include(i => i.KPIs)
-                            .FirstOrDefaultAsync(i => i.Id == id);
+            return await _context.FindAsync<T>(id);
         }
 
-        public async Task<PagedList<Ipcr>> GetIpcrs(IpcrParams ipcrParams)
+        public bool SaveAll()
         {
-            // include all objects
-            var ipcrs = _context.Ipcrs.Include(i => i.Ratee)
-                                        .Include(i => i.ReviewedBy)
-                                        .Include(i => i.CompiledBy)
-                                        .Include(i => i.ApprovedBy)
-                                        .Include(i => i.Position)
-                                        .Include(i => i.Unit)
-                                        .Include(i => i.KPIs)
-                                        .ThenInclude(i => i.KpiType)
-                                        .AsQueryable();
-            // Filter by ratee
-            if (!string.IsNullOrEmpty(ipcrParams.RateeId))
-            {
-                ipcrs = ipcrs.Where(s => s.EmployeeId.ToUpper().Contains(ipcrParams.RateeId.ToUpper()));
-            }
-            // Filter by Job Position
-            if (ipcrParams.JobPositionId > 0)
-            {
-                ipcrs = ipcrs.Where(s => s.JobPositionId == ipcrParams.JobPositionId);
-            }
-            // Filter by Org Unit
-            if (ipcrParams.OrgUnitId > 0)
-            {
-                ipcrs = ipcrs.Where(s => s.OrgUnitId == ipcrParams.OrgUnitId);
-            }
+            return _context.SaveChanges() > 0;
+        }
 
+        public async Task<bool> SaveAllAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
+        }
 
-            // if search keyword is not emplty
-            if (!string.IsNullOrEmpty(ipcrParams.Keyword))
-            {
-                ipcrs = ipcrs.Where(s => s.Ratee.FullName.ToUpper().Contains(ipcrParams.Keyword.ToUpper()));
-            }
-
-            // Filter
+        public async Task<PagedList<T>> GetPaged<T, K>(PmsParams pmsParams) where T: class, IIdentifyableEntity<K>
+        {
+            var entities = _context.Set<T>().AsQueryable();
             
-
-            // Sort
-            if (!string.IsNullOrEmpty(ipcrParams.OrderBy))
+          
+            //Keyword
+            if (!string.IsNullOrEmpty(pmsParams.Keyword) && !string.IsNullOrEmpty(pmsParams.Filter))
             {
-                switch (ipcrParams.OrderBy)
+                if (!string.IsNullOrEmpty(pmsParams.Filter1))
                 {
-                    case "ratee":
-                    ipcrs = ipcrs.OrderBy(s => s.Ratee.Lastname);
-                    break;
-
-                    case "jobPosition":
-                    ipcrs = ipcrs.OrderBy(s => s.Position.Name);
-                    break;
-
-                    default:
-                    ipcrs = ipcrs.OrderBy(s => s.Ratee.FullName);
-                    break;
+                    entities = entities.Where(a => EF.Property<string>(a, pmsParams.Filter).Contains(pmsParams.Keyword)
+                                                    || EF.Property<string>(a, pmsParams.Filter1).Contains(pmsParams.Keyword));
                 }
-            }
-
-            return await PagedList<Ipcr>.CreateAsync(ipcrs, ipcrParams.PageNumber, ipcrParams.PageSize);
-        }
-
-        public async Task<PagedList<Ipcr>> GetIpcrs(IpcrParams ipcrParams, string empId)
-        {
-            // include all objects
-            var ipcrs = _context.Ipcrs.Include(i => i.Ratee)
-                                        .Include(i => i.ReviewedBy)
-                                        .Include(i => i.CompiledBy)
-                                        .Include(i => i.ApprovedBy)
-                                        .Include(i => i.Position)
-                                        .Include(i => i.Unit)
-                                        .AsQueryable();
-            
-            ipcrs = ipcrs.Where(i => i.EmployeeId.Equals(empId));
-            // if search keyword is not emplty
-            if (!string.IsNullOrEmpty(ipcrParams.Keyword))
-            {
-                ipcrs = ipcrs.Where(s => s.Ratee.FullName.ToUpper().Contains(ipcrParams.Keyword.ToUpper()));
-            }
-
-            // Filter
-            
-
-            // Sort
-            if (!string.IsNullOrEmpty(ipcrParams.OrderBy))
-            {
-                switch (ipcrParams.OrderBy)
+                else
                 {
-                    case "ratee":
-                    ipcrs = ipcrs.OrderBy(s => s.Ratee.Lastname);
-                    break;
-
-                    case "jobPosition":
-                    ipcrs = ipcrs.OrderBy(s => s.Position.Name);
-                    break;
-
-                    default:
-                    ipcrs = ipcrs.OrderBy(s => s.Ratee.FullName);
-                    break;
+                    entities = entities.Where(a => EF.Property<string>(a, pmsParams.Filter).Contains(pmsParams.Keyword));
                 }
+                
+            }
+            
+            if (!string.IsNullOrEmpty(pmsParams.FilterByKey))
+            {
+               if (pmsParams.KeyBool != null)
+               {
+                   entities = entities.Where(a => EF.Property<bool>(a, pmsParams.FilterByKey) == pmsParams.KeyBool);
+               }
+               if (pmsParams.KeyInt != null)
+               {
+                   entities = entities.Where(a => EF.Property<int>(a, pmsParams.FilterByKey) == pmsParams.KeyInt);
+               }
+               if (pmsParams.Keyword != null)
+               {
+                   entities = entities.Where(a => EF.Property<string>(a, pmsParams.FilterByKey) == pmsParams.Keyword);
+               }
+                    
+            }
+            // Sort
+            if (!string.IsNullOrEmpty(pmsParams.OrderBy))
+            {
+                entities = entities.OrderBy(a => EF.Property<string>(a, pmsParams.OrderBy));
+               
             }
 
-            return await PagedList<Ipcr>.CreateAsync(ipcrs, ipcrParams.PageNumber, ipcrParams.PageSize);
+            return await PagedList<T>.CreateAsync(entities, pmsParams.PageNumber, pmsParams.PageSize);
         }
 
-        public async Task<Ipcr> GetIpcrWithChildrenById(int id)
+        public async Task<Ipcr> GetIpcrWithCompleteKpisById(int id)
         {
             return await _context.Ipcrs.Include(i => i.Ratee)
                                         .Include(i => i.ReviewedBy)
@@ -160,33 +113,56 @@ namespace YamangTao.Data.Repositories
                                         .FirstOrDefaultAsync(i => i.Id == id);
         }
 
-        public async Task<Kpi> GetKpiById(int id)
+        public async Task<List<T>> GetList<T, K>(PmsParams pmsParams) where T: class, IIdentifyableEntity<K>
         {
-            return await _context.KPIs
-            .Include(k => k.Kpis)
-                .FirstOrDefaultAsync( k => k.Id == id);
+            var entities = _context.Set<T>().AsQueryable();
+            
+          
+            //Keyword
+            if (!string.IsNullOrEmpty(pmsParams.Keyword) && !string.IsNullOrEmpty(pmsParams.Filter))
+            {
+                if (!string.IsNullOrEmpty(pmsParams.Filter1))
+                {
+                    entities = entities.Where(a => EF.Property<string>(a, pmsParams.Filter).Contains(pmsParams.Keyword)
+                                                    || EF.Property<string>(a, pmsParams.Filter1).Contains(pmsParams.Keyword));
+                }
+                else
+                {
+                    entities = entities.Where(a => EF.Property<string>(a, pmsParams.Filter).Contains(pmsParams.Keyword));
+                }
+                
+            }
+            
+            if (!string.IsNullOrEmpty(pmsParams.FilterByKey))
+            {
+               if (pmsParams.KeyBool != null)
+               {
+                   entities = entities.Where(a => EF.Property<bool>(a, pmsParams.FilterByKey) == pmsParams.KeyBool);
+               }
+               if (pmsParams.KeyInt != null)
+               {
+                   entities = entities.Where(a => EF.Property<int>(a, pmsParams.FilterByKey) == pmsParams.KeyInt);
+               }
+               if (pmsParams.Keyword != null)
+               {
+                   entities = entities.Where(a => EF.Property<string>(a, pmsParams.FilterByKey) == pmsParams.Keyword);
+               }
+                    
+            }
+            // Sort
+            if (!string.IsNullOrEmpty(pmsParams.OrderBy))
+            {
+                entities = entities.OrderBy(a => EF.Property<string>(a, pmsParams.OrderBy));
+               
+            }
+
+            return await entities.ToListAsync();
         }
+
         public async Task<Rating> GetRating(int rmId, sbyte rate)
         {
-            return await _context.Ratings.FirstOrDefaultAsync(r => r.RatingMatrixId == rmId && r.Rate == rate);
-        }
-
-        public async Task<RatingMatrix> GetRatingMatrix(int id)
-        {
-            return await _context.RatingMatrix
-                .Include(rm => rm.Ratings)
-                .FirstOrDefaultAsync(rm => rm.Id == id);
-            
-        }
-
-        public bool SaveAll()
-        {
-            return _context.SaveChanges() > 0;
-        }
-
-        public async Task<bool> SaveAllAsync()
-        {
-            return await _context.SaveChangesAsync() > 0;
+            var rating = await _context.Ratings.FirstOrDefaultAsync(r => r.RatingMatrixId == rmId && r.Rate == rate);
+            return rating;
         }
     }
 }

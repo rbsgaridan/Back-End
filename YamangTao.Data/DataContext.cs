@@ -161,7 +161,8 @@ namespace YamangTao.Data
                 ipcr.Property(i => i.CompiledById).HasMaxLength(30);
                 ipcr.Property(i => i.ApprovedById).HasMaxLength(30);
                 ipcr.Property(i => i.ApprovedById).HasMaxLength(30);
-
+                ipcr.Property(i => i.EmployeeIdLocation).HasMaxLength(30);
+                ipcr.Property(i => i.Status).HasMaxLength(50);
             });
 
             // Personal Data Sheets

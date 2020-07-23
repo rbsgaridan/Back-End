@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using YamangTao.Core.Common;
 using YamangTao.Core.Document;
 using YamangTao.Model.OrgStructure;
 using YamangTao.Model.RSP;
 
 namespace YamangTao.Model.PM
 {
-    public class Ipcr : IDocument
+    public class Ipcr : IDocument, IIdentifyableEntity<int>
     {
         public int Id { get; set; }
         public bool IsTemplate { get; set; }
@@ -48,6 +49,14 @@ namespace YamangTao.Model.PM
         public bool Compiled { get; set; }
         public bool Approved { get; set; }
         public bool isLocked { get; set; }
+        public string Status { get; set; }
+        public string EmployeeIdLocation { get; set; }
+        public int EntityId 
+        { 
+            get {
+                    return Id;
+                } 
+        }
 
         public string GetDocumentType()
         {

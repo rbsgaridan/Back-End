@@ -476,6 +476,10 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
+                    b.Property<string>("EmployeeIdLocation")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
                     b.Property<double>("FinalAverageRating")
                         .HasColumnType("float");
 
@@ -518,6 +522,10 @@ namespace YamangTao.Data.Migrations
 
                     b.Property<string>("RnRRecommendation")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(50)")
+                        .HasMaxLength(50);
 
                     b.Property<bool>("isLocked")
                         .HasColumnType("bit");
@@ -575,6 +583,12 @@ namespace YamangTao.Data.Migrations
                     b.Property<int>("KpiTypeId")
                         .HasColumnType("int");
 
+                    b.Property<float?>("MaxWeight")
+                        .HasColumnType("real");
+
+                    b.Property<float?>("MinWeight")
+                        .HasColumnType("real");
+
                     b.Property<string>("OrderNumber")
                         .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
@@ -597,6 +611,9 @@ namespace YamangTao.Data.Migrations
 
                     b.Property<float>("Weight")
                         .HasColumnType("real");
+
+                    b.Property<string>("mfoOO")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 

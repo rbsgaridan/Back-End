@@ -13,9 +13,10 @@ namespace YamangTao.Model.PM
     public class Kpi
     {
         public int Id { get; set; }
-        public string Code { get; set; }
-        public string OrderNumber { get; set; }
-        public int? IpcrId { get; set; }
+        public string Code { get; set; } // Indicator Code from indicator Inventory
+        public string OrderNumber { get; set; } // 
+        public string mfoOO { get; set; } // MFO or OO from the balanced scorecard
+        public int? IpcrId { get; set; } // not null if core and support
         public virtual Ipcr Ipcr { get; set; }
         public int KpiTypeId { get; set; }
         public virtual KpiType KpiType { get; set; }
@@ -30,9 +31,13 @@ namespace YamangTao.Model.PM
         public float TimelinessRating { get; set; }
         public float AverageRating { get; set; }
         public List<RatingMatrix> RatingMatrices { get; set; }
-        public string TaskId { get; set; }
+        public string TaskId { get; set; } // Task Inventory
         public int? ParentKpiId { get; set; }
         public Kpi ParentKpi { get; set; }
         public List<Kpi> Kpis { get; set; }
+        public float? MaxWeight { get; set; }
+        public float? MinWeight { get; set; }
+
+        
     }
 }
