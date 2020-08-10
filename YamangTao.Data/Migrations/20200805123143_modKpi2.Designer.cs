@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YamangTao.Data;
 
 namespace YamangTao.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20200805123143_modKpi2")]
+    partial class modKpi2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -782,7 +784,7 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
-                    b.Property<int?>("PdsId")
+                    b.Property<int>("PdsId")
                         .HasColumnType("int");
 
                     b.Property<string>("Province")
@@ -1199,7 +1201,9 @@ namespace YamangTao.Data.Migrations
                 {
                     b.HasOne("YamangTao.Model.RSP.Pds.PersonalDataSheet", "Pds")
                         .WithMany("Addresses")
-                        .HasForeignKey("PdsId");
+                        .HasForeignKey("PdsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("YamangTao.Model.RSP.Pds.Eligibility", b =>

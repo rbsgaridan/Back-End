@@ -60,6 +60,15 @@ namespace YamangTao.Api.Controllers
             return Ok(orgunitsToReturn);
         }
 
+        [HttpGet("orgunitsfulltree")]
+        [AllowAnonymous]
+        public async Task<IActionResult> LoadFullTree()
+        {
+            var orgUnits = await _repo.GetAllOrgUnitsWithChildren();
+            var OrgUnitsToReturn = _mapper.Map<IEnumerable<OrgUnitDto>>(orgUnits);
+            return Ok(OrgUnitsToReturn);
+        }
+
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateOrgUnit(int id, OrgUnitUpdateDto orgUnitForUpdate)
         {

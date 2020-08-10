@@ -58,6 +58,10 @@ namespace YamangTao.Model.PM
                 } 
         }
 
+        public string PreviousHolder { get; set; }
+        public string CurrentHolder { get; set; }
+        public string NextUser { get; set; }
+
         public string GetDocumentType()
         {
             return "IPCR";

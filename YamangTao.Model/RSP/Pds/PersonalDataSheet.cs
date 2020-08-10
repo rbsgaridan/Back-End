@@ -58,6 +58,11 @@ namespace YamangTao.Model.RSP.Pds
         public DateTime? DateCreated { get; set; }
         public DateTime? DateLastModified { get; set; }
         public DateTime? DateLastPrinted { get; set; }
+        public string PreviousHolder { get; set; }
+        public string CurrentHolder { get; set; }
+        public string NextUser { get; set; }
+        public string Status { get; set; }
+
         public string GetDocumentType()
         {
             return "Personal Data Sheet";

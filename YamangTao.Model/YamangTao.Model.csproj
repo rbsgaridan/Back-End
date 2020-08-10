@@ -1,9 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\YamangTao.Core\YamangTao.Core.csproj"/>
+  </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\YamangTao.Core\YamangTao.Core.csproj"/>
-  </ItemGroup>
 </Project>

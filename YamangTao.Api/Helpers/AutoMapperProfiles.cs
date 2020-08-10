@@ -38,6 +38,7 @@ namespace YamangTao.Api.Helpers
                 opt => opt.MapFrom(source => source.ParentUnit.Id));
             
             CreateMap<OrgUnit, OrgUnitListDto>().ReverseMap();
+            CreateMap<OrgUnit, OrgUnitDto>().ReverseMap();
             CreateMap<OrgUnitUpdateDto, OrgUnit>();
             
             CreateMap<RatingDto, Rating>().ReverseMap();

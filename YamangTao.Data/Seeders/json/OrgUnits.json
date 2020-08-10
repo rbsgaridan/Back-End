@@ -7,9 +7,10 @@
     "nameOfHead": "GARCIA, FRANCISCO GIL, NARISMA",
     "currentHead": null,
     "location": "2nd Floor, Administration Building",
+    "parentUnitId": null,
     "orgUnitChildren": [
         {
-            "orderNumber": 1,
+                        "orderNumber": 1,
             "unitName": "Office of the Vice-President for Academic Affairs",
             "code": "OVPAA",
             "unitType": "Office",
@@ -17,7 +18,8 @@
             "nameOfHead": "TAGARO, CONSUELO, AGRAVANTE",
             "currentHead": null,
             "location": "1st Floor, Administration Building",
-                        "orgUnitChildren": [
+            "parentUnitId": 1,
+            "orgUnitChildren": [
                 {
                     
                     "orderNumber": 1,
@@ -28,404 +30,110 @@
                     "nameOfHead": "GONZAGA, ELSA, AMARILLE",
                     "currentHead": null,
                     "location": "Administration Building",
-                                        "orgUnitChildren": []
-                },
-                {
-                    
-                    "orderNumber": 2,
-                    "unitName": "NSTP Office",
-                    "code": "NSTP",
-                    "unitType": "Office",
-                    "currentHeadId": "82-00293",
-                    "nameOfHead": "GARCIA, MAY EVA, ZARZA",
-                    "currentHead": null,
-                    "location": "NSTP Building",
-                                        "orgUnitChildren": []
-                },
-                {
-                    
-                    "orderNumber": 3,
-                    "unitName": "Admission and Records Office",
-                    "code": "ARO",
-                    "unitType": "Office",
-                    "currentHeadId": "97-00579",
-                    "nameOfHead": "PATARAY, MA. LEZEL, PRESIDENTE",
-                    "currentHead": null,
-                    "location": "Administration",
-                                        "orgUnitChildren": []
-                },
-                {
-                    
-                    "orderNumber": 4,
-                    "unitName": "Office of Student Affairs",
-                    "code": "OSA",
-                    "unitType": "Office",
-                    "currentHeadId": "07-00780",
-                    "nameOfHead": "SALILING, YVONNE, VILLANUEVA",
-                    "currentHead": null,
-                    "location": "OSA Building, USM Main Campus",
-                                        "orgUnitChildren": [
-                        {
-                            
-                            "orderNumber": 1,
-                            "unitName": "Counseling and Carer Department",
-                            "code": "CCD",
-                            "unitType": "Department",
-                            "currentHeadId": "11-02355",
-                            "nameOfHead": "SILAO, IMELDA, DAGUMAN",
-                            "currentHead": null,
-                            "location": "University Guidance Center",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 2,
-                            "unitName": "Student Development Department",
-                            "code": "SDD",
-                            "unitType": "Department",
-                            "currentHeadId": "00-00587",
-                            "nameOfHead": "SALILING, WILLIE JONES, BAYOTLANG",
-                            "currentHead": null,
-                            "location": "OSA Building",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 3,
-                            "unitName": "Scholarship and Financial Assistance Department",
-                            "code": "SFAD",
-                            "unitType": "Department",
-                            "currentHeadId": "82-00278",
-                            "nameOfHead": "ROCA, HAREM, RONDINA",
-                            "currentHead": null,
-                            "location": "OSA Building",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 4,
-                            "unitName": "Diversity and Integrative Services Department",
-                            "code": "DISD",
-                            "unitType": "Department",
-                            "currentHeadId": "90-00436",
-                            "nameOfHead": "GONSANG, SHANDRA, CAUP",
-                            "currentHead": null,
-                            "location": "OSA Building",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 5,
-                            "unitName": "Student Policy and Research Department",
-                            "code": "SPRD",
-                            "unitType": "Department",
-                            "currentHeadId": "02-00586",
-                            "nameOfHead": "CABORNIDA, IVY MAR, BARIT",
-                            "currentHead": null,
-                            "location": "OSA Building",
-                            
-                            "orgUnitChildren": []
-                        }
-                    ]
-                },
-                {
-                    
-                    "orderNumber": 5,
-                    "unitName": "College of Agriculture",
-                    "code": "CA",
-                    "unitType": "College",
-                    "currentHeadId": "82-00285",
-                    "nameOfHead": "MIGALBIN, JOSEPHINE, RABANAL",
-                    "currentHead": null,
-                    "location": "College of Agriculture Main Building",
+                    "parentUnitId": 2,
                     "orgUnitChildren": []
                 },
                 {
                     
-                    "orderNumber": 6,
-                    "unitName": "College of Arts and Social Sciences",
-                    "code": "CASS",
+                    "orderNumber": 16,
+                    "unitName": "Institute of Sports, Physical Education, and Recreation",
+                    "code": "ISPEAR",
                     "unitType": "College",
-                    "currentHeadId": "05-00855",
-                    "nameOfHead": "MONDERIN, MARCOS, FERNANDEZ",
+                    "currentHeadId": "81-00441",
+                    "nameOfHead": "GARCIA, JUDY, LOZANO",
                     "currentHead": null,
-                    "location": "CAS Building",
+                    "location": "ISPEAR",
+                    "parentUnitId": 2,
+                    "orgUnitChildren": []
+                },
+                {
+                    
+                    "orderNumber": 15,
+                    "unitName": "Institute of Middle East Asian Studies",
+                    "code": "IMEAS",
+                    "unitType": "College",
+                    "currentHeadId": "88-00345",
+                    "nameOfHead": "MAKALUGI, ABDULNASSER, GALIGA",
+                    "currentHead": null,
+                    "location": "IMEAS Building",
+                    "parentUnitId": 2,
+                    "orgUnitChildren": []
+                },
+                {
+                    
+                    "orderNumber": 14,
+                    "unitName": "College of Veterinary Medicine",
+                    "code": "CVM",
+                    "unitType": "College",
+                    "currentHeadId": "83-00287",
+                    "nameOfHead": "OKIT, EMERLIE, ROJAS",
+                    "currentHead": null,
+                    "location": "CVM Building",
+                    "parentUnitId": 2,
+                    "orgUnitChildren": []
+                },
+                {
+                    
+                    "orderNumber": 13,
+                    "unitName": "College of Trades and Industries",
+                    "code": "CTI",
+                    "unitType": "College",
+                    "currentHeadId": "97-00568",
+                    "nameOfHead": "PRESTO, SOLOMON, LAMORENA",
+                    "currentHead": null,
+                    "location": "CTI Faculty building",
+                    "parentUnitId": 2,
+                    "orgUnitChildren": []
+                },
+                {
+                    
+                    "orderNumber": 12,
+                    "unitName": "College of Health Sciences",
+                    "code": "CHS",
+                    "unitType": "College",
+                    "currentHeadId": "04-00576",
+                    "nameOfHead": "MAMALUBA, EMMALYN, MANAMPAN",
+                    "currentHead": null,
+                    "location": "CHS Building",
+                    "parentUnitId": 2,
+                    "orgUnitChildren": []
+                },
+                {
+                    
+                    "orderNumber": 11,
+                    "unitName": "College of Human Ecology and Food Sciences",
+                    "code": "CHEFS",
+                    "unitType": "College",
+                    "currentHeadId": "90-00272",
+                    "nameOfHead": "NACAR, URDUJA, GUINID",
+                    "currentHead": null,
+                    "location": "CHEFS Building",
+                    "parentUnitId": 2,
                     "orgUnitChildren": [
                         {
                             
                             "orderNumber": 1,
-                            "unitName": "Department of English, Language & Literature",
-                            "code": "DELL",
+                            "unitName": "Department of Nutrition and Dietetics",
+                            "code": "ND",
                             "unitType": "Department",
                             "currentHeadId": null,
                             "nameOfHead": null,
                             "currentHead": null,
-                            "location": "CAS",
-                            
+                            "location": "CHEFS Building",
+                            "parentUnitId": 28,
                             "orgUnitChildren": []
                         },
                         {
                             
                             "orderNumber": 2,
-                            "unitName": "Department of Social Science and Philosophy",
-                            "code": "DSSP",
+                            "unitName": "Food Technology Department",
+                            "code": "CHEFS-FT",
                             "unitType": "Department",
                             "currentHeadId": null,
                             "nameOfHead": null,
                             "currentHead": null,
-                            "location": "CAS Building",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 3,
-                            "unitName": "Department of Filipino",
-                            "code": "DF",
-                            "unitType": "Department",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "CAS Building",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 4,
-                            "unitName": "Department of Development Communication",
-                            "code": "DEVCOM",
-                            "unitType": "Department",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "CAS Building",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 5,
-                            "unitName": "Department of Criminilogy",
-                            "code": "CRIM",
-                            "unitType": "Department",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "CAS Building",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 6,
-                            "unitName": "Department of Psychology",
-                            "code": "PSYCH",
-                            "unitType": "Department",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "CAS Building",
-                            
-                            "orgUnitChildren": []
-                        }
-                    ]
-                },
-                {
-                    
-                    "orderNumber": 7,
-                    "unitName": "College of Science and Mathematics",
-                    "code": "CSM",
-                    "unitType": "College",
-                    "currentHeadId": "94-00337",
-                    "nameOfHead": "PIMENTEL, JONALD, LOZARITO",
-                    "currentHead": null,
-                    "location": "CAS Building",
-                                        "orgUnitChildren": [
-                        {
-                            
-                            "orderNumber": 1,
-                            "unitName": "Physics Department",
-                            "code": "PHYSICS",
-                            "unitType": "Department",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "CAS",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 2,
-                            "unitName": "Chemistry Department",
-                            "code": "CHEM",
-                            "unitType": "Department",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "CAS",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 3,
-                            "unitName": "Biology Department",
-                            "code": "BIO",
-                            "unitType": "Department",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "CAS",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 4,
-                            "unitName": "Math and Stat Department",
-                            "code": "MATH",
-                            "unitType": "Department",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "CAS",
-                            
-                            "orgUnitChildren": []
-                        }
-                    ]
-                },
-                {
-                    
-                    "orderNumber": 8,
-                    "unitName": "College of Business Development and Economics Management",
-                    "code": "CBDEM",
-                    "unitType": "College",
-                    "currentHeadId": "79-00339",
-                    "nameOfHead": "DELA PEÑA, GLORIA, SABINAY",
-                    "currentHead": null,
-                    "location": "CBDEM Building",
-                                        "orgUnitChildren": [
-                        {
-                            
-                            "orderNumber": 1,
-                            "unitName": "Accountancy Department",
-                            "code": "ACCD",
-                            "unitType": "Department",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "CBDEM Building",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 2,
-                            "unitName": "Agribusiness Department",
-                            "code": "AGBUS",
-                            "unitType": "Department",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "CBDEM Building",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 3,
-                            "unitName": "Agricultural Economics Department",
-                            "code": "AGECON",
-                            "unitType": "Department",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "CBDEM",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 4,
-                            "unitName": "Business Administration Department",
-                            "code": "BUSAD",
-                            "unitType": "Department",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "CBDEM",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 5,
-                            "unitName": "Development Management Department",
-                            "code": "DEVM",
-                            "unitType": "Department",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "CBDEM",
-                            
-                            "orgUnitChildren": []
-                        }
-                    ]
-                },
-                {
-                    
-                    "orderNumber": 9,
-                    "unitName": "College of Education",
-                    "code": "CED",
-                    "unitType": "College",
-                    "currentHeadId": "93-00359",
-                    "nameOfHead": "ESTILLOSO, EIMER, MACAIRAN",
-                    "currentHead": null,
-                    "location": "CED Building",
-                                        "orgUnitChildren": [
-                        {
-                            
-                            "orderNumber": 1,
-                            "unitName": "Elementary Education Department",
-                            "code": "EED",
-                            "unitType": "Department",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "CED",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 2,
-                            "unitName": "Secondary Education Department",
-                            "code": "SED",
-                            "unitType": "Department",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "CED",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 3,
-                            "unitName": "University Laboratory School",
-                            "code": "ULS",
-                            "unitType": "Unit",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "ULS",
-                            
+                            "location": "CHEFS Building",
+                            "parentUnitId": 28,
                             "orgUnitChildren": []
                         }
                     ]
@@ -440,7 +148,8 @@
                     "nameOfHead": "ARELLANO, ALBERTO, CORNELIO",
                     "currentHead": null,
                     "location": "CEIT Building",
-                                        "orgUnitChildren": [
+                    "parentUnitId": 2,
+                    "orgUnitChildren": [
                         {
                             
                             "orderNumber": 1,
@@ -451,7 +160,7 @@
                             "nameOfHead": null,
                             "currentHead": null,
                             "location": "CEIT Building",
-                            
+                            "parentUnitId": 29,
                             "orgUnitChildren": []
                         },
                         {
@@ -464,7 +173,7 @@
                             "nameOfHead": null,
                             "currentHead": null,
                             "location": "CEIT Building",
-                            
+                            "parentUnitId": 29,
                             "orgUnitChildren": []
                         },
                         {
@@ -477,7 +186,7 @@
                             "nameOfHead": null,
                             "currentHead": null,
                             "location": "CEIT Building",
-                            
+                            "parentUnitId": 29,
                             "orgUnitChildren": []
                         },
                         {
@@ -490,7 +199,7 @@
                             "nameOfHead": null,
                             "currentHead": null,
                             "location": "CEIT Building",
-                            
+                            "parentUnitId": 29,
                             "orgUnitChildren": []
                         },
                         {
@@ -503,109 +212,484 @@
                             "nameOfHead": null,
                             "currentHead": null,
                             "location": "CEIT Building",
-                            
+                            "parentUnitId": 29,
                             "orgUnitChildren": []
                         }
                     ]
                 },
                 {
                     
-                    "orderNumber": 11,
-                    "unitName": "College of Human Ecology and Food Sciences",
-                    "code": "CHEFS",
+                    "orderNumber": 9,
+                    "unitName": "College of Education",
+                    "code": "CED",
                     "unitType": "College",
-                    "currentHeadId": "90-00272",
-                    "nameOfHead": "NACAR, URDUJA, GUINID",
+                    "currentHeadId": "93-00359",
+                    "nameOfHead": "ESTILLOSO, EIMER, MACAIRAN",
                     "currentHead": null,
-                    "location": "CHEFS Building",
-                                        "orgUnitChildren": [
+                    "location": "CED Building",
+                    "parentUnitId": 2,
+                    "orgUnitChildren": [
                         {
                             
-                            "orderNumber": 1,
-                            "unitName": "Department of Nutrition and Dietetics",
-                            "code": "ND",
-                            "unitType": "Department",
+                            "orderNumber": 3,
+                            "unitName": "University Laboratory School",
+                            "code": "ULS",
+                            "unitType": "Unit",
                             "currentHeadId": null,
                             "nameOfHead": null,
                             "currentHead": null,
-                            "location": "CHEFS Building",
-                            
+                            "location": "ULS",
+                            "parentUnitId": 30,
                             "orgUnitChildren": []
                         },
                         {
                             
                             "orderNumber": 2,
-                            "unitName": "Food Technology Department",
-                            "code": "FT",
+                            "unitName": "Secondary Education Department",
+                            "code": "SED",
                             "unitType": "Department",
                             "currentHeadId": null,
                             "nameOfHead": null,
                             "currentHead": null,
-                            "location": "CHEFS Building",
+                            "location": "CED",
+                            "parentUnitId": 30,
+                            "orgUnitChildren": []
+                        },
+                        {
                             
+                            "orderNumber": 1,
+                            "unitName": "Elementary Education Department",
+                            "code": "EED",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CED",
+                            "parentUnitId": 30,
                             "orgUnitChildren": []
                         }
                     ]
                 },
                 {
                     
-                    "orderNumber": 12,
-                    "unitName": "College of Health Sciences",
-                    "code": "CHS",
+                    "orderNumber": 8,
+                    "unitName": "College of Business Development and Economics Management",
+                    "code": "CBDEM",
                     "unitType": "College",
-                    "currentHeadId": "04-00576",
-                    "nameOfHead": "MAMALUBA, EMMALYN, MANAMPAN",
+                    "currentHeadId": "79-00339",
+                    "nameOfHead": "DELA PEÑA, GLORIA, SABINAY",
                     "currentHead": null,
-                    "location": "CHS Building",
-                                        "orgUnitChildren": []
+                    "location": "CBDEM Building",
+                    "parentUnitId": 2,
+                    "orgUnitChildren": [
+                        {
+                            
+                            "orderNumber": 5,
+                            "unitName": "Development Management Department",
+                            "code": "DEVM",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CBDEM",
+                            "parentUnitId": 31,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 1,
+                            "unitName": "Accountancy Department",
+                            "code": "ACCD",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CBDEM Building",
+                            "parentUnitId": 31,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 2,
+                            "unitName": "Agribusiness Department",
+                            "code": "AGBUS",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CBDEM Building",
+                            "parentUnitId": 31,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 3,
+                            "unitName": "Agricultural Economics Department",
+                            "code": "AGECON",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CBDEM",
+                            "parentUnitId": 31,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 4,
+                            "unitName": "Business Administration Department",
+                            "code": "BUSAD",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CBDEM",
+                            "parentUnitId": 31,
+                            "orgUnitChildren": []
+                        }
+                    ]
                 },
                 {
                     
-                    "orderNumber": 13,
-                    "unitName": "College of Trades and Industries",
-                    "code": "CTI",
+                    "orderNumber": 7,
+                    "unitName": "College of Science and Mathematics",
+                    "code": "CSM",
                     "unitType": "College",
-                    "currentHeadId": "97-00568",
-                    "nameOfHead": "PRESTO, SOLOMON, LAMORENA",
+                    "currentHeadId": "94-00337",
+                    "nameOfHead": "PIMENTEL, JONALD, LOZARITO",
                     "currentHead": null,
-                    "location": "CTI Faculty building",
-                                        "orgUnitChildren": []
+                    "location": "CAS Building",
+                    "parentUnitId": 2,
+                    "orgUnitChildren": [
+                        {
+                            
+                            "orderNumber": 1,
+                            "unitName": "Physics Department",
+                            "code": "PHYSICS",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CAS",
+                            "parentUnitId": 32,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 2,
+                            "unitName": "Chemistry Department",
+                            "code": "CHEM",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CAS",
+                            "parentUnitId": 32,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 3,
+                            "unitName": "Biology Department",
+                            "code": "BIO",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CAS",
+                            "parentUnitId": 32,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 4,
+                            "unitName": "Math and Stat Department",
+                            "code": "MATH",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CAS",
+                            "parentUnitId": 32,
+                            "orgUnitChildren": []
+                        }
+                    ]
                 },
                 {
                     
-                    "orderNumber": 14,
-                    "unitName": "College of Veterinary Medicine",
-                    "code": "CVM",
+                    "orderNumber": 6,
+                    "unitName": "College of Arts and Social Sciences",
+                    "code": "CASS",
                     "unitType": "College",
-                    "currentHeadId": "83-00287",
-                    "nameOfHead": "OKIT, EMERLIE, ROJAS",
+                    "currentHeadId": "05-00855",
+                    "nameOfHead": "MONDERIN, MARCOS, FERNANDEZ",
                     "currentHead": null,
-                    "location": "CVM Building",
-                                        "orgUnitChildren": []
+                    "location": "CAS Building",
+                    "parentUnitId": 2,
+                    "orgUnitChildren": [
+                        {
+                            
+                            "orderNumber": 1,
+                            "unitName": "Department of English, Language & Literature",
+                            "code": "DELL",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CAS",
+                            "parentUnitId": 33,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 2,
+                            "unitName": "Department of Social Science and Philosophy",
+                            "code": "DSSP",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CAS Building",
+                            "parentUnitId": 33,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 3,
+                            "unitName": "Department of Filipino",
+                            "code": "DF",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CAS Building",
+                            "parentUnitId": 33,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 4,
+                            "unitName": "Department of Development Communication",
+                            "code": "DEVCOM",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CAS Building",
+                            "parentUnitId": 33,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 5,
+                            "unitName": "Department of Criminilogy",
+                            "code": "CRIM",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CAS Building",
+                            "parentUnitId": 33,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 6,
+                            "unitName": "Department of Psychology",
+                            "code": "PSYCH",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CAS Building",
+                            "parentUnitId": 33,
+                            "orgUnitChildren": []
+                        }
+                    ]
                 },
                 {
                     
-                    "orderNumber": 15,
-                    "unitName": "Institute of Middle East Asian Studies",
-                    "code": "IMEAS",
+                    "orderNumber": 5,
+                    "unitName": "College of Agriculture",
+                    "code": "CA",
                     "unitType": "College",
-                    "currentHeadId": "88-00345",
-                    "nameOfHead": "CAUP, DIALICA, LAGIDONG",
+                    "currentHeadId": "82-00285",
+                    "nameOfHead": "MIGALBIN, JOSEPHINE, RABANAL",
                     "currentHead": null,
-                    "location": "IMEAS Building",
-                                        "orgUnitChildren": []
+                    "location": "College of Agriculture Main Building",
+                    "parentUnitId": 2,
+                    "orgUnitChildren": [
+                        {
+                            
+                            "orderNumber": 0,
+                            "unitName": "Department of Agronomy",
+                            "code": "CA-AGRO",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "1st Floor, CA Main Building",
+                            "parentUnitId": 34,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 0,
+                            "unitName": "Department of Animal Science",
+                            "code": "CA-ANSCI",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CFAS Building, USMARC Road",
+                            "parentUnitId": 34,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 0,
+                            "unitName": "Department of Fisheries and Aquatic Resources",
+                            "code": "CA-FAS",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CFAS Building",
+                            "parentUnitId": 34,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 0,
+                            "unitName": "Department of Agricultural Extension",
+                            "code": "CA-AgExt",
+                            "unitType": "Depatment",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "CA Main Building",
+                            "parentUnitId": 34,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 0,
+                            "unitName": "Department of Crop Protection",
+                            "code": "CA-CP",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": "",
+                            "currentHead": null,
+                            "location": "CA Main Building",
+                            "parentUnitId": 34,
+                            "orgUnitChildren": []
+                        }
+                    ]
                 },
                 {
                     
-                    "orderNumber": 16,
-                    "unitName": "Institute of Sports, Physical Education, and Recreation",
-                    "code": "ISPEAR",
-                    "unitType": "College",
-                    "currentHeadId": "81-00441",
-                    "nameOfHead": "GARCIA, JUDY, LOZANO",
+                    "orderNumber": 4,
+                    "unitName": "Office of Student Affairs",
+                    "code": "OSA",
+                    "unitType": "Office",
+                    "currentHeadId": "07-00780",
+                    "nameOfHead": "SALILING, YVONNE, VILLANUEVA",
                     "currentHead": null,
-                    "location": "ISPEAR",
-                                        "orgUnitChildren": []
+                    "location": "OSA Building, USM Main Campus",
+                    "parentUnitId": 2,
+                    "orgUnitChildren": [
+                        {
+                            
+                            "orderNumber": 1,
+                            "unitName": "Counseling and Carer Department",
+                            "code": "CCD",
+                            "unitType": "Department",
+                            "currentHeadId": "11-02355",
+                            "nameOfHead": "SILAO, IMELDA, DAGUMAN",
+                            "currentHead": null,
+                            "location": "University Guidance Center",
+                            "parentUnitId": 35,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 2,
+                            "unitName": "Student Development Department",
+                            "code": "SDD",
+                            "unitType": "Department",
+                            "currentHeadId": "00-00587",
+                            "nameOfHead": "SALILING, WILLIE JONES, BAYOTLANG",
+                            "currentHead": null,
+                            "location": "OSA Building",
+                            "parentUnitId": 35,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 3,
+                            "unitName": "Scholarship and Financial Assistance Department",
+                            "code": "SFAD",
+                            "unitType": "Department",
+                            "currentHeadId": "82-00278",
+                            "nameOfHead": "ROCA, HAREM, RONDINA",
+                            "currentHead": null,
+                            "location": "OSA Building",
+                            "parentUnitId": 35,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 4,
+                            "unitName": "Diversity and Integrative Services Department",
+                            "code": "DISD",
+                            "unitType": "Department",
+                            "currentHeadId": "90-00436",
+                            "nameOfHead": "GONSANG, SHANDRA, CAUP",
+                            "currentHead": null,
+                            "location": "OSA Building",
+                            "parentUnitId": 35,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 5,
+                            "unitName": "Student Policy and Research Department",
+                            "code": "SPRD",
+                            "unitType": "Department",
+                            "currentHeadId": "02-00586",
+                            "nameOfHead": "CABORNIDA, IVY MAR, BARIT",
+                            "currentHead": null,
+                            "location": "OSA Building",
+                            "parentUnitId": 35,
+                            "orgUnitChildren": []
+                        }
+                    ]
+                },
+                {
+                    
+                    "orderNumber": 3,
+                    "unitName": "Admission and Records Office",
+                    "code": "ARO",
+                    "unitType": "Office",
+                    "currentHeadId": "97-00579",
+                    "nameOfHead": "PATARAY, MA. LEZEL, PRESIDENTE",
+                    "currentHead": null,
+                    "location": "Administration",
+                    "parentUnitId": 2,
+                    "orgUnitChildren": []
+                },
+                {
+                    
+                    "orderNumber": 2,
+                    "unitName": "NSTP Office",
+                    "code": "NSTP",
+                    "unitType": "Office",
+                    "currentHeadId": "82-00293",
+                    "nameOfHead": "GARCIA, MAY EVA, ZARZA",
+                    "currentHead": null,
+                    "location": "NSTP Building",
+                    "parentUnitId": 2,
+                    "orgUnitChildren": []
                 }
             ]
         },
@@ -618,30 +702,20 @@
             "nameOfHead": "DAPUN, LOPE, ELEAZAR",
             "currentHead": null,
             "location": "2nd Floor, Administration Building",
-                        "orgUnitChildren": [
+            "parentUnitId": 1,
+            "orgUnitChildren": [
                 {
                     
-                    "orderNumber": 1,
-                    "unitName": "Office of Administrative Service",
-                    "code": "OAS",
+                    "orderNumber": 4,
+                    "unitName": "Physical Plant and Development Services Office",
+                    "code": "PPDSO",
                     "unitType": "Office",
-                    "currentHeadId": "90-00342",
-                    "nameOfHead": "GALANG, MARGIE, BUTUAN",
+                    "currentHeadId": "84-00023",
+                    "nameOfHead": "FORTINEZ, BENJAMIN, EUGENIO",
                     "currentHead": null,
-                    "location": "Administration Building",
-                                        "orgUnitChildren": []
-                },
-                {
-                    
-                    "orderNumber": 2,
-                    "unitName": "Finance and Management Services Office",
-                    "code": "FMSO",
-                    "unitType": "Office",
-                    "currentHeadId": "94-00010",
-                    "nameOfHead": "MONDIA, BERNABE, BENDITA",
-                    "currentHead": null,
-                    "location": "Administration Building",
-                                        "orgUnitChildren": []
+                    "location": "Machinery",
+                    "parentUnitId": 3,
+                    "orgUnitChildren": []
                 },
                 {
                     
@@ -653,19 +727,34 @@
                     "nameOfHead": "CORDERO, MELECIO JR., ALMISTAS",
                     "currentHead": null,
                     "location": "ICTC",
-                                        "orgUnitChildren": []
+                    "parentUnitId": 3,
+                    "orgUnitChildren": []
                 },
                 {
                     
-                    "orderNumber": 4,
-                    "unitName": "Physical Plant and Development Services Office",
-                    "code": "PPDSO",
+                    "orderNumber": 2,
+                    "unitName": "Finance and Management Services Office",
+                    "code": "FMSO",
                     "unitType": "Office",
-                    "currentHeadId": "84-00023",
-                    "nameOfHead": "FORTINEZ, BENJAMIN, EUGENIO",
+                    "currentHeadId": "94-00010",
+                    "nameOfHead": "MONDIA, BERNABE, BENDITA",
                     "currentHead": null,
-                    "location": "Machinery",
-                                        "orgUnitChildren": []
+                    "location": "Administration Building",
+                    "parentUnitId": 3,
+                    "orgUnitChildren": []
+                },
+                {
+                    
+                    "orderNumber": 1,
+                    "unitName": "Office of Administrative Service",
+                    "code": "OAS",
+                    "unitType": "Office",
+                    "currentHeadId": "90-00342",
+                    "nameOfHead": "GALANG, MARGIE, BUTUAN",
+                    "currentHead": null,
+                    "location": "Administration Building",
+                    "parentUnitId": 3,
+                    "orgUnitChildren": []
                 }
             ]
         },
@@ -678,7 +767,61 @@
             "nameOfHead": "POMARES, CAYETANO, CARIÑO",
             "currentHead": null,
             "location": "2nd Floor, Administration Building",
-                        "orgUnitChildren": [
+            "parentUnitId": 1,
+            "orgUnitChildren": [
+                {
+                    
+                    "orderNumber": 2,
+                    "unitName": "Extension Services Office",
+                    "code": "ESO",
+                    "unitType": "Office",
+                    "currentHeadId": "16-03152",
+                    "nameOfHead": "BALADJAY, ARDNIEL, AMAR",
+                    "currentHead": null,
+                    "location": "Extension Building",
+                    "parentUnitId": 4,
+                    "orgUnitChildren": [
+                        {
+                            
+                            "orderNumber": 1,
+                            "unitName": "Linkaging and Networking",
+                            "code": "LAN",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "Extension",
+                            "parentUnitId": 17,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 2,
+                            "unitName": "Training",
+                            "code": "TRAINING",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "Extension",
+                            "parentUnitId": 17,
+                            "orgUnitChildren": []
+                        },
+                        {
+                            
+                            "orderNumber": 3,
+                            "unitName": "Technology Packaging and Commercialization",
+                            "code": "TPC",
+                            "unitType": "Department",
+                            "currentHeadId": null,
+                            "nameOfHead": null,
+                            "currentHead": null,
+                            "location": "Extension",
+                            "parentUnitId": 17,
+                            "orgUnitChildren": []
+                        }
+                    ]
+                },
                 {
                     
                     "orderNumber": 1,
@@ -689,7 +832,8 @@
                     "nameOfHead": "BARLAAN, EDWARD, ADOLFO",
                     "currentHead": null,
                     "location": "Extension Building",
-                                        "orgUnitChildren": [
+                    "parentUnitId": 4,
+                    "orgUnitChildren": [
                         {
                             
                             "orderNumber": 1,
@@ -700,7 +844,7 @@
                             "nameOfHead": "MAGULAMA, EFREN, ESTILONG",
                             "currentHead": null,
                             "location": "USMARC",
-                            
+                            "parentUnitId": 18,
                             "orgUnitChildren": [
                                 {
                                     
@@ -712,7 +856,7 @@
                                     "nameOfHead": null,
                                     "currentHead": null,
                                     "location": "RDE Display Center",
-                                    
+                                    "parentUnitId": 48,
                                     "orgUnitChildren": []
                                 }
                             ]
@@ -727,7 +871,7 @@
                             "nameOfHead": null,
                             "currentHead": null,
                             "location": "USMARC",
-                            
+                            "parentUnitId": 18,
                             "orgUnitChildren": []
                         },
                         {
@@ -740,7 +884,7 @@
                             "nameOfHead": null,
                             "currentHead": null,
                             "location": "USMARC",
-                            
+                            "parentUnitId": 18,
                             "orgUnitChildren": []
                         },
                         {
@@ -753,7 +897,7 @@
                             "nameOfHead": null,
                             "currentHead": null,
                             "location": "USMARC",
-                            
+                            "parentUnitId": 18,
                             "orgUnitChildren": []
                         },
                         {
@@ -766,59 +910,7 @@
                             "nameOfHead": null,
                             "currentHead": null,
                             "location": "USMARC",
-                            
-                            "orgUnitChildren": []
-                        }
-                    ]
-                },
-                {
-                    
-                    "orderNumber": 2,
-                    "unitName": "Extension Services Office",
-                    "code": "ESO",
-                    "unitType": "Office",
-                    "currentHeadId": "16-03152",
-                    "nameOfHead": "BALADJAY, ARDNIEL, AMAR",
-                    "currentHead": null,
-                    "location": "Extension Building",
-                                        "orgUnitChildren": [
-                        {
-                            
-                            "orderNumber": 1,
-                            "unitName": "Linkaging and Networking",
-                            "code": "LAN",
-                            "unitType": "Department",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "Extension",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 2,
-                            "unitName": "Training",
-                            "code": "TRAINING",
-                            "unitType": "Department",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "Extension",
-                            
-                            "orgUnitChildren": []
-                        },
-                        {
-                            
-                            "orderNumber": 3,
-                            "unitName": "Technology Packaging and Commercialization",
-                            "code": "TPC",
-                            "unitType": "Department",
-                            "currentHeadId": null,
-                            "nameOfHead": null,
-                            "currentHead": null,
-                            "location": "Extension",
-                            
+                            "parentUnitId": 18,
                             "orgUnitChildren": []
                         }
                     ]
@@ -833,7 +925,8 @@
                     "nameOfHead": "SALES, EMMA, KALAW",
                     "currentHead": null,
                     "location": "S&T Building",
-                                        "orgUnitChildren": [
+                    "parentUnitId": 4,
+                    "orgUnitChildren": [
                         {
                             
                             "orderNumber": 1,
@@ -844,7 +937,7 @@
                             "nameOfHead": null,
                             "currentHead": null,
                             "location": "Publication Office",
-                            
+                            "parentUnitId": 38,
                             "orgUnitChildren": []
                         },
                         {
@@ -857,7 +950,7 @@
                             "nameOfHead": null,
                             "currentHead": null,
                             "location": "SNT Building",
-                            
+                            "parentUnitId": 38,
                             "orgUnitChildren": []
                         },
                         {
@@ -870,7 +963,7 @@
                             "nameOfHead": null,
                             "currentHead": null,
                             "location": "SNT Building",
-                            
+                            "parentUnitId": 38,
                             "orgUnitChildren": []
                         }
                     ]
@@ -885,7 +978,8 @@
                     "nameOfHead": "PANDAY, SAMSUDIN, SUMILALAO",
                     "currentHead": null,
                     "location": "Lumayong, Carmen",
-                                        "orgUnitChildren": [
+                    "parentUnitId": 4,
+                    "orgUnitChildren": [
                         {
                             
                             "orderNumber": 1,
@@ -896,7 +990,7 @@
                             "nameOfHead": "NAVARRO, FREDERICK JOHN, BALEVA",
                             "currentHead": null,
                             "location": "PRTC Building",
-                            
+                            "parentUnitId": 39,
                             "orgUnitChildren": []
                         }
                     ]
@@ -912,7 +1006,8 @@
             "nameOfHead": "MURRAY, ABUBAKAR, ALEMAN",
             "currentHead": null,
             "location": "BDC Central Market",
-                        "orgUnitChildren": []
+            "parentUnitId": 1,
+            "orgUnitChildren": []
         },
         {
                         "orderNumber": 5,
@@ -923,7 +1018,8 @@
             "nameOfHead": "PINSOY, RONIELYN, FLORES",
             "currentHead": null,
             "location": "Administration Building, USM-KCC",
-                        "orgUnitChildren": []
+            "parentUnitId": 1,
+            "orgUnitChildren": []
         },
         {
                         "orderNumber": 6,
@@ -934,7 +1030,8 @@
             "nameOfHead": "ALUCILJA, RENEL, MANALO",
             "currentHead": null,
             "location": "2nd Floor, Administration Building, USM Main Campus",
-                        "orgUnitChildren": []
+            "parentUnitId": 1,
+            "orgUnitChildren": []
         },
         {
                         "orderNumber": 7,
@@ -945,7 +1042,8 @@
             "nameOfHead": "PUEYO, JACINTA, TORRES",
             "currentHead": null,
             "location": "Old Post Office Building, USM Main Campus",
-                        "orgUnitChildren": []
+            "parentUnitId": 1,
+            "orgUnitChildren": []
         },
         {
                         "orderNumber": 8,
@@ -956,7 +1054,35 @@
             "nameOfHead": "SALILING, WILLIE JONES, BAYOTLANG",
             "currentHead": null,
             "location": "2nd Floor, Administration Building, USM Main Campus",
-                        "orgUnitChildren": []
+            "parentUnitId": 1,
+            "orgUnitChildren": [
+                {
+                    
+                    "orderNumber": 1,
+                    "unitName": "Recuitment, Selection and Promotion Department",
+                    "code": "HRMDO-RSP",
+                    "unitType": "Department",
+                    "currentHeadId": "90-00620",
+                    "nameOfHead": "GELACIO, ANITA, SANTOS",
+                    "currentHead": null,
+                    "location": "2nd Floor, Administration Building",
+                    "parentUnitId": 9,
+                    "orgUnitChildren": []
+                },
+                {
+                    
+                    "orderNumber": 0,
+                    "unitName": "Learning and Development Department",
+                    "code": "HRMDO-LND",
+                    "unitType": "Department",
+                    "currentHeadId": null,
+                    "nameOfHead": null,
+                    "currentHead": null,
+                    "location": "2nd Floor, HRMD Office, Administration Building",
+                    "parentUnitId": 9,
+                    "orgUnitChildren": []
+                }
+            ]
         },
         {
             
@@ -968,7 +1094,8 @@
             "nameOfHead": "FORRO, ORLANDO, BATALLA",
             "currentHead": null,
             "location": "Welcome Arc, USM Main Campus",
-                        "orgUnitChildren": []
+            "parentUnitId": 1,
+            "orgUnitChildren": []
         },
         {
             
@@ -980,7 +1107,8 @@
             "nameOfHead": "COLITA, LLOYD ANTON VON, MALDECIR",
             "currentHead": null,
             "location": "2nd Floor, Administration Building",
-                        "orgUnitChildren": []
+            "parentUnitId": 1,
+            "orgUnitChildren": []
         },
         {
             
@@ -992,7 +1120,8 @@
             "nameOfHead": "SINCO, JENNIFER, ESTACIO",
             "currentHead": null,
             "location": "2nd Floor, Administration Building",
-                        "orgUnitChildren": []
+            "parentUnitId": 1,
+            "orgUnitChildren": []
         },
         {
             
@@ -1004,7 +1133,8 @@
             "nameOfHead": "DOLLENTE, LAWRENCE ANTHONY, UGAY",
             "currentHead": null,
             "location": "2nd Floor, Administration Building",
-                        "orgUnitChildren": []
+            "parentUnitId": 1,
+            "orgUnitChildren": []
         },
         {
             
@@ -1016,7 +1146,8 @@
             "nameOfHead": null,
             "currentHead": null,
             "location": "Administration Building",
-                        "orgUnitChildren": []
+            "parentUnitId": 1,
+            "orgUnitChildren": []
         },
         {
             
@@ -1028,7 +1159,8 @@
             "nameOfHead": "AUSTRIA, JEAN, ELEVAZO",
             "currentHead": null,
             "location": "Administration Building",
-                        "orgUnitChildren": []
+            "parentUnitId": 1,
+            "orgUnitChildren": []
         }
     ]
 }

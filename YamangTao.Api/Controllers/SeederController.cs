@@ -52,11 +52,11 @@ namespace YamangTao.Api.Controllers
             bool result = false;
             foreach (var employee in employees)
             {
-                _repoEmp.AddAsync(employee).Wait();
+                _repoEmp.Add(employee);
                 // result = await _repoEmp.SaveAll();    
             }
 
-            result = await _repoEmp.SaveAll();
+            result = await _repoEmp.SaveAllAsync();
             if (result)
             {
                 return Created("", null);

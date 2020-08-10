@@ -1,10 +1,12 @@
 using System;
+using YamangTao.Core.Document;
 
 namespace YamangTao.Model.LND
 {
-    public class TrainingEffectivenessAssessment
+    public class TrainingEffectivenessAssessment : IDocument
     {
         public int Id { get; set; }
+        public string TrainingCode { get; set; }
         public DateTime? DateStart { get; set; }
         public DateTime? DateEnd { get; set; }
         public string P1 { get; set; }
@@ -33,6 +35,13 @@ namespace YamangTao.Model.LND
         public string CurrentHolder { get; set; } // Employee ID where the current document Resides
         public string NextUser { get; set; } // Employee ID where the document is submitted next
         public string Status { get; set; } // Draft, For Review, Return to sender, For Approval, Approved
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateLastModified { get; set; }
+        public DateTime? DateLastPrinted { get; set; }
 
+        public string GetDocumentType()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

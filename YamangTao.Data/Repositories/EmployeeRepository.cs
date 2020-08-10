@@ -81,22 +81,10 @@ namespace YamangTao.Data.Repositories
         }
 
 
-        public async Task<bool> SaveAll()
+        public async Task<bool> VerifyEmployee(string lastname, string firstname)
         {
-            return await _context.SaveChangesAsync() > 0;
-        }
-
-        public async Task<bool> VerifyEmployee(string lastname, string firstname, string middleName)
-        {
-            // var employee = await _context.Employees.FirstOrDefaultAsync(e => e.Id.Equals(id) && e.Lastname.Equals(lastname) && e.Firstname.Equals(firstname));
-            // if (employee != null)
-            // {
-            //     return true;
-            // }
-            // return false;
             return await _context.Employees.AnyAsync(e => e.Lastname.ToUpper().Equals(lastname) 
-                                                    && e.Firstname.ToUpper().Equals(firstname) 
-                                                    && e.MiddleName.ToUpper().Equals(middleName));
+                                                    && e.Firstname.ToUpper().Equals(firstname));
         }
 
         public async Task<bool> IdExists(string id)
@@ -135,6 +123,36 @@ namespace YamangTao.Data.Repositories
         public async Task<List<string>> GetDistinctMiddle()
         {
             return await _context.Employees.Select(e => e.MiddleName).Distinct().ToListAsync();
+        }
+
+        public void Add<T>(T entity) where T : class
+        {
+           _context.Add(entity);
+        }
+
+        public void Delete<T>(T entity) where T : class
+        {
+             _context.Remove(entity);
+        }
+
+        public void DeleteRange<T>(IEnumerable<T> entities) where T : class
+        {
+            _context.RemoveRange(entities);
+        }
+
+        public async Task<T> GetById<T, K>(K id) where T : class
+        {
+            return await _context.FindAsync<T>(id);
+        }
+
+        public bool SaveAll()
+        {
+            return _context.SaveChanges() > 0;
+        }
+
+        public async Task<bool> SaveAllAsync()
+        {
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

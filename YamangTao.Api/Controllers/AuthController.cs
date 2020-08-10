@@ -20,6 +20,7 @@ using YamangTao.Core.Repository;
 using YamangTao.Core.HttpParams;
 using YamangTao.Data.Helpers;
 using YamangTao.Api.Helpers;
+using YamangTao.Model.RSP.Pds;
 
 namespace YamangTao.Api.Controllers
 {
@@ -63,8 +64,7 @@ namespace YamangTao.Api.Controllers
             // }
             
             bool verified = await _repo.VerifyEmployee(userForRegisterDto.Lastname.ToUpper(), 
-                                                        userForRegisterDto.Firstname.ToUpper(),
-                                                        userForRegisterDto.Middlename.ToUpper());
+                                                        userForRegisterDto.Firstname.ToUpper());
             if (!verified)
             {
                 throw new ArgumentException($"The system DOES NOT RECOGNIZE this user as an employee. Please contact HRMD Office");
@@ -98,7 +98,23 @@ namespace YamangTao.Api.Controllers
                 employee.EmailAddress = userForRegisterDto.Email;
                 employee.BrachCampusId = userForRegisterDto.CampusId;
                 employee.OrgUnitId = userForRegisterDto.OrgUnitId;
-                await _repo.SaveAll();
+                employee.Sex = userForRegisterDto.Sex;
+                employee.BirthDate = userForRegisterDto.Birthdate;
+                
+                var newAddress = new Address() {
+                    EmployeeId = employee.Id,
+                    Description = "Permanent Address",
+                    Block = "",
+                    Street = userForRegisterDto.Street,
+                    Purok = userForRegisterDto.Purok,
+                    Barangay = userForRegisterDto.Barangay,
+                    Municipality = userForRegisterDto.Municipality,
+                    Province = userForRegisterDto.Province,
+                    DateCreated = DateTime.Now
+                };
+                
+
+                await _repo.SaveAllAsync();
 
                 var createdUser = await _userManager.FindByIdAsync(userToCreate.UserName);
                 _userManager.AddToRoleAsync(createdUser, "Employee").Wait();

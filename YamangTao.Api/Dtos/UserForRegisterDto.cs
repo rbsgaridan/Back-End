@@ -21,8 +21,17 @@ namespace YamangTao.Api.Dtos
         public string Lastname { get; set; }
         public string Firstname { get; set; }
         public string Middlename { get; set; }
+        public string Mi { get; set; }
         public int CampusId { get; set; }
         public int OrgUnitId { get; set; }
+        public string Sex { get; set; }
+        public DateTime Birthdate { get; set; }
+
+        public string Street { get; set; }
+        public string Purok { get; set; }
+        public string Barangay { get; set; }
+        public string Municipality { get; set; }
+        public string Province { get; set; }
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
         

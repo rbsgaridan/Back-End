@@ -70,7 +70,7 @@ namespace YamangTao.Api.Controllers
             var employeeFromRepo = await _repo.GetEmployeeByID(employeeForUpdate.Id);
             _mapper.Map(employeeForUpdate, employeeFromRepo);
 
-            if (await _repo.SaveAll())
+            if (await _repo.SaveAllAsync())
             {
                 return NoContent();
             }
@@ -83,15 +83,14 @@ namespace YamangTao.Api.Controllers
         {
             // check if employee is already in the database
             if (await _repo.VerifyEmployee(employeeForCreationDto.Lastname,
-                                            employeeForCreationDto.Firstname,
-                                            employeeForCreationDto.MiddleName))
+                                            employeeForCreationDto.Firstname))
             {
                 throw new Exception($"{employeeForCreationDto.Lastname}, {employeeForCreationDto.Firstname} y {employeeForCreationDto.MiddleName}");
             }
 
             var employee = _mapper.Map<Employee>(employeeForCreationDto);
-            await _repo.AddAsync(employee);
-            if (await _repo.SaveAll())
+            _repo.Add(employee);
+            if (await _repo.SaveAllAsync())
             {
                 var employeeToReturn = _mapper.Map<EmployeeDto>(employee);
                 return CreatedAtRoute("GetEmployee", new { id = employee.Id }, employeeToReturn);
@@ -104,8 +103,8 @@ namespace YamangTao.Api.Controllers
         public async Task<IActionResult> deleteEmployee(string id)
         {
             var employeeFromRepo = await _repo.GetEmployeeByID(id);
-            _repo.Remove(employeeFromRepo);
-            if (await _repo.SaveAll())
+            _repo.Delete(employeeFromRepo);
+            if (await _repo.SaveAllAsync())
             {
                 return NoContent();
             }

@@ -44,7 +44,12 @@ namespace YamangTao.Data.Repositories
         public async Task<IEnumerable<OrgUnit>> GetAllOrgUnitsWithChildren()
         {
             return await _context.OrgUnits.Include(o => o.OrgUnitChildren)
-                    .ThenInclude(c => c.OrgUnitChildren).ToListAsync();
+                                            .ThenInclude(c => c.OrgUnitChildren)
+                                            .ThenInclude(o => o.OrgUnitChildren)
+                                            .ThenInclude(o => o.OrgUnitChildren)
+                                            .ThenInclude(o => o.OrgUnitChildren)
+                                            
+                                            .ToListAsync();
         }
 
         public async Task<OrgUnit> GetOrgUnit(int? id)
