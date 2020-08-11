@@ -10,6 +10,8 @@ using YamangTao.Api.Dtos.Pms;
 using YamangTao.Model.PM;
 using YamangTao.Model.RSP.Pds;
 using YamangTao.Api.Dtos.Rsp;
+using YamangTao.Model.LND;
+using YamangTao.Api.Dtos.LND;
 
 namespace YamangTao.Api.Helpers
 {
@@ -67,11 +69,12 @@ namespace YamangTao.Api.Helpers
             CreateMap<Address, AddressDto>().ReverseMap();
             CreateMap<Identification, IdentificationDto>().ReverseMap();
             CreateMap<PersonalDataSheet, PersonalDataSheetDto>().ReverseMap();
-
-
-
-
-
+            
+            CreateMap<Activity, ActivityDto>().ReverseMap();
+            CreateMap<ActivityType, ActivityTypeDto>().ReverseMap();
+            CreateMap<Certificate, CertificateDto>().ReverseMap();
+            CreateMap<CertificateType, CertificateTypeDto>().ReverseMap();
+            CreateMap<TrainingEffectivenessAssessment, TrainingEffectivenessAssessmentDto>().ReverseMap();
             
 
             // .ForMember(dest => dest.Age, opt => {
