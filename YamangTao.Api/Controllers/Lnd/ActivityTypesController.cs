@@ -10,6 +10,7 @@ using YamangTao.Core.HttpParams;
 using YamangTao.Data.Core;
 using YamangTao.Model.OrgStructure;
 using YamangTao.Api.Dtos.LND;
+using YamangTao.Model.LND;
 
 namespace YamangTao.Api.Controllers.Lnd
 {
@@ -32,78 +33,59 @@ namespace YamangTao.Api.Controllers.Lnd
         [AllowAnonymous]
         public async Task<IActionResult> GetActivityType(int id)
         {
-            var activityType = await _repo.GetById<int>(id);
+            var activityType = await _repo.GetById<ActivityType, int>(id);
             var activityTypeToReturn = _mapper.Map<ActivityTypeDto>(activityType);
             return Ok(activityTypeToReturn);
         }
 
         
 
-        [HttpGet("search")]
-        [AllowAnonymous]
-        public async Task<IActionResult> SearchactivityTypes([FromQuery] string keyword)
-        {
-            var unitParams = new activityTypeParams() {
-                                PageSize = 10,
-                                PageNumber = 1,
-                                Keyword = keyword
-                            };
-            var activityTypes = await _repo.SearchactivityTypesPaged(unitParams);
-            var activityTypesToReturn = _mapper.Map<IEnumerable<activityTypeListDto>>(activityTypes);
-            return Ok(activityTypesToReturn);
-        }
 
-        [HttpGet("activityTypesfulltree")]
+        [HttpGet("all")]
         [AllowAnonymous]
-        public async Task<IActionResult> LoadFullTree()
+        public async Task<IActionResult> GetAll()
         {
-            var activityTypes = await _repo.GetAllactivityTypesWithChildren();
+            var activityTypes = await _repo.GetAll<ActivityType>();
             var activityTypesToReturn = _mapper.Map<IEnumerable<ActivityTypeDto>>(activityTypes);
             return Ok(activityTypesToReturn);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateactivityType(int id, activityTypeUpdateDto activityTypeForUpdate)
+        public async Task<IActionResult> UpdateActivityType(int id, ActivityTypeDto activityTypeForUpdate)
         {
-            var activityTypeFromRepo = await _repo.GetActivityType(activityTypeForUpdate.Id);
-            if (activityTypeForUpdate.ParentUnitId == 0)
-            {
-                activityTypeForUpdate.ParentUnitId = null;
-            }
+            var activityTypeFromRepo = await _repo.GetById<ActivityType, int>(activityTypeForUpdate.Id);
+           
             _mapper.Map(activityTypeForUpdate, activityTypeFromRepo);
 
-            if (await _repo.SaveAll())
+            if (await _repo.SaveAllAsync())
             {
                 return NoContent();
             }
 
-            throw new Exception($"Updating activityType {activityTypeForUpdate.UnitName} failed on save.");
+            throw new Exception($"Updating activityType {activityTypeForUpdate.Description} failed on save.");
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateactivityType(activityTypeUpdateDto activityTypeForCreationDto)
+        public async Task<IActionResult> CreateactivityType(ActivityTypeDto activityTypeForCreationDto)
         {
-            var activityType = _mapper.Map<activityType>(activityTypeForCreationDto);
-            if (activityTypeForCreationDto.ParentUnitId != null)
-            {
-                activityType.ParentUnit = await _repo.GetActivityType(activityTypeForCreationDto.ParentUnitId);
-            }
-            await _repo.AddAsync(activityType);
-            if (await _repo.SaveAll())
+            var activityType = _mapper.Map<ActivityType>(activityTypeForCreationDto);
+           
+            _repo.Add(activityType);
+            if (await _repo.SaveAllAsync())
             {
                 var activityTypeToReturn = _mapper.Map<ActivityTypeDto>(activityType);
                 return CreatedAtRoute("GetActivityType", new { id = activityType.Id }, activityTypeToReturn);
             }
 
-            throw new Exception("Creating the  failed on save");
+            throw new Exception("Creating the Activity failed on save");
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> deleteactivityType(int id)
+        public async Task<IActionResult> DeleteActivityType(int id)
         {
-            var activityTypeFromRepo = await _repo.GetActivityType(id);
-            _repo.Remove(activityTypeFromRepo);
-            if (await _repo.SaveAll())
+            var activityTypeFromRepo = await _repo.GetById<ActivityType, int>(id);
+            _repo.Delete(activityTypeFromRepo);
+            if (await _repo.SaveAllAsync())
             {
                 return NoContent();
             }
@@ -114,7 +96,7 @@ namespace YamangTao.Api.Controllers.Lnd
         public async Task<IActionResult> ListAllactivityTypes()
         {
             //TODO: Implement Realistic Implementation
-          return Ok(await _repo.GetAllactivityType());
+          return Ok(await _repo.GetAll<ActivityType>());
         }
 
     }

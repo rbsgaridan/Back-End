@@ -144,11 +144,11 @@ namespace YamangTao.Data.Repositories
             return await entities.ToListAsync();
         }
 
-        public async Task<Rating> GetRating(int rmId, sbyte rate)
-        {
-            var rating = await _context.Ratings.FirstOrDefaultAsync(r => r.RatingMatrixId == rmId && r.Rate == rate);
-            return rating;
-        }
 
+        public async Task<IEnumerable<T>> GetAll<T>() where T : class
+        {
+            var entities = await _context.Set<T>().ToListAsync();
+            return entities;
+        }
     }
 }

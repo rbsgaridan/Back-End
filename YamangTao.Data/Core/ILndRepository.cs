@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using YamangTao.Core.Common;
@@ -12,6 +13,7 @@ namespace YamangTao.Data.Core
         Task<PagedList<T>> GetPaged<T,K>(LndParams pmsParams) where T: class, IIdentifyableEntity<K>;
         Task<T> GetById<T,K>(K id) where T: class;
         Task<List<T>> GetList<T,K>(PmsParams pmsParams) where T: class, IIdentifyableEntity<K>;
+        Task<IEnumerable<T>> GetAll<T>() where T: class;
         
     }
 }
