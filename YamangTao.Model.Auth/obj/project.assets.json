@@ -1955,23 +1955,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\HR IT Support\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\Ralph Butch\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\Back-End\\YamangTao.Model.Auth\\YamangTao.Model.Auth.csproj",
+      "projectUniqueName": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model.Auth\\YamangTao.Model.Auth.csproj",
       "projectName": "YamangTao.Model.Auth",
-      "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\Back-End\\YamangTao.Model.Auth\\YamangTao.Model.Auth.csproj",
-      "packagesPath": "C:\\Users\\HR IT Support\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\Back-End\\YamangTao.Model.Auth\\obj\\",
+      "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model.Auth\\YamangTao.Model.Auth.csproj",
+      "packagesPath": "C:\\Users\\Ralph Butch\\.nuget\\packages\\",
+      "outputPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model.Auth\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\HR IT Support\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Ralph Butch\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.1"
@@ -1982,8 +1978,8 @@
       "frameworks": {
         "netstandard2.1": {
           "projectReferences": {
-            "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\Back-End\\YamangTao.Model\\YamangTao.Model.csproj": {
-              "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\Back-End\\YamangTao.Model\\YamangTao.Model.csproj"
+            "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model\\YamangTao.Model.csproj": {
+              "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model\\YamangTao.Model.csproj"
             }
           }
         }
@@ -2021,7 +2017,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.301\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
       }
     }
   }

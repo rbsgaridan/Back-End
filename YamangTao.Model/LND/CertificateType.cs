@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using YamangTao.Core.Common;
 
 namespace YamangTao.Model.LND
@@ -6,12 +7,14 @@ namespace YamangTao.Model.LND
     {
         public string Id{ get; set; }
         public string Name { get; set; }
+        public IEnumerable<Certificate> Certificates { get; set; }
         public string EntityId 
         { 
             get {
                     return Id;
                 } 
         }
+
 
     }
 }

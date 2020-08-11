@@ -1,0 +1,11 @@
+{
+  "version": 2,
+  "dgSpecHash": "Ey6RVucNXHxhHIFbZgJBBFxn38HDrBCTQ0T/2Yxji0nFkEo28oTDudSnhV39ELTfQaqdJRkcVHYmA0/XywtF4A==",
+  "success": true,
+  "projectFilePath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model.Kargada\\YamangTao.Model.Kargada.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Ralph Butch\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
+    "C:\\Users\\Ralph Butch\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

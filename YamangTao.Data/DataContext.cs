@@ -1,9 +1,11 @@
+
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using YamangTao.Model;
 using YamangTao.Model.Auth;
 using YamangTao.Model.DocumentTracking;
+using YamangTao.Model.LND;
 using YamangTao.Model.OrgStructure;
 using YamangTao.Model.PM;
 using YamangTao.Model.RSP;
@@ -33,6 +35,11 @@ namespace YamangTao.Data
         public DbSet<Eligibility> Eligibities { get; set; }
         public DbSet<Identification> Identifications { get; set; }
         public DbSet<DocumentPath> DocumentPaths { get; set; }
+        public DbSet<Activity> Activities { get; set; }
+        public DbSet<ActivityType> ActivityTypes { get; set; }
+        public DbSet<CertificateType> CertificateTypes { get; set; }
+        public DbSet<Certificate> Certificate { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -234,6 +241,37 @@ namespace YamangTao.Data
                 e.Property(p => p.IDType).HasMaxLength(30);
                 e.Property(p => p.Control).HasMaxLength(30);
             });
+
+
+            // Lnd
+            builder.Entity<Activity>(a => {
+                a.HasOne(p => p.ActivityType)
+                    .WithMany(at => at.Activities)
+                    .HasForeignKey(at => at.ActivityTypeId);
+                a.Property(p => p.Id).HasMaxLength(30);
+            });
+
+            builder.Entity<ActivityType>(a => {
+                a.Property(p => p.Description).HasMaxLength(100);
+            });
+
+            builder.Entity<CertificateType>(a => {
+                a.Property(p => p.Name).HasMaxLength(60);
+                a.Property(p => p.Id).HasMaxLength(30);
+            });
+
+            builder.Entity<Certificate>(a => {
+                a.HasOne(p => p.CertificateType)
+                    .WithMany(at => at.Certificates)
+                    .HasForeignKey(at => at.CertificateTypeId);
+                a.Property(p => p.Id).HasMaxLength(30);
+                a.Property(p => p.Role).HasMaxLength(50);
+                a.Property(p => p.Sex).HasMaxLength(10);
+                a.Property(p => p.Suffix).HasMaxLength(10);
+                a.Property(p => p.ActivityId).HasMaxLength(30);
+            });
+
+
             
             
             // builder.Entity<Ipcr>(ipcr => { Residential Address
