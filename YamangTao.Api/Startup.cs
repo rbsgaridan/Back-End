@@ -129,6 +129,7 @@ namespace YamangTao.Api
             services.AddScoped<IOrgUnitRepository, OrgUnitRepository>();
             services.AddScoped<IPmsRepository, PmsRepository>();
             services.AddScoped<IPdsRepository, PdsRepository>();
+            services.AddScoped<ILndRepository, LndRepository>();
 
 
         }

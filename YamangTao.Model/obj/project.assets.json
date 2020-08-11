@@ -27,19 +27,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Ralph Butch\\.nuget\\packages\\": {}
+    "C:\\Users\\HR IT Support\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model\\YamangTao.Model.csproj",
+      "projectUniqueName": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\Back-End\\YamangTao.Model\\YamangTao.Model.csproj",
       "projectName": "YamangTao.Model",
-      "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model\\YamangTao.Model.csproj",
-      "packagesPath": "C:\\Users\\Ralph Butch\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model\\obj\\",
+      "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\Back-End\\YamangTao.Model\\YamangTao.Model.csproj",
+      "packagesPath": "C:\\Users\\HR IT Support\\.nuget\\packages\\",
+      "outputPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\Back-End\\YamangTao.Model\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Ralph Butch\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\HR IT Support\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.1"
@@ -50,8 +54,8 @@
       "frameworks": {
         "netstandard2.1": {
           "projectReferences": {
-            "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\YamangTao.Core.csproj": {
-              "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\YamangTao.Core.csproj"
+            "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\Back-End\\YamangTao.Core\\YamangTao.Core.csproj": {
+              "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\Back-End\\YamangTao.Core\\YamangTao.Core.csproj"
             }
           }
         }

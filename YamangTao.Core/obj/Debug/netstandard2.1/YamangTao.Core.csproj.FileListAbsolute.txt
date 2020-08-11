@@ -7,3 +7,12 @@ D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Core\obj\Debug\netstandard2.1\Ya
 D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Core\obj\Debug\netstandard2.1\YamangTao.Core.dll
 D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Core\obj\Debug\netstandard2.1\YamangTao.Core.pdb
 D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Core\obj\Debug\netstandard2.1\YamangTao.Core.csproj.CoreCompileInputs.cache
+D:\Projects\dotnet3\YamangTao\BackEnd\Back-End\YamangTao.Core\bin\Debug\netstandard2.1\YamangTao.Core.deps.json
+D:\Projects\dotnet3\YamangTao\BackEnd\Back-End\YamangTao.Core\bin\Debug\netstandard2.1\YamangTao.Core.dll
+D:\Projects\dotnet3\YamangTao\BackEnd\Back-End\YamangTao.Core\bin\Debug\netstandard2.1\YamangTao.Core.pdb
+D:\Projects\dotnet3\YamangTao\BackEnd\Back-End\YamangTao.Core\obj\Debug\netstandard2.1\YamangTao.Core.csprojAssemblyReference.cache
+D:\Projects\dotnet3\YamangTao\BackEnd\Back-End\YamangTao.Core\obj\Debug\netstandard2.1\YamangTao.Core.AssemblyInfoInputs.cache
+D:\Projects\dotnet3\YamangTao\BackEnd\Back-End\YamangTao.Core\obj\Debug\netstandard2.1\YamangTao.Core.AssemblyInfo.cs
+D:\Projects\dotnet3\YamangTao\BackEnd\Back-End\YamangTao.Core\obj\Debug\netstandard2.1\YamangTao.Core.csproj.CoreCompileInputs.cache
+D:\Projects\dotnet3\YamangTao\BackEnd\Back-End\YamangTao.Core\obj\Debug\netstandard2.1\YamangTao.Core.dll
+D:\Projects\dotnet3\YamangTao\BackEnd\Back-End\YamangTao.Core\obj\Debug\netstandard2.1\YamangTao.Core.pdb
