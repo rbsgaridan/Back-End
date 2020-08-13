@@ -1,20 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model\\YamangTao.Model.csproj": {}
+    "D:\\Projects\\dotnet3\\YamangTao\\Back-End\\YamangTao.Model\\YamangTao.Model.csproj": {}
   },
   "projects": {
-    "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\YamangTao.Core.csproj": {
+    "D:\\Projects\\dotnet3\\YamangTao\\Back-End\\YamangTao.Core\\YamangTao.Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\YamangTao.Core.csproj",
+        "projectUniqueName": "D:\\Projects\\dotnet3\\YamangTao\\Back-End\\YamangTao.Core\\YamangTao.Core.csproj",
         "projectName": "YamangTao.Core",
-        "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\YamangTao.Core.csproj",
-        "packagesPath": "C:\\Users\\Ralph Butch\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\obj\\",
+        "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\Back-End\\YamangTao.Core\\YamangTao.Core.csproj",
+        "packagesPath": "C:\\Users\\HR IT Support\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\dotnet3\\YamangTao\\Back-End\\YamangTao.Core\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Ralph Butch\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\HR IT Support\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
@@ -50,21 +53,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model\\YamangTao.Model.csproj": {
+    "D:\\Projects\\dotnet3\\YamangTao\\Back-End\\YamangTao.Model\\YamangTao.Model.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model\\YamangTao.Model.csproj",
+        "projectUniqueName": "D:\\Projects\\dotnet3\\YamangTao\\Back-End\\YamangTao.Model\\YamangTao.Model.csproj",
         "projectName": "YamangTao.Model",
-        "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model\\YamangTao.Model.csproj",
-        "packagesPath": "C:\\Users\\Ralph Butch\\.nuget\\packages\\",
-        "outputPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Model\\obj\\",
+        "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\Back-End\\YamangTao.Model\\YamangTao.Model.csproj",
+        "packagesPath": "C:\\Users\\HR IT Support\\.nuget\\packages\\",
+        "outputPath": "D:\\Projects\\dotnet3\\YamangTao\\Back-End\\YamangTao.Model\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\Ralph Butch\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\HR IT Support\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.1"
@@ -75,8 +81,8 @@
         "frameworks": {
           "netstandard2.1": {
             "projectReferences": {
-              "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\YamangTao.Core.csproj": {
-                "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\YamangTao.Core.csproj"
+              "D:\\Projects\\dotnet3\\YamangTao\\Back-End\\YamangTao.Core\\YamangTao.Core.csproj": {
+                "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\Back-End\\YamangTao.Core\\YamangTao.Core.csproj"
               }
             }
           }
@@ -104,7 +110,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

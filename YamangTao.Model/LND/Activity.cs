@@ -1,3 +1,4 @@
+using System;
 using YamangTao.Core.Common;
 
 namespace YamangTao.Model.LND
@@ -12,7 +13,9 @@ namespace YamangTao.Model.LND
         public string Sponsor { get; set; }
         public string ProgramLeader { get; set; }
         public string Venue { get; set; }
-        
+        public DateTime? Start { get; set; }
+        public DateTime? End { get; set; }
+        public string Duration { get; set; }   
         public string EntityId 
         { 
             get {

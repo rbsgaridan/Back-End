@@ -26,3 +26,17 @@ D:\Projects\dotnet3\YamangTao\BackEnd\Back-End\YamangTao.Model.Auth\obj\Debug\ne
 D:\Projects\dotnet3\YamangTao\BackEnd\Back-End\YamangTao.Model.Auth\obj\Debug\netstandard2.1\YamangTao.Model.Auth.csproj.CopyComplete
 D:\Projects\dotnet3\YamangTao\BackEnd\Back-End\YamangTao.Model.Auth\obj\Debug\netstandard2.1\YamangTao.Model.Auth.dll
 D:\Projects\dotnet3\YamangTao\BackEnd\Back-End\YamangTao.Model.Auth\obj\Debug\netstandard2.1\YamangTao.Model.Auth.pdb
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Auth\bin\Debug\netstandard2.1\YamangTao.Model.Auth.deps.json
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Auth\bin\Debug\netstandard2.1\YamangTao.Model.Auth.dll
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Auth\bin\Debug\netstandard2.1\YamangTao.Model.Auth.pdb
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Auth\bin\Debug\netstandard2.1\YamangTao.Core.dll
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Auth\bin\Debug\netstandard2.1\YamangTao.Model.dll
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Auth\bin\Debug\netstandard2.1\YamangTao.Model.pdb
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Auth\bin\Debug\netstandard2.1\YamangTao.Core.pdb
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Auth\obj\Debug\netstandard2.1\YamangTao.Model.Auth.csprojAssemblyReference.cache
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Auth\obj\Debug\netstandard2.1\YamangTao.Model.Auth.AssemblyInfoInputs.cache
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Auth\obj\Debug\netstandard2.1\YamangTao.Model.Auth.AssemblyInfo.cs
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Auth\obj\Debug\netstandard2.1\YamangTao.Model.Auth.csproj.CoreCompileInputs.cache
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Auth\obj\Debug\netstandard2.1\YamangTao.Model.Auth.csproj.CopyComplete
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Auth\obj\Debug\netstandard2.1\YamangTao.Model.Auth.dll
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Auth\obj\Debug\netstandard2.1\YamangTao.Model.Auth.pdb

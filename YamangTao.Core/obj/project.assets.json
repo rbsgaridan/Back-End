@@ -8,19 +8,23 @@
     ".NETStandard,Version=v2.1": []
   },
   "packageFolders": {
-    "C:\\Users\\Ralph Butch\\.nuget\\packages\\": {}
+    "C:\\Users\\HR IT Support\\.nuget\\packages\\": {},
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\YamangTao.Core.csproj",
+      "projectUniqueName": "d:\\Projects\\dotnet3\\YamangTao\\Back-End\\YamangTao.Core\\YamangTao.Core.csproj",
       "projectName": "YamangTao.Core",
-      "projectPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\YamangTao.Core.csproj",
-      "packagesPath": "C:\\Users\\Ralph Butch\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\dotnet3\\YamangTao\\BackEnd\\YamangTao.Core\\obj\\",
+      "projectPath": "d:\\Projects\\dotnet3\\YamangTao\\Back-End\\YamangTao.Core\\YamangTao.Core.csproj",
+      "packagesPath": "C:\\Users\\HR IT Support\\.nuget\\packages\\",
+      "outputPath": "d:\\Projects\\dotnet3\\YamangTao\\Back-End\\YamangTao.Core\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+      ],
       "configFilePaths": [
-        "C:\\Users\\Ralph Butch\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\HR IT Support\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.1"
@@ -56,7 +60,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

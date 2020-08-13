@@ -403,6 +403,12 @@ namespace YamangTao.Data.Migrations
                     b.Property<int>("ActivityTypeId")
                         .HasColumnType("int");
 
+                    b.Property<string>("Duration")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("End")
+                        .HasColumnType("datetime2");
+
                     b.Property<int?>("OrgUnitId")
                         .HasColumnType("int");
 
@@ -411,6 +417,9 @@ namespace YamangTao.Data.Migrations
 
                     b.Property<string>("Sponsor")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("Start")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
@@ -454,10 +463,16 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("nvarchar(30)")
                         .HasMaxLength(30);
 
+                    b.Property<DateTime?>("CertificateDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("CertificateTypeId")
                         .HasColumnType("nvarchar(30)");
 
                     b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EventDuration")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("EventTitle")

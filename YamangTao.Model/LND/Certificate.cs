@@ -1,3 +1,4 @@
+using System;
 using YamangTao.Core.Common;
 
 namespace YamangTao.Model.LND
@@ -13,6 +14,8 @@ namespace YamangTao.Model.LND
         public string Role { get; set; }
         public string Topic { get; set; }
         public string EventTitle { get; set; }
+        public string EventDuration { get; set; }
+        public DateTime? CertificateDate { get; set; }
         public string CertificateTypeId { get; set; }
         public CertificateType CertificateType { get; set; }
         public string EntityId 

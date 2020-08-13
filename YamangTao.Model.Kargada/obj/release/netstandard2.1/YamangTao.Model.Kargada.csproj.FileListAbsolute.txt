@@ -1,0 +1,9 @@
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Kargada\bin\release\netstandard2.1\YamangTao.Model.Kargada.deps.json
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Kargada\bin\release\netstandard2.1\YamangTao.Model.Kargada.dll
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Kargada\bin\release\netstandard2.1\YamangTao.Model.Kargada.pdb
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Kargada\obj\release\netstandard2.1\YamangTao.Model.Kargada.csprojAssemblyReference.cache
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Kargada\obj\release\netstandard2.1\YamangTao.Model.Kargada.AssemblyInfoInputs.cache
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Kargada\obj\release\netstandard2.1\YamangTao.Model.Kargada.AssemblyInfo.cs
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Kargada\obj\release\netstandard2.1\YamangTao.Model.Kargada.csproj.CoreCompileInputs.cache
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Kargada\obj\release\netstandard2.1\YamangTao.Model.Kargada.dll
+D:\Projects\dotnet3\YamangTao\Back-End\YamangTao.Model.Kargada\obj\release\netstandard2.1\YamangTao.Model.Kargada.pdb
