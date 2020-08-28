@@ -70,9 +70,12 @@ namespace YamangTao.Api.Helpers
             CreateMap<Identification, IdentificationDto>().ReverseMap();
             CreateMap<PersonalDataSheet, PersonalDataSheetDto>().ReverseMap();
             
-            CreateMap<Activity, ActivityDto>().ReverseMap();
+            CreateMap<Activity, ActivityDto>().ForMember(src => src.ActivityType, opt => opt.MapFrom(act => act.ActivityType.Description));
+            CreateMap<ActivityDto, Activity>().ForMember(src => src.ActivityType, opt => opt.Ignore());
             CreateMap<ActivityType, ActivityTypeDto>().ReverseMap();
-            CreateMap<Certificate, CertificateDto>().ReverseMap();
+            
+            CreateMap<Certificate, CertificateDto>().ForMember(src => src.CertificateType, opt => opt.MapFrom(act => act.CertificateType.Name));
+            CreateMap<CertificateDto, Certificate>().ForMember(src => src.CertificateType, opt => opt.Ignore());
             CreateMap<CertificateType, CertificateTypeDto>().ReverseMap();
             CreateMap<TrainingEffectivenessAssessment, TrainingEffectivenessAssessmentDto>().ReverseMap();
             

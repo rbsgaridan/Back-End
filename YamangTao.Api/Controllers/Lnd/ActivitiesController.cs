@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using YamangTao.Data.Core;
 using YamangTao.Api.Dtos.LND;
 using YamangTao.Model.LND;
+using YamangTao.Core.HttpParams;
+using YamangTao.Api.Helpers;
 
 namespace YamangTao.Api.Controllers.Lnd
 {
@@ -26,9 +28,9 @@ namespace YamangTao.Api.Controllers.Lnd
 
         [HttpGet("{id}", Name = "GetActivity")]
         [AllowAnonymous]
-        public async Task<IActionResult> GetActivity(int id)
+        public async Task<IActionResult> GetActivity(string id)
         {
-            var activity = await _repo.GetById<Activity, int>(id);
+            var activity = await _repo.GetById<Activity, string>(id);
             var activityToReturn = _mapper.Map<ActivityDto>(activity);
             return Ok(activityToReturn);
         }
@@ -37,7 +39,7 @@ namespace YamangTao.Api.Controllers.Lnd
 
 
         [HttpGet("all")]
-        [AllowAnonymous]
+        // [AllowAnonymous]
         public async Task<IActionResult> GetAll()
         {
             var activitys = await _repo.GetAll<Activity>();
@@ -45,8 +47,22 @@ namespace YamangTao.Api.Controllers.Lnd
             return Ok(activitysToReturn);
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> GetActivitiesPaged([FromQuery] LndParams lndParams)
+        {
+            
+            var ipcrs = await _repo.GetPaged<Activity,string>(lndParams);
+            var ipcrsToReturn = _mapper.Map<IEnumerable<ActivityDto>>(ipcrs);
+            Response.AddPagination(ipcrs.CurrentPage, 
+                                    ipcrs.TotalCount, 
+                                    ipcrs.PageSize, 
+                                    ipcrs.TotalPages);
+            return Ok(ipcrsToReturn);
+        }
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateActivity(int id, ActivityDto activityForUpdate)
+        public async Task<IActionResult> UpdateActivity(string id, ActivityDto activityForUpdate)
         {
             var activityFromRepo = await _repo.GetById<Activity, string>(activityForUpdate.Id);
            
@@ -76,9 +92,9 @@ namespace YamangTao.Api.Controllers.Lnd
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteActivity(int id)
+        public async Task<IActionResult> DeleteActivity(string id)
         {
-            var activityFromRepo = await _repo.GetById<Activity, int>(id);
+            var activityFromRepo = await _repo.GetById<Activity, string>(id);
             _repo.Delete(activityFromRepo);
             if (await _repo.SaveAllAsync())
             {

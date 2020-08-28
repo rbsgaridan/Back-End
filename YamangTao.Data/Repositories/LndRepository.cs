@@ -8,6 +8,7 @@ using YamangTao.Data.Helpers;
 using YamangTao.Model.PM;
 using System.Collections.Generic;
 using YamangTao.Core.Common;
+using YamangTao.Model.LND;
 
 namespace YamangTao.Data.Repositories
 {
@@ -98,10 +99,20 @@ namespace YamangTao.Data.Repositories
 
        
 
-        public async Task<List<T>> GetList<T, K>(PmsParams pmsParams) where T: class, IIdentifyableEntity<K>
+        public async Task<List<T>> GetList<T, K>(LndParams pmsParams) where T: class, IIdentifyableEntity<K>
         {
             var entities = _context.Set<T>().AsQueryable();
             
+            //include child objects
+            if (typeof(T) == typeof(Activity))
+            {
+                entities = entities.Include("ActivityType");
+            } 
+
+            if (typeof(T) == typeof(Certificate))
+            {
+                entities = entities.Include("CertificateType");
+            } 
           
             //Keyword
             if (!string.IsNullOrEmpty(pmsParams.Keyword) && !string.IsNullOrEmpty(pmsParams.Filter))
@@ -147,8 +158,25 @@ namespace YamangTao.Data.Repositories
 
         public async Task<IEnumerable<T>> GetAll<T>() where T : class
         {
-            var entities = await _context.Set<T>().ToListAsync();
-            return entities;
+            var entities = _context.Set<T>().AsQueryable();
+            if (typeof(T) == typeof(Activity))
+            {
+                entities = entities.Include("ActivityType");
+            } 
+
+            if (typeof(T) == typeof(Certificate))
+            {
+                entities = entities.Include("CertificateType");
+            } 
+            return await entities.ToListAsync();
+        }
+
+        public async Task<IEnumerable<string>> GetDistinctField<T>(string propertyName) where T : class
+        {
+            return await _context.Set<T>()
+                                    .Select(x => EF.Property<string>(x, propertyName))
+                                    .Distinct()
+                                    .ToListAsync();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace YamangTao.Api.Dtos.LND
          public string EventDuration { get; set; }
         public DateTime? CertificateDate { get; set; }
         public string CertificateTypeId { get; set; }
-        public CertificateTypeDto CertificateType { get; set; }
+        public string CertificateType { get; set; }
         public string EntityId 
         { 
             get {

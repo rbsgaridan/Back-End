@@ -27,12 +27,7 @@ namespace YamangTao.Api.Dtos
         public DateTime? DateRetired { get; set; }
         public int? BrachCampusId { get; set; }
         public int? OrgUnitId { get; set; }
-        public string FullName 
-        { 
-            get {
-                return Lastname + ", " + Firstname + " " + MI;
-            }
-        }
+        public string FullName { get; set; }
 
        
     }

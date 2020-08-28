@@ -44,6 +44,14 @@ namespace YamangTao.Api.Controllers
             return Ok(employees);
         }
 
+        [HttpGet("searchnames")]
+        [AllowAnonymous]
+        public async Task<IActionResult> SearchEmployeNames([FromQuery] EmployeeParams employeeParams)
+        {
+            var employees = await _repo.SearchEmployeeReturnProper(employeeParams.Keyword);
+            return Ok(employees);
+        }
+
         [HttpGet("idexists/{id}")]
         public async Task<IActionResult> IDExists(string id)
         {

@@ -154,5 +154,21 @@ namespace YamangTao.Data.Repositories
         {
             return await _context.SaveChangesAsync() > 0;
         }
+
+        public async Task<List<EmployeeName>> SearchEmployeeReturnProper(string keyword)
+        {
+            if (keyword != null)
+            {
+                var employees = await _context.Employees.Where(e => e.FullName.ToUpper().Contains(keyword.ToUpper()))
+                                        .Select(e => new EmployeeName {
+                                            Id = e.Id,
+                                            Name = e.FullName})
+                                        .Take(10)
+                                        .ToListAsync();
+
+                return employees;
+            }
+            return null;
+        }
     }
 }

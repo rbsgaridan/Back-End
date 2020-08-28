@@ -12,8 +12,11 @@ namespace YamangTao.Data.Core
     {
         Task<PagedList<T>> GetPaged<T,K>(LndParams pmsParams) where T: class, IIdentifyableEntity<K>;
         Task<T> GetById<T,K>(K id) where T: class;
-        Task<List<T>> GetList<T,K>(PmsParams pmsParams) where T: class, IIdentifyableEntity<K>;
+        Task<List<T>> GetList<T,K>(LndParams pmsParams) where T: class, IIdentifyableEntity<K>;
+        // Task<IEnumerable<T>> GetAll<T>(string type) where T: class;
         Task<IEnumerable<T>> GetAll<T>() where T: class;
+
+        Task<IEnumerable<string>> GetDistinctField<T>(string propertyName) where T: class;
         
     }
 }

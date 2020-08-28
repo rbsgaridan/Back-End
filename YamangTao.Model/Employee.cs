@@ -38,17 +38,16 @@ namespace YamangTao.Model
         public virtual List<Ipcr> ReviewedIpcrs { get; set; }
         public virtual List<Ipcr> CompiledIpcrs { get; set; }
         public virtual List<Ipcr> ApprovedIpcrs { get; set; }
-        public string FullName 
-        { 
-            get {
-                return Lastname + ", " + Firstname + " " + MI;
-            }
-        }
+
+        
+        public string FullName { get; set; }
 
         public string GetAge() 
         { 
                 return DateTime.Now.Subtract(BirthDate ?? DateTime.Now).ToString();
         }
+
+        
 
     }
 }

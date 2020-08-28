@@ -6,7 +6,7 @@ namespace YamangTao.Model.LND
     public class TrainingEffectivenessAssessment : IDocument
     {
         public int Id { get; set; }
-        public string TrainingCode { get; set; }
+        public string TrainingCode { get; set; } // ActivityId
         public DateTime? DateStart { get; set; }
         public DateTime? DateEnd { get; set; }
         public string P1 { get; set; }

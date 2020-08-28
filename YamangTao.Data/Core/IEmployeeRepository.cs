@@ -12,6 +12,7 @@ namespace YamangTao.Core.Repository
         Task<PagedList<Employee>> GetEmployees(EmployeeParams employeeParams);
         Task<Employee> GetEmployeeByID(string id);
         Task<List<EmployeeName>> SearchEmployee(string keyword);
+        Task<List<EmployeeName>> SearchEmployeeReturnProper(string keyword);
 
         Task<bool> VerifyEmployee(string lastname, string firstname);
         Task<bool> IdExists(string id);
