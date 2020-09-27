@@ -5,7 +5,7 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using YamangTao.Data.Core;
-using YamangTao.Api.Dtos.LND;
+using YamangTao.Dto.LND;
 using YamangTao.Model.LND;
 
 namespace YamangTao.Api.Controllers.Lnd

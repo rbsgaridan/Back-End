@@ -54,7 +54,11 @@ namespace YamangTao.Data.Repositories
         public async Task<PagedList<T>> GetPaged<T, K>(LndParams lndParams) where T: class, IIdentifyableEntity<K>
         {
             var entities = _context.Set<T>().AsQueryable();
-            
+            if (typeof(T) == typeof(Certificate))
+            {
+                entities = entities.Include("CertificateType");
+                entities = entities.Include("TheActivity");
+            } 
           
             //Keyword
             if (!string.IsNullOrEmpty(lndParams.Keyword) && !string.IsNullOrEmpty(lndParams.Filter))
@@ -112,6 +116,7 @@ namespace YamangTao.Data.Repositories
             if (typeof(T) == typeof(Certificate))
             {
                 entities = entities.Include("CertificateType");
+                entities = entities.Include("TheActivity");
             } 
           
             //Keyword

@@ -2,16 +2,16 @@ using System.Runtime.InteropServices;
 using System.Linq;
 using AutoMapper;
 using YamangTao.Model.Auth;
-using YamangTao.Api.Dtos;
+using YamangTao.Dto;
 using YamangTao.Model;
 using YamangTao.Model.OrgStructure;
 using YamangTao.Model.RSP;
-using YamangTao.Api.Dtos.Pms;
+using YamangTao.Dto.Pms;
 using YamangTao.Model.PM;
 using YamangTao.Model.RSP.Pds;
-using YamangTao.Api.Dtos.Rsp;
+using YamangTao.Dto.Rsp;
 using YamangTao.Model.LND;
-using YamangTao.Api.Dtos.LND;
+using YamangTao.Dto.LND;
 
 namespace YamangTao.Api.Helpers
 {

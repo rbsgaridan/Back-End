@@ -18,6 +18,8 @@ namespace YamangTao.Model.LND
         public DateTime? CertificateDate { get; set; }
         public string CertificateTypeId { get; set; }
         public CertificateType CertificateType { get; set; }
+        public Activity TheActivity { get; set; }
+        
         public string EntityId 
         { 
             get {

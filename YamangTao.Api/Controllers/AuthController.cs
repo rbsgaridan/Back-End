@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
-using YamangTao.Api.Dtos;
+using YamangTao.Dto;
 using YamangTao.Model.Auth;
 using YamangTao.Core.Repository;
 using YamangTao.Core.HttpParams;

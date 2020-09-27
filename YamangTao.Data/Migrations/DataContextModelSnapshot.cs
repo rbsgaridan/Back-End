@@ -501,6 +501,8 @@ namespace YamangTao.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ActivityId");
+
                     b.HasIndex("CertificateTypeId");
 
                     b.ToTable("Certificate");
@@ -1262,6 +1264,11 @@ namespace YamangTao.Data.Migrations
 
             modelBuilder.Entity("YamangTao.Model.LND.Certificate", b =>
                 {
+                    b.HasOne("YamangTao.Model.LND.Activity", "TheActivity")
+                        .WithMany("Certificates")
+                        .HasForeignKey("ActivityId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("YamangTao.Model.LND.CertificateType", "CertificateType")
                         .WithMany("Certificates")
                         .HasForeignKey("CertificateTypeId");

@@ -2,7 +2,7 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using YamangTao.Api.Dtos;
+using YamangTao.Dto;
 using Microsoft.AspNetCore.Identity;
 using YamangTao.Model.Auth;
 using YamangTao.Data;

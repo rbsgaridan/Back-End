@@ -1,0 +1,12 @@
+D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Dto\bin\Debug\netstandard2.1\YamangTao.Dto.deps.json
+D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Dto\bin\Debug\netstandard2.1\YamangTao.Dto.dll
+D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Dto\bin\Debug\netstandard2.1\YamangTao.Dto.pdb
+D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Dto\bin\Debug\netstandard2.1\YamangTao.Core.dll
+D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Dto\bin\Debug\netstandard2.1\YamangTao.Core.pdb
+D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Dto\obj\Debug\netstandard2.1\YamangTao.Dto.csprojAssemblyReference.cache
+D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Dto\obj\Debug\netstandard2.1\YamangTao.Dto.AssemblyInfoInputs.cache
+D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Dto\obj\Debug\netstandard2.1\YamangTao.Dto.AssemblyInfo.cs
+D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Dto\obj\Debug\netstandard2.1\YamangTao.Dto.csproj.CoreCompileInputs.cache
+D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Dto\obj\Debug\netstandard2.1\YamangTao.Dto.csproj.CopyComplete
+D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Dto\obj\Debug\netstandard2.1\YamangTao.Dto.dll
+D:\Projects\dotnet3\YamangTao\BackEnd\YamangTao.Dto\obj\Debug\netstandard2.1\YamangTao.Dto.pdb

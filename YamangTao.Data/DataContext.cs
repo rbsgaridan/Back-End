@@ -264,6 +264,14 @@ namespace YamangTao.Data
                 a.HasOne(p => p.CertificateType)
                     .WithMany(at => at.Certificates)
                     .HasForeignKey(at => at.CertificateTypeId);
+                    
+                a.HasOne(p => p.TheActivity)
+                    .WithMany(a => a.Certificates)
+                    .HasForeignKey(p => p.ActivityId)
+                    .IsRequired(false)
+                    .OnDelete(DeleteBehavior.Cascade);
+                
+                a.Property(p => p.ActivityId).IsRequired(false);
                 a.Property(p => p.Id).HasMaxLength(30);
                 a.Property(p => p.Role).HasMaxLength(50);
                 a.Property(p => p.Sex).HasMaxLength(10);

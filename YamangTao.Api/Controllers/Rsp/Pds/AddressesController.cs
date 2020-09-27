@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using YamangTao.Api.Dtos.Rsp;
+using YamangTao.Dto.Rsp;
 using YamangTao.Api.Helpers;
 using YamangTao.Core.HttpParams;
 using YamangTao.Data.Core;

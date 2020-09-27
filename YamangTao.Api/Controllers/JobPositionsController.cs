@@ -3,7 +3,7 @@ using System;
 using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using YamangTao.Api.Dtos;
+using YamangTao.Dto;
 using YamangTao.Core.HttpParams;
 using YamangTao.Core.Repository;
 using System.Collections.Generic;

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using YamangTao.Api.Dtos.Pms;
+using YamangTao.Dto.Pms;
 using YamangTao.Api.Helpers;
 using YamangTao.Core.HttpParams;
 using YamangTao.Data.Core;

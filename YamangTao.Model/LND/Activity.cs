@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using YamangTao.Core.Common;
 
 namespace YamangTao.Model.LND
@@ -16,6 +17,7 @@ namespace YamangTao.Model.LND
         public DateTime? Start { get; set; }
         public DateTime? End { get; set; }
         public string Duration { get; set; }   
+        public IEnumerable<Certificate> Certificates { get; set; }
         public string EntityId 
         { 
             get {

@@ -17,6 +17,8 @@ namespace YamangTao.Data.Core
         Task<IEnumerable<T>> GetAll<T>() where T: class;
 
         Task<IEnumerable<string>> GetDistinctField<T>(string propertyName) where T: class;
+
+        // Task<PagedList<T>> SearchCertificatesPaged<T,K>(LndParams pmsParams) where T: class, IIdentifyableEntity<K>;
         
     }
 }

@@ -3,7 +3,7 @@
 // using AutoMapper;
 // using Microsoft.AspNetCore.Authorization;
 // using Microsoft.AspNetCore.Mvc;
-// using YamangTao.Api.Dtos.Pms;
+// using YamangTao.Dto.Pms;
 // using YamangTao.Core.HttpParams;
 // using YamangTao.Data.Core;
 // using YamangTao.Model.PM;

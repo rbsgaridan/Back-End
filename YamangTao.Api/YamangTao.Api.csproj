@@ -4,6 +4,7 @@
     <ProjectReference Include="..\YamangTao.Model.Auth\YamangTao.Model.Auth.csproj" />
     <ProjectReference Include="..\YamangTao.Data\YamangTao.Data.csproj" />
     <ProjectReference Include="..\YamangTao.Model.Kargada\YamangTao.Model.Kargada.csproj" />
+    <ProjectReference Include="..\YamangTao.Dto\YamangTao.Dto.csproj" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
