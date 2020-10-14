@@ -14,6 +14,7 @@ namespace YamangTao.Core.Repository
         Task<List<EmployeeName>> SearchEmployee(string keyword);
         Task<List<EmployeeName>> SearchEmployeeReturnProper(string keyword);
 
+        Task<bool> VerifyEmployee(string lastname, string firstname, string id);
         Task<bool> VerifyEmployee(string lastname, string firstname);
         Task<bool> IdExists(string id);
         Task<List<string>> GetDistinctLastname();

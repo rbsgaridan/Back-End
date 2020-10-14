@@ -13,33 +13,33 @@ using YamangTao.Core.HttpParams;
 using YamangTao.Data.Helpers;
 using YamangTao.Api.Helpers;
 using System.Collections.Generic;
+using YamangTao.Data.Core;
 
 namespace YamangTao.Api.Controllers
-{   
+{
     // [ServiceFilter(typeof(LogUserActivity))]
     [Route("api/users")]
     [ApiController]
-    [Authorize(Policy="RequireAdminRole")]
+    [Authorize(Policy = "RequireHRrole")]
     public class UsersController : ControllerBase
     {
         private readonly UserManager<User> _userManager;
         private readonly IMapper _mapper;
-        private readonly DataContext _context;
+        private readonly IUserManagementRepository _repo;
 
-        public UsersController(UserManager<User> userManager, IMapper mapper, DataContext context)
+        public UsersController(UserManager<User> userManager, IMapper mapper, IUserManagementRepository repo)
         {
+            _repo = repo;
             _userManager = userManager;
             _mapper = mapper;
-            _context = context;
+            
         }
 
-        
+
 
         [HttpGet("{id}", Name = "GetUser")]
         public async Task<IActionResult> GetUser(string id)
         {
-            // var isCurrentUser = User.FindFirst(ClaimTypes.NameIdentifier).Value == id;
-            // var user = await _repo.GetUser(id, isCurrentUser);
             var user = await _userManager.FindByIdAsync(id);
 
             var userToReturn = _mapper.Map<UserForDetailsDto>(user);
@@ -47,27 +47,18 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpGet("withroles", Name = "GetUserRoles")]
-        public async Task<IActionResult> GetUsersWithRoles()
+        public async Task<IActionResult> GetUsersWithRoles([FromQuery] UserParams userParams)
         {
-            var userList = await (from user in _context.Users orderby user.KnownAs
-                                    select new 
-                                    {
-                                        Id = user.Id,
-                                        UserName = user.UserName,
-                                        KnownAs = user.KnownAs,
-                                        Created = user.Created,
-                                        LastActive = user.LastActive,
-                                        Roles = (from userRole in user.UserRoles
-                                                  join role in _context.Roles
-                                                 on userRole.RoleId
-                                                 equals role.Id
-                                                 select role.Name).ToList()
-                                    }).ToListAsync();
-                                    
-            return Ok(userList);
+            var users = await _repo.GetUsersWithRolesPaged(userParams);
+            Response.AddPagination(users.CurrentPage,
+                                    users.TotalCount,
+                                    users.PageSize,
+                                    users.TotalPages);
+            return Ok(users);
+            
         }
 
-        [Authorize(Policy = "RequireAdminRole")]
+        [Authorize(Policy = "RequireHRrole")]
         [HttpPost("editRoles/{userName}")]
         public async Task<IActionResult> EditRoles(string userName, RoleEditDto roleEditDto)
         {
@@ -75,28 +66,28 @@ namespace YamangTao.Api.Controllers
             var userRoles = await _userManager.GetRolesAsync(user);
             var selectedRoles = roleEditDto.RoleNames;
             //if null the assign array of string
-            selectedRoles = selectedRoles ?? new string[] {};
+            selectedRoles = selectedRoles ?? new string[] { };
 
             var result = await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles));
 
             if (!result.Succeeded)
                 return BadRequest("Failed to add roles");
-            
+
             result = await _userManager.RemoveFromRolesAsync(user, userRoles.Except(selectedRoles));
 
             if (!result.Succeeded)
                 return BadRequest("Failed to remove the roles");
-                
+
             return Ok(await _userManager.GetRolesAsync(user));
         }
-        
+
         // [HttpPut("{id}")]
         // public async Task<IActionResult> UpdateUser(string id, UserForUpdateDto userForUpdateDto)
         // {
         //     //only the current logged in user should be updated
         //     if (id != User.FindFirst(ClaimTypes.NameIdentifier).Value)
         //         return Unauthorized();
-            
+
         //     var userFromRepo = await _repo.GetUser(id, true);
 
         //     _mapper.Map(userForUpdateDto, userFromRepo);
@@ -132,10 +123,10 @@ namespace YamangTao.Api.Controllers
 
         //     if (await _repo.SaveAll())
         //         return Ok();
-            
+
         //     return BadRequest("Failed to like user");
         // }
-        
-        
+
+
     }
 }

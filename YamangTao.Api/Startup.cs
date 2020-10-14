@@ -130,6 +130,7 @@ namespace YamangTao.Api
             services.AddScoped<IPmsRepository, PmsRepository>();
             services.AddScoped<IPdsRepository, PdsRepository>();
             services.AddScoped<ILndRepository, LndRepository>();
+            services.AddScoped<IUserManagementRepository, UserManagementRepository>();
 
 
         }

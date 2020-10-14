@@ -64,10 +64,19 @@ namespace YamangTao.Api.Controllers
             // }
             
             bool verified = await _repo.VerifyEmployee(userForRegisterDto.Lastname.ToUpper(), 
-                                                        userForRegisterDto.Firstname.ToUpper());
+                                                        userForRegisterDto.Firstname.ToUpper(),
+                                                        userForRegisterDto.Id);
             if (!verified)
             {
-                throw new ArgumentException($"The system DOES NOT RECOGNIZE this user as an employee. Please contact HRMD Office");
+                if (await _repo.VerifyEmployee(userForRegisterDto.Lastname.ToUpper(), 
+                                                        userForRegisterDto.Firstname.ToUpper())) // If employee exists the ID Number is incorrect
+                {
+                    throw new ArgumentException($"Wrong ID number for {userForRegisterDto.Firstname} {userForRegisterDto.Lastname}!");
+                }
+                else
+                {
+                    throw new ArgumentException($"The system DOES NOT RECOGNIZE this user as an employee. Please contact HRMD Office");
+                }
             }
 
             // 2 Check if the user already exists
@@ -276,6 +285,17 @@ namespace YamangTao.Api.Controllers
                 }
             return BadRequest();
 
+        }
+
+        [HttpPost]
+        [Authorize(Policy="RequireAdminRole")]
+        public async Task<IActionResult> ResetPassword(PasswordResetDto passwordResetDto)
+        {
+            var user = await _userManager.FindByIdAsync(passwordResetDto.UsedId);
+            var token = await _userManager.GeneratePasswordResetTokenAsync(user);
+            var result = await _userManager.ResetPasswordAsync(user,token,passwordResetDto.NewPassword);
+            //TODO: Implement Realistic Implementation
+            return Ok("Password has been reset");
         }
 
         // [Authorize(Policy="RequireAdminRole")]

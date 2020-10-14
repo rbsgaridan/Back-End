@@ -81,6 +81,13 @@ namespace YamangTao.Data.Repositories
         }
 
 
+        public async Task<bool> VerifyEmployee(string lastname, string firstname, string id)
+        {   
+
+            return await _context.Employees.AnyAsync(e => e.Lastname.ToUpper().Equals(lastname) 
+                                                    && e.Firstname.ToUpper().Equals(firstname)
+                                                    && e.Id.Equals(id) );
+        }
         public async Task<bool> VerifyEmployee(string lastname, string firstname)
         {
             return await _context.Employees.AnyAsync(e => e.Lastname.ToUpper().Equals(lastname) 
