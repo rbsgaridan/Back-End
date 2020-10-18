@@ -29,7 +29,7 @@ namespace YamangTao.Model
         public DateTime? DateTerminated { get; set; }
         public bool Retired { get; set; }
         public DateTime? DateRetired { get; set; }
-        public int? BrachCampusId { get; set; }
+        public int? BranchCampusId { get; set; }
         public BranchCampus CurrentCampus { get; set; }
         public int? OrgUnitId { get; set; }
         public OrgUnit CurrentUnit { get; set; }

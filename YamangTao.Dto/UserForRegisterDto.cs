@@ -32,6 +32,7 @@ namespace YamangTao.Dto
         public string Barangay { get; set; }
         public string Municipality { get; set; }
         public string Province { get; set; }
+        
         public DateTime Created { get; set; }
         public DateTime LastActive { get; set; }
         

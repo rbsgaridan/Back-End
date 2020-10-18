@@ -19,7 +19,17 @@ namespace YamangTao.Api.Helpers
     {
         public AutoMapperProfiles()
         {
-            CreateMap<Employee, EmployeeDto>().ReverseMap();
+            // CreateMap<Employee, EmployeeDto>().ReverseMap();
+            CreateMap<Employee, EmployeeDto>()
+                .ForMember(dest => dest.CurrentCampus, opt => 
+                    opt.MapFrom(src => src.CurrentCampus.Campus))
+                .ForMember(dest => dest.CurrentUnit, opt => 
+                    opt.MapFrom(src => src.CurrentUnit.UnitName));
+                
+            CreateMap<EmployeeDto, Employee>()
+                .ForMember(dest => dest.CurrentCampus, opt => opt.Ignore())
+                .ForMember(dest => dest.CurrentUnit, opt => opt.Ignore());
+                
             CreateMap<User, UserForListDto>()
             .ForMember(dest => dest.PhotoUrl, opt => {
                 opt.MapFrom(src => src.Photos.FirstOrDefault(p => p.IsMain).Url);

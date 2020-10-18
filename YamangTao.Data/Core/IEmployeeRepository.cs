@@ -16,6 +16,8 @@ namespace YamangTao.Core.Repository
 
         Task<bool> VerifyEmployee(string lastname, string firstname, string id);
         Task<bool> VerifyEmployee(string lastname, string firstname);
+        Task<bool> EmployeeExists(string lastname, string firstname, string middle);
+        
         Task<bool> IdExists(string id);
         Task<List<string>> GetDistinctLastname();
         Task<List<string>> GetDistinctFirstname();

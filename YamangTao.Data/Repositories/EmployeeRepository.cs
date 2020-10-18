@@ -84,19 +84,26 @@ namespace YamangTao.Data.Repositories
         public async Task<bool> VerifyEmployee(string lastname, string firstname, string id)
         {   
 
+            return await _context.Employees.AnyAsync(e => e.Lastname.ToUpper().Equals(lastname.ToUpper()) 
+                                                    && e.Firstname.ToUpper().Equals(firstname.ToUpper())
+                                                    && e.Id.Equals(id.ToUpper()) );
+        }
+        public async Task<bool> EmployeeExists(string lastname, string firstname, string middle)
+        {   
+
             return await _context.Employees.AnyAsync(e => e.Lastname.ToUpper().Equals(lastname) 
                                                     && e.Firstname.ToUpper().Equals(firstname)
-                                                    && e.Id.Equals(id) );
+                                                    && e.MiddleName.ToUpper().Equals(middle) );
         }
         public async Task<bool> VerifyEmployee(string lastname, string firstname)
         {
-            return await _context.Employees.AnyAsync(e => e.Lastname.ToUpper().Equals(lastname) 
-                                                    && e.Firstname.ToUpper().Equals(firstname));
+            return await _context.Employees.AnyAsync(e => e.Lastname.ToUpper().Equals(lastname.ToUpper()) 
+                                                    && e.Firstname.ToUpper().Equals(firstname.ToUpper()));
         }
 
         public async Task<bool> IdExists(string id)
         {
-            return await _context.Employees.AnyAsync(e => e.Id.Equals(id));
+            return await _context.Employees.AnyAsync(e => e.Id.ToUpper().Equals(id.ToUpper()));
         }
 
         public async Task<List<EmployeeName>> SearchEmployee(string keyword)

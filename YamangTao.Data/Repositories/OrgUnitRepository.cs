@@ -68,6 +68,11 @@ namespace YamangTao.Data.Repositories
                     .FirstOrDefaultAsync(o => o.Id == id);
         }
 
+        public async Task<IEnumerable<OrgUnit>> OrgUnitByUser(string employeeId)
+        {
+            return await _context.OrgUnits.Where(org => org.CurrentHeadId.Equals(employeeId)).ToListAsync();
+        }
+
         public void Remove(OrgUnit entity)
         {
             _context.OrgUnits.Remove(entity);

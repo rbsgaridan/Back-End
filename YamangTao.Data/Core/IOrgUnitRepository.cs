@@ -16,5 +16,6 @@ namespace YamangTao.Data.Core
         Task<OrgUnit> GetOrgUnit(int? id);
         Task<OrgUnit> GetOrgUnitWithChildren(int id);
         Task<bool> VerifyOrgUnit(string positionName);
+        Task<IEnumerable<OrgUnit>> OrgUnitByUser(string employeeId);
     }
 }

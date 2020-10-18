@@ -25,10 +25,10 @@ namespace YamangTao.Dto
         public DateTime? DateTerminated { get; set; }
         public bool Retired { get; set; }
         public DateTime? DateRetired { get; set; }
-        public int? BrachCampusId { get; set; }
+        public int? BranchCampusId { get; set; }
+        public string CurrentCampus { get; set; }
         public int? OrgUnitId { get; set; }
+        public string CurrentUnit { get; set; }
         public string FullName { get; set; }
-
-       
     }
 }

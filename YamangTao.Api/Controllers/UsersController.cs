@@ -1,3 +1,4 @@
+using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using AutoMapper;
@@ -67,7 +68,7 @@ namespace YamangTao.Api.Controllers
             var selectedRoles = roleEditDto.RoleNames;
             //if null the assign array of string
             selectedRoles = selectedRoles ?? new string[] { };
-
+            
             var result = await _userManager.AddToRolesAsync(user, selectedRoles.Except(userRoles));
 
             if (!result.Succeeded)

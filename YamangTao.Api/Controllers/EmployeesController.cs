@@ -90,10 +90,11 @@ namespace YamangTao.Api.Controllers
         public async Task<IActionResult> CreateEmployee(EmployeeDto employeeForCreationDto)
         {
             // check if employee is already in the database
-            if (await _repo.VerifyEmployee(employeeForCreationDto.Lastname,
-                                            employeeForCreationDto.Firstname))
+            if (await _repo.EmployeeExists(employeeForCreationDto.Lastname,
+                                            employeeForCreationDto.Firstname,
+                                            employeeForCreationDto.MiddleName))
             {
-                throw new Exception($"{employeeForCreationDto.Lastname}, {employeeForCreationDto.Firstname} y {employeeForCreationDto.MiddleName}");
+                throw new Exception($"{employeeForCreationDto.Lastname}, {employeeForCreationDto.Firstname} y {employeeForCreationDto.MiddleName} already exists");
             }
 
             var employee = _mapper.Map<Employee>(employeeForCreationDto);

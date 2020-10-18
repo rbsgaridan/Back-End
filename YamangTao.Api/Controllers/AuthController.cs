@@ -21,6 +21,8 @@ using YamangTao.Core.HttpParams;
 using YamangTao.Data.Helpers;
 using YamangTao.Api.Helpers;
 using YamangTao.Model.RSP.Pds;
+using YamangTao.Data.Core;
+using YamangTao.Model.OrgStructure;
 
 namespace YamangTao.Api.Controllers
 {
@@ -36,15 +38,18 @@ namespace YamangTao.Api.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly IEmployeeRepository _repo;
+        private readonly IOrgUnitRepository _orgRepo;
 
         public AuthController(IConfiguration config, IMapper mapper,
                               UserManager<User> userManager, SignInManager<User> signInManager,
                               RoleManager<Role> roleManager,
-                              IEmployeeRepository repo)
+                              IEmployeeRepository repo,
+                              IOrgUnitRepository orgRepo)
         {
             _signInManager = signInManager;
             _roleManager = roleManager;
             _repo = repo;
+            _orgRepo = orgRepo;
             _userManager = userManager;
             _config = config;
             _mapper = mapper;
@@ -105,7 +110,7 @@ namespace YamangTao.Api.Controllers
                 var employee = await _repo.GetEmployeeByID(userToCreate.EmployeeId);
                 employee.MobileNumber = userForRegisterDto.Mobile;
                 employee.EmailAddress = userForRegisterDto.Email;
-                employee.BrachCampusId = userForRegisterDto.CampusId;
+                employee.BranchCampusId = userForRegisterDto.CampusId;
                 employee.OrgUnitId = userForRegisterDto.OrgUnitId;
                 employee.Sex = userForRegisterDto.Sex;
                 employee.BirthDate = userForRegisterDto.Birthdate;
@@ -126,7 +131,52 @@ namespace YamangTao.Api.Controllers
                 await _repo.SaveAllAsync();
 
                 var createdUser = await _userManager.FindByIdAsync(userToCreate.UserName);
-                _userManager.AddToRoleAsync(createdUser, "Employee").Wait();
+                // Add user as employee
+                // _userManager.AddToRoleAsync(createdUser, "Employee").Wait();
+
+                // find org units where the user is the head and add it to the roles
+                var orgs = await _orgRepo.OrgUnitByUser(createdUser.Id);
+                List<string> roleList = new List<string>();
+                roleList.Add("Employee");
+                foreach (OrgUnit org in orgs)
+                {
+                    switch (org.UnitType)
+                    {
+                        case "College":
+                        case "Center":
+                        case "Unit":
+                            roleList.Add("Unit Head");
+                        break;
+                        
+                        case "Office":
+                            if (org.UnitName.Contains("Vice-President"))
+                            {
+                                roleList.Add("VP");
+                            }
+                            else if (org.UnitName.Contains("President"))
+                            {
+                                roleList.Add("President");
+                            }
+                            else if (org.UnitName.Contains("Human Resource"))
+                            {
+                                roleList.Add("HR");
+                            }
+                            else if (org.UnitName.Contains("Planning"))
+                            {
+                                roleList.Add("Planning");
+                            }
+                            else 
+                            {
+                                roleList.Add("Unit Head");
+                            }
+                        break;
+                       
+                        default:
+                            roleList.Add("Department Head");
+                        break;
+                    }
+                }
+                _userManager.AddToRolesAsync(createdUser, roleList.Distinct()).Wait();
                 var userToReturn = _mapper.Map<UserForDetailsDto>(createdUser);
                 return CreatedAtRoute("GetUser", new { controller = "users", id = userToReturn.Id}, userToReturn);
             }
@@ -145,7 +195,8 @@ namespace YamangTao.Api.Controllers
             {
                 var appUser = await _userManager.Users.Include(p => p.Photos)
                     .FirstOrDefaultAsync(u => u.NormalizedUserName == userForLoginDto.Username.ToUpper());
-                
+                appUser.LastActive = DateTime.Now;
+                _userManager.UpdateAsync(appUser).Wait();
                 var userToReturn = _mapper.Map<UserForListDto>(appUser);
                 
                 return Ok(new
