@@ -39,7 +39,10 @@ namespace YamangTao.Data.Repositories
 
         public async Task<Employee> GetEmployeeByID(string id)
         {
-            return await _context.Employees.FirstOrDefaultAsync(e => e.Id.Equals(id));
+            return await _context.Employees
+                .Include(e => e.CurrentCampus)
+                .Include(e => e.CurrentUnit)
+                .FirstOrDefaultAsync(e => e.Id.Equals(id));
         }
 
         public async Task<PagedList<Employee>> GetEmployees(EmployeeParams employeeParams)
@@ -183,6 +186,118 @@ namespace YamangTao.Data.Repositories
                 return employees;
             }
             return null;
+        }
+
+        public async Task<string> GenerateNewId(string status)
+        {   
+            string newid = "";
+            int month = 0;
+            int year = 0;
+            string oldId = "";
+            int last3digs = 0;
+            const string cjc = "JC";
+            // 1 - Determine status for the appropriate id format
+            switch (status)
+            {
+                case "Contract-of-Service":
+                case "Job Order":
+                case "Contractual":
+                    // Format [YY]-JC[MM][###]
+                    // 2-1 Get the last record
+                    var jc = await _context.Employees.Where(e => cjc.Contains(e.Id))
+                                                       .OrderByDescending(e => e.Id)
+                                                       .FirstOrDefaultAsync();
+                    
+                    if (jc == null)
+                    {
+                        newid = newid + DateTime.Now.ToString("yy");
+                        newid = newid + "-JC" + DateTime.Now.Month.ToString("00");
+                        newid = newid + String.Format("{0:000}", 1);
+                        return newid;
+                    }
+                    // 2-2 Capture the ID number
+                    oldId = jc.Id;
+                    // 2-3 Extract month for the ID number
+                    month = int.Parse(oldId.Substring(5,2));
+                    year = int.Parse(oldId.Substring(0,2));
+                    // 2-4 Extract the last 3 digits
+                    last3digs = int.Parse(oldId.Substring(7,3));
+                    // if current month is equal to the month from ID
+                    if (DateTime.Now.Year != year)
+                    {
+                        newid = newid + DateTime.Now.ToString("yy");
+                    }
+                    else
+                    {
+                        newid = newid + year.ToString("00");
+                    }
+
+                    if (DateTime.Now.Month != month)
+                    {
+                        newid = newid + "-JC" + DateTime.Now.Month.ToString("00");
+                        newid = newid + String.Format("{0:000}", 1);
+                    }
+
+                    else
+                    {
+                        newid = newid + "-JC" + month.ToString("00");
+                        last3digs++;
+                        newid = newid + last3digs.ToString("000");
+                    }
+                break;
+                
+
+
+                // Format [YY]-[MM][###]
+                // 2-1 Get the last record
+                default:
+                
+                    string temp1 = DateTime.Now.ToString("yy") + "-" + DateTime.Now.Month.ToString("00");
+                     var perm = await _context.Employees.Where(e => e.Id.Contains(temp1))          
+                                                        .OrderByDescending(e => e.Id)
+                                                       .FirstOrDefaultAsync();
+
+                     if (perm == null)
+                     {
+                        newid = newid + DateTime.Now.ToString("yy");
+                        newid = newid + "-" + DateTime.Now.Month.ToString("00");
+                        newid = newid + String.Format("{0:000}", 1);
+                        return newid;
+                     }
+
+                    oldId = perm.Id;
+                    // 2-3 Extract month for the ID number
+                    month = int.Parse(oldId.Substring(3,2));
+                    year = int.Parse(oldId.Substring(0,2));
+                    // 2-4 Extract the last 3 digits
+                    last3digs = int.Parse(oldId.Substring(5,3));
+                    // if current month is equal to the month from ID
+                    if (DateTime.Now.Year != year)
+                    {
+                        newid = newid + DateTime.Now.ToString("yy") + "-";
+                    }
+                    else
+                    {
+                        newid = newid + year.ToString("00") + "-";
+                    }
+
+                    if (DateTime.Now.Month != month)
+                    {
+                        newid = newid + DateTime.Now.Month.ToString("00");
+                        newid = newid + String.Format("{0:000}", 1);
+                    }
+
+                    else
+                    {
+                        newid = newid + month.ToString("00");
+                        last3digs++;
+                        newid = newid + last3digs.ToString("000");
+                    }
+
+                break;
+            }
+
+            return newid;
         }
     }
 }

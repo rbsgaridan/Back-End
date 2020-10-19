@@ -23,5 +23,7 @@ namespace YamangTao.Core.Repository
         Task<List<string>> GetDistinctFirstname();
         Task<List<string>> GetDistinctMiddle();
 
+        Task<string> GenerateNewId(string status);
+
     }
 }

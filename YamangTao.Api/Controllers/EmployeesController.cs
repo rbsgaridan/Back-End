@@ -132,5 +132,14 @@ namespace YamangTao.Api.Controllers
           };
           return Ok(newDto);
         }
+
+        [HttpGet("gennewid")]
+        [Authorize(Policy="RequireHRrole")]
+        public async Task<IActionResult> GenNewId([FromQuery] string status)
+        {
+           
+           var newId = await _repo.GenerateNewId(status);
+           return Ok(new { id = newId });
+        }
     }
 }

@@ -115,6 +115,7 @@ namespace YamangTao.Api.Controllers
                 employee.Sex = userForRegisterDto.Sex;
                 employee.BirthDate = userForRegisterDto.Birthdate;
                 
+                
                 var newAddress = new Address() {
                     EmployeeId = employee.Id,
                     Description = "Permanent Address",
