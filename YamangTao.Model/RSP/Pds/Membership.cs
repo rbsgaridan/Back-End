@@ -7,5 +7,6 @@ namespace YamangTao.Model.RSP.Pds
         public string EmployeeId { get; set; }
         public string Organization { get; set; }
         public string CertNumber { get; set; }
+        public PersonalDataSheet Pds { get; set; }
     }
 }

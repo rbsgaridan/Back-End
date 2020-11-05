@@ -16,6 +16,9 @@ namespace YamangTao.Model.RSP.Pds
         public string SalaryGrade { get; set; }
         public string AppointmentStatus { get; set; }
         public bool GovernmentService { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateModified { get; set; }
+        public PersonalDataSheet Pds { get; set; }
 
     }
 }

@@ -189,7 +189,7 @@ namespace YamangTao.Data.Repositories
             if (!string.IsNullOrEmpty(pdsParams.Keyword))
             {
                 idCards = idCards.Where(a => a.EmployeeId.Contains(pdsParams.Keyword)
-                                                    || a.IDType.Contains(pdsParams.Keyword)
+                                                    || a.IdType.Contains(pdsParams.Keyword)
                                                     || a.Control.Contains(pdsParams.Keyword)
                                                     );
             }
@@ -212,7 +212,7 @@ namespace YamangTao.Data.Repositories
                     break;
 
                     default:
-                        idCards = idCards.OrderBy(a => a.IDType);
+                        idCards = idCards.OrderBy(a => a.IdType);
                     break;
                 }
             }
@@ -297,8 +297,8 @@ namespace YamangTao.Data.Repositories
 
         public async Task<IEnumerable<string>> SearchDistinctIdTypes(string keyword)
         {
-            return await _context.Identifications.Where(a => a.IDType.ToUpper().Contains(keyword.ToUpper()))
-                                            .Select(a => a.IDType)
+            return await _context.Identifications.Where(a => a.IdType.ToUpper().Contains(keyword.ToUpper()))
+                                            .Select(a => a.IdType)
                                             .Distinct()
                                             .Take(10)
                                             .ToListAsync();

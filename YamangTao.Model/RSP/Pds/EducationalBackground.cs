@@ -15,6 +15,10 @@ namespace YamangTao.Model.RSP.Pds
         public string HighestLevel { get; set; }
         public string YearGraduated { get; set; }
         public string Honors { get; set; }
+        public bool showInPds { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateModified { get; set; }
+        public PersonalDataSheet Pds { get; set; }
 
     }
 }

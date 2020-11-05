@@ -10,5 +10,9 @@ namespace YamangTao.Model.RSP.Pds
         public string Firstname { get; set; }
         public string  Middle { get; set; }
         public DateTime? BirthDate { get; set; }
+        public string Suffix { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateModified { get; set; }
+        public PersonalDataSheet Pds { get; set; }
     }
 }

@@ -20,6 +20,7 @@ namespace YamangTao.Model.RSP.Pds
         public string FatherFirstname { get; set; }
         public string FatherMiddle { get; set; }
         public string Fathersuffix { get; set; }
+        public string MotherMaidenName { get; set; }
         public string MotherSurname { get; set; }
         public string MotherFirstname { get; set; }
         public string MotherMiddle { get; set; }

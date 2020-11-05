@@ -14,6 +14,9 @@ namespace YamangTao.Model.RSP.Pds
         public string Barangay { get; set; }
         public string Municipality { get; set; }
         public string Province { get; set; }
+        public string Region { get; set; }
+        public string ZipCode { get; set; }
+        public bool IsActive { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
         public PersonalDataSheet Pds { get; set; }

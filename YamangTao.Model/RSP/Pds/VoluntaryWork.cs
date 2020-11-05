@@ -11,5 +11,8 @@ namespace YamangTao.Model.RSP.Pds
         public DateTime? PeriodTo { get; set; }
         public float Hours { get; set; }
         public string Position { get; set; }
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateModified { get; set; }
+        public PersonalDataSheet Pds { get; set; }
     }
 }

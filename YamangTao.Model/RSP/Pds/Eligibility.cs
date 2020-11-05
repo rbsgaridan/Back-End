@@ -14,5 +14,8 @@ namespace YamangTao.Model.RSP.Pds
         public string ExamPlace {get; set;}
         public string LicenseNumber {get; set;}
         public DateTime? ValidityDate {get; set;}
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateModified { get; set; }
+        
     }
 }

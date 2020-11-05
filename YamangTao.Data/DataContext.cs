@@ -30,16 +30,29 @@ namespace YamangTao.Data
         public DbSet<Kpi> KPIs { get; set; }
         public DbSet<KpiType> KpiTypes { get; set; }
         public DbSet<Ipcr> Ipcrs { get; set; }
-        public DbSet<PersonalDataSheet> PersonalDataSheets { get; set; }
-        public DbSet<Address> Addresses { get; set; }
-        public DbSet<Eligibility> Eligibities { get; set; }
-        public DbSet<Identification> Identifications { get; set; }
+        
         public DbSet<DocumentPath> DocumentPaths { get; set; }
+
+        //LND
         public DbSet<Activity> Activities { get; set; }
         public DbSet<ActivityType> ActivityTypes { get; set; }
         public DbSet<CertificateType> CertificateTypes { get; set; }
         public DbSet<Certificate> Certificate { get; set; }
 
+        // PDS
+        public DbSet<PersonalDataSheet> PersonalDataSheets { get; set; }
+        public DbSet<Address> Addresses { get; set; }
+        public DbSet<Eligibility> Eligibities { get; set; }
+        public DbSet<Identification> Identifications { get; set; }
+        public DbSet<CharacterReference> References { get; set; }
+        public DbSet<Child> Children { get; set; }
+        public DbSet<EducationalBackground> EducationalBackgrounds { get; set; }
+        public DbSet<Membership> Memberships { get; set; }
+        public DbSet<Recognition> Recognitions { get; set; }
+        public DbSet<Skill> Skills { get; set; }
+        public DbSet<TrainingAttended> TrainingsAttented { get; set; }
+        public DbSet<VoluntaryWork> VoluntaryWorks { get; set; }
+        public DbSet<WorkExperience> WorkExperiences { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -72,10 +85,11 @@ namespace YamangTao.Data
             builder.Entity<Employee>().Property(e => e.Firstname).HasMaxLength(50);
             builder.Entity<Employee>().Property(e => e.MiddleName).HasMaxLength(50);
             builder.Entity<Employee>().Property(e => e.MI).HasMaxLength(3);
-            builder.Entity<Employee>().Property(e => e.Suffix).HasMaxLength(3);
+            builder.Entity<Employee>().Property(e => e.Suffix).HasMaxLength(5);
             builder.Entity<Employee>().Property(e => e.Sex).HasMaxLength(15);
             builder.Entity<Employee>().Property(e => e.Telephone).HasMaxLength(50);
             builder.Entity<Employee>().Property(e => e.MobileNumber).HasMaxLength(50);
+            builder.Entity<Employee>().Property(e => e.FullName).HasMaxLength(150);
 
             // Branch Campus
             builder.Entity<BranchCampus>().Property(b => b.Campus).HasMaxLength(100);
@@ -185,11 +199,68 @@ namespace YamangTao.Data
                 pds.HasMany(p => p.IdCards)
                     .WithOne(a => a.Pds)
                     .HasForeignKey(a => a.PdsId);
+                pds.HasMany(p => p.Children)
+                    .WithOne(a => a.Pds)
+                    .HasForeignKey(a => a.PdsId);
+                pds.HasMany(p => p.EducationalBackgrounds)
+                    .WithOne(a => a.Pds)
+                    .HasForeignKey(a => a.PdsId);
+                pds.HasMany(p => p.Memberships)
+                    .WithOne(a => a.Pds)
+                    .HasForeignKey(a => a.PdsId);
+                pds.HasMany(p => p.Recognitions)
+                    .WithOne(a => a.Pds)
+                    .HasForeignKey(a => a.PdsId);
+                pds.HasMany(p => p.Skills)
+                    .WithOne(a => a.Pds)
+                    .HasForeignKey(a => a.PdsId);
+                pds.HasMany(p => p.TrainingsAttended)
+                    .WithOne(a => a.Pds)
+                    .HasForeignKey(a => a.PdsId);
+                pds.HasMany(p => p.VoluntaryWorks)
+                    .WithOne(a => a.Pds)
+                    .HasForeignKey(a => a.PdsId);
+                pds.HasMany(p => p.WorkExperiences)
+                    .WithOne(a => a.Pds)
+                    .HasForeignKey(a => a.PdsId);
+                
+
+                
                 pds.Property(p => p.EmployeeId).HasMaxLength(30);
+                pds.Property(p => p.BirthPlace).HasMaxLength(100);
+                pds.Property(p => p.SpouseSurname).HasMaxLength(50);
+                pds.Property(p => p.SpouseMiddle).HasMaxLength(50);
+                pds.Property(p => p.SpouseFirstname).HasMaxLength(50);
+                pds.Property(p => p.SpouseSuffix).HasMaxLength(5);
+                pds.Property(p => p.SpouseOccupation).HasMaxLength(30);
+                pds.Property(p => p.SpouseEmployer).HasMaxLength(100);
+                pds.Property(p => p.SpouseEmployerAddress).HasMaxLength(100);
+                pds.Property(p => p.SpouseEmployerTelNumber).HasMaxLength(30);
+                pds.Property(p => p.FatherSurname).HasMaxLength(50);
+                pds.Property(p => p.FatherMiddle).HasMaxLength(50);
+                pds.Property(p => p.FatherFirstname).HasMaxLength(50);
+                pds.Property(p => p.FatherSuffix).HasMaxLength(5);
+                pds.Property(p => p.MotherMaidenName).HasMaxLength(150);
+                pds.Property(p => p.MotherSurname).HasMaxLength(50);
+                pds.Property(p => p.MotherFirstname).HasMaxLength(50);
+                pds.Property(p => p.MotherMiddle).HasMaxLength(50);
+                pds.Property(p => p.MotherSuffix).HasMaxLength(50);
+                pds.Property(p => p.BirthPlace).HasMaxLength(150);
                 pds.Property(p => p.CivilStatus).HasMaxLength(30);
+                pds.Property(p => p.OtherCivilStatus).HasMaxLength(50);
                 pds.Property(p => p.Height).HasMaxLength(10);
                 pds.Property(p => p.Weight).HasMaxLength(10);
                 pds.Property(p => p.BloodType).HasMaxLength(5);
+                pds.Property(p => p.GsisNumber).HasMaxLength(50);
+                pds.Property(p => p.HdmfNumber).HasMaxLength(50);
+                pds.Property(p => p.PhilHealthNumber).HasMaxLength(50);
+                pds.Property(p => p.SssNumber).HasMaxLength(50);
+                pds.Property(p => p.TinNumber).HasMaxLength(50);
+                pds.Property(p => p.AgencyNumber).HasMaxLength(50);
+                pds.Property(p => p.Citizenship).HasMaxLength(20);
+                pds.Property(p => p.DualCitizenType).HasMaxLength(50);
+                pds.Property(p => p.DualCitizenCountry).HasMaxLength(50);
+                pds.Property(p => p.AgencyNumber).HasMaxLength(50);
                 pds.Property(p => p.ConsanguinityFouthDetails).HasMaxLength(50);
                 pds.Property(p => p.AdministrativeOffenseDetails).HasMaxLength(50);
                 pds.Property(p => p.CriminalChargeStatus).HasMaxLength(50);
@@ -205,7 +276,79 @@ namespace YamangTao.Data
                 pds.Property(p => p.GovIdDatePlaceIssued).HasMaxLength(75);
             });
 
-            // Eligibility
+           
+
+            // Address
+            builder.Entity<Address>(e => {
+                e.HasOne(p => p.Pds)
+                    .WithMany(p => p.Addresses)
+                    .HasForeignKey(el => el.PdsId);
+                e.Property(p => p.EmployeeId).HasMaxLength(30);
+                e.Property(p => p.Description).HasMaxLength(30);
+                e.Property(p => p.Block).HasMaxLength(30);
+                e.Property(p => p.Street).HasMaxLength(50);
+                e.Property(p => p.Purok).HasMaxLength(30);
+                e.Property(p => p.Barangay).HasMaxLength(30);
+                e.Property(p => p.Municipality).HasMaxLength(30);
+                e.Property(p => p.Province).HasMaxLength(30);
+                e.Property(p => p.Region).HasMaxLength(15);
+                e.Property(p => p.ZipCode).HasMaxLength(10);
+            });
+
+            //Character Reference
+            builder.Entity<CharacterReference>(c => {
+                c.HasOne(p => p.Pds)
+                    .WithMany(p => p.References)
+                    .HasForeignKey(cp => cp.PdsId);
+                c.Property(p => p.EmployeeId).HasMaxLength(30);
+                c.Property(p => p.Name).HasMaxLength(100);
+                c.Property(p => p.Address).HasMaxLength(100);
+                c.Property(p => p.Mobile).HasMaxLength(100);
+            });
+
+            //Child
+            builder.Entity<Child>(c => {
+                c.HasOne(p => p.Pds)
+                    .WithMany(p => p.Children)
+                    .HasForeignKey(cp => cp.PdsId);
+                c.Property(p => p.EmployeeId).HasMaxLength(30);
+                c.Property(p => p.Lastname).HasMaxLength(50);
+                c.Property(p => p.Firstname).HasMaxLength(50);
+                c.Property(p => p.Middle).HasMaxLength(50);
+                c.Property(p => p.Suffix).HasMaxLength(10);
+            });
+
+            //Educational Background
+            builder.Entity<EducationalBackground>(c => {
+                c.HasOne(p => p.Pds)
+                    .WithMany(p => p.EducationalBackgrounds)
+                    .HasForeignKey(cp => cp.PdsId);
+                c.Property(p => p.EmployeeId).HasMaxLength(30);
+                c.Property(p => p.OrderNumber).HasMaxLength(5);
+                c.Property(p => p.Level).HasMaxLength(30);
+                c.Property(p => p.School).HasMaxLength(150);
+                c.Property(p => p.Course).HasMaxLength(150);
+                c.Property(p => p.HighestLevel).HasMaxLength(15);
+                c.Property(p => p.YearGraduated).HasMaxLength(10);
+                c.Property(p => p.Honors).HasMaxLength(30);
+            });
+
+            //Educational Background
+            builder.Entity<EducationalBackground>(c => {
+                c.HasOne(p => p.Pds)
+                    .WithMany(p => p.EducationalBackgrounds)
+                    .HasForeignKey(cp => cp.PdsId);
+                c.Property(p => p.EmployeeId).HasMaxLength(30);
+                c.Property(p => p.OrderNumber).HasMaxLength(5);
+                c.Property(p => p.Level).HasMaxLength(30);
+                c.Property(p => p.School).HasMaxLength(150);
+                c.Property(p => p.Course).HasMaxLength(150);
+                c.Property(p => p.HighestLevel).HasMaxLength(15);
+                c.Property(p => p.YearGraduated).HasMaxLength(10);
+                c.Property(p => p.Honors).HasMaxLength(30);
+            });
+
+             // Eligibility
             builder.Entity<Eligibility>(e => {
                 e.HasOne(p => p.Pds)
                     .WithMany(p => p.Eligibilities)
@@ -216,21 +359,6 @@ namespace YamangTao.Data
                 e.Property(p => p.ExamPlace).HasMaxLength(100);
                 e.Property(p => p.LicenseNumber).HasMaxLength(30);
             });
-
-            // Address
-            builder.Entity<Address>(e => {
-                e.HasOne(p => p.Pds)
-                    .WithMany(p => p.Addresses)
-                    .HasForeignKey(el => el.PdsId);
-                e.Property(p => p.EmployeeId).HasMaxLength(30);
-                e.Property(p => p.Description).HasMaxLength(30);
-                e.Property(p => p.Block).HasMaxLength(10);
-                e.Property(p => p.Street).HasMaxLength(100);
-                e.Property(p => p.Purok).HasMaxLength(30);
-                e.Property(p => p.Barangay).HasMaxLength(30);
-                e.Property(p => p.Municipality).HasMaxLength(30);
-                e.Property(p => p.Province).HasMaxLength(30);
-            });
             
             // Identification
             builder.Entity<Identification>(e => {
@@ -238,9 +366,78 @@ namespace YamangTao.Data
                     .WithMany(p => p.IdCards)
                     .HasForeignKey(el => el.PdsId);
                 e.Property(p => p.EmployeeId).HasMaxLength(30);
-                e.Property(p => p.IDType).HasMaxLength(30);
+                e.Property(p => p.IdType).HasMaxLength(30);
                 e.Property(p => p.Control).HasMaxLength(30);
+                e.Property(p => p.IssuanceDatePlace).HasMaxLength(60);
             });
+            
+            // Membership
+            builder.Entity<Membership>(e => {
+                e.HasOne(p => p.Pds)
+                    .WithMany(p => p.Memberships)
+                    .HasForeignKey(el => el.PdsId);
+                e.Property(p => p.EmployeeId).HasMaxLength(30);
+                e.Property(p => p.Organization).HasMaxLength(100);
+                e.Property(p => p.CertNumber).HasMaxLength(15);
+                
+            });
+            
+            // Recognition
+            builder.Entity<Recognition>(e => {
+                e.HasOne(p => p.Pds)
+                    .WithMany(p => p.Recognitions)
+                    .HasForeignKey(el => el.PdsId);
+                e.Property(p => p.EmployeeId).HasMaxLength(30);
+                e.Property(p => p.Description).HasMaxLength(100);
+                e.Property(p => p.Year).HasMaxLength(10);
+                e.Property(p => p.CertNumber).HasMaxLength(15);
+                
+            });
+
+            // Skill
+            builder.Entity<Skill>(e => {
+                e.HasOne(p => p.Pds)
+                    .WithMany(p => p.Skills)
+                    .HasForeignKey(el => el.PdsId);
+                e.Property(p => p.EmployeeId).HasMaxLength(30);
+                e.Property(p => p.Description).HasMaxLength(100);
+            });
+            
+
+            // Trainings Attended
+            builder.Entity<TrainingAttended>(e => {
+                e.HasOne(p => p.Pds)
+                    .WithMany(p => p.TrainingsAttended)
+                    .HasForeignKey(el => el.PdsId);
+                e.Property(p => p.EmployeeId).HasMaxLength(30);
+                e.Property(p => p.LndType).HasMaxLength(30);
+                e.Property(p => p.Sponsor).HasMaxLength(100);
+                e.Property(p => p.TrainingCode).HasMaxLength(15);
+                e.Property(p => p.CertNumber).HasMaxLength(15);
+            });
+
+            // Voluntary Wrk
+            builder.Entity<VoluntaryWork>(e => {
+                e.HasOne(p => p.Pds)
+                    .WithMany(p => p.VoluntaryWorks)
+                    .HasForeignKey(el => el.PdsId);
+                e.Property(p => p.EmployeeId).HasMaxLength(30);
+                e.Property(p => p.Address).HasMaxLength(150);
+                e.Property(p => p.Position).HasMaxLength(150);
+            });
+
+            // Work Experience
+            builder.Entity<WorkExperience>(e => {
+                e.HasOne(p => p.Pds)
+                    .WithMany(p => p.WorkExperiences)
+                    .HasForeignKey(el => el.PdsId);
+                e.Property(p => p.EmployeeId).HasMaxLength(30);
+                e.Property(p => p.Position).HasMaxLength(100);
+                e.Property(p => p.Company).HasMaxLength(150);
+                e.Property(p => p.SalaryGrade).HasMaxLength(10);
+                e.Property(p => p.AppointmentStatus).HasMaxLength(30);
+            });
+
 
 
             // Lnd
