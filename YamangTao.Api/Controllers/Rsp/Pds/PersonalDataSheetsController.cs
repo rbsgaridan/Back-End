@@ -45,28 +45,35 @@ namespace YamangTao.Api.Controllers.Rsp.Pds
         {
             //TODO: Implement Realistic Implementation
             var pds = await _repo.GetCompletePdsByID(id);
+            if (pds == null)
+            {
+                return BadRequest("No PDS Found");
+            }
+            if (!HasValidRole(pds.EmployeeId))
+            {
+                return Unauthorized("You do not have clearance to see what is not yours!");
+            }
+
             var pdsToReturn = _mapper.Map<PersonalDataSheetDto>(pds);
+
             return Ok(pdsToReturn);
         }
 
-        [HttpGet("complete/{id}", Name = "GetPdsComplete")]
-        public async Task<IActionResult> GetPdsCompleteById(int id)
-        {
-            //TODO: Implement Realistic Implementation
-            var pds = await _repo.GetCompletePdsByID(id);
-            var pdsToReturn = _mapper.Map<PersonalDataSheetDto>(pds);
-            return Ok(pdsToReturn);
-        }
-
+       
         [HttpGet("employee/{employeeId}")]
         public async Task<IActionResult> GetPdsByEmployeeId(string employeeId)
         {
-             if (!HasValidRole(employeeId))
+            if (!HasValidRole(employeeId))
             {
                 return Unauthorized("You do not have clearance to see what is not yours!");
             }
 
             var pds = await _repo.GetPdsFullByEmployeeID(employeeId);
+            if (pds == null)
+            {
+                return BadRequest("No PDS Found");
+            }
+
             var pdsToReturn = _mapper.Map<PersonalDataSheetDto>(pds);
             return Ok(pdsToReturn);
         }
@@ -79,7 +86,7 @@ namespace YamangTao.Api.Controllers.Rsp.Pds
                 return Unauthorized("You do not have clearance to update what is not yours!");
             }
 
-            var pds = await _repo.GetPdsPaged(pdsParams);
+            var pds = await _repo.GetPaged<PersonalDataSheet,int>(pdsParams);
             var pdsToReturn = _mapper.Map<IEnumerable<PersonalDataSheetDto>>(pds);
             Response.AddPagination(pds.CurrentPage, 
                                     pds.TotalCount, 
@@ -98,6 +105,10 @@ namespace YamangTao.Api.Controllers.Rsp.Pds
             }
 
             var pdsFromRepo = await _repo.GetById<PersonalDataSheet,int>(pdsForUpdate.Id);
+            if (pdsFromRepo == null)
+            {
+                return BadRequest("No PDS Found");
+            }
             _mapper.Map(pdsForUpdate, pdsFromRepo);
 
             if (await _repo.SaveAllAsync())
@@ -131,6 +142,11 @@ namespace YamangTao.Api.Controllers.Rsp.Pds
         public async Task<IActionResult> deletePds(int id)
         {
             var pdsFromRepo = await _repo.GetById<PersonalDataSheet,int>(id);
+            if (pdsFromRepo == null)
+            {
+                return BadRequest("PDS not found!");
+            }
+            
             if (!HasValidRole(pdsFromRepo.EmployeeId))
             {
                 return Unauthorized("You do not have clearance to update what is not yours!");
@@ -144,91 +160,90 @@ namespace YamangTao.Api.Controllers.Rsp.Pds
             throw new Exception("Error deleting the pds");
         }
 
-        [HttpPost("{pdsId}/address")]
-        public async Task<IActionResult> CreateNewAddress(AddressDto addressDto)
+        [HttpDelete("{employeeId}/{field}/{id}")]
+        public async Task<IActionResult> deletePdsdetail(string employeeId, string field, int id)
         {
-            if (!HasValidRole(addressDto.EmployeeId))
+            
+            if (!HasValidRole(employeeId))
             {
                 return Unauthorized("You do not have clearance to update what is not yours!");
             }
-
-            var addressForCreate = _mapper.Map<Address>(addressDto);
-            _repo.Add(addressForCreate);
-            if (await _repo.SaveAllAsync())
+            bool deleted = false;
+            switch (field)
             {
-                var addressToReturn = _mapper.Map<AddressDto>(addressForCreate);
-                return CreatedAtRoute("GetAddress", new { id = addressForCreate.Id }, addressToReturn);
+              case "address":
+                 deleted = await delete<Address,int>(id);
+              break;
+              
+              case "reference":
+                 deleted = await delete<CharacterReference,int>(id);
+              break;
+
+              case "child":
+                 deleted = await delete<Child,int>(id);
+              break;
+
+              case "educationalbackground":
+                 deleted = await delete<EducationalBackground,int>(id);
+              break;
+
+              case "eligibility":
+                 deleted = await delete<Eligibility,int>(id);
+              break;
+
+              case "idcard":
+                 deleted = await delete<Identification,int>(id);
+              break;
+
+              case "membership":
+                 deleted = await delete<Membership,int>(id);
+              break;
+
+              case "recognition":
+                 deleted = await delete<Recognition,long>(id);
+              break;
+
+              case "skill":
+                 deleted = await delete<Skill,long>(id);
+              break;
+
+              case "trainingattended":
+                 deleted = await delete<TrainingAttended,int>(id);
+              break;
+
+              case "voluntarywork":
+                 deleted = await delete<VoluntaryWork,int>(id);
+              break;
+
+              case "workexperience":
+                 deleted = await delete<WorkExperience,int>(id);
+              break;
+
+              default:
+              break;
             }
-
-            throw new Exception("Adding the address failed on save");
-
-        }
-
-        [HttpGet("address/{id}", Name = "GetAddress")]
-        public async Task<IActionResult> GetAddressById(int id)
-        {
-            //TODO: Implement Realistic Implementation
-            var address = await _repo.GetById<PersonalDataSheet,int>(id);
-            var addressToReturn = _mapper.Map<AddressDto>(address);
-            return Ok(addressToReturn);
-        }
-
-        [HttpPost("{pdsId}/idcards")]
-        public async Task<IActionResult> CreateNewIdCard(IdentificationDto idCardDto)
-        {
-            if (!HasValidRole(idCardDto.EmployeeId))
+           
+            // ToDo Delete or children
+           
+            if (deleted)
             {
-                return Unauthorized("You do not have clearance to update what is not yours!");
+                return NoContent();
             }
-
-            var idCardForCreate = _mapper.Map<Identification>(idCardDto);
-            _repo.Add(idCardForCreate);
-            if (await _repo.SaveAllAsync())
-            {
-                var idCardToReturn = _mapper.Map<IdentificationDto>(idCardForCreate);
-                return CreatedAtRoute("GetIdCard", new { id = idCardForCreate.Id }, idCardToReturn);
-            }
-
-            throw new Exception("Adding the ID Card failed on save");
-
+            throw new Exception("Error deleting!");
         }
 
-        [HttpGet("idcards/{id}", Name = "GetIdCard")]
-        public async Task<IActionResult> GetIdCardById(int id)
+        private async Task<bool> delete<T,K>(K id) where T : class
         {
-            //TODO: Implement Realistic Implementation
-            var idCard = await _repo.GetById<Identification,int>(id);
-            var idCardToReturn = _mapper.Map<IdentificationDto>(idCard);
-            return Ok(idCardToReturn);
+             var fromRepo = await _repo.GetById<T,K>(id);
+             if (fromRepo != null)
+             {
+                  _repo.Delete(fromRepo);
+                  
+             }
+            return await _repo.SaveAllAsync();
         }
 
-        [HttpPost("{pdsId}/eligibilities")]
-        public async Task<IActionResult> CreateEligibility(EligibilityDto eligibilityDto)
-        {
-            if (!HasValidRole(eligibilityDto.EmployeeId))
-            {
-                return Unauthorized("You do not have clearance to update what is not yours!");
-            }
 
-            var elegibilityForCreate = _mapper.Map<Eligibility>(eligibilityDto);
-            _repo.Add(elegibilityForCreate);
-            if (await _repo.SaveAllAsync())
-            {
-                var eligibilityToReturn = _mapper.Map<EligibilityDto>(elegibilityForCreate);
-                return CreatedAtRoute("GetEligibility", new { id = elegibilityForCreate.Id }, eligibilityToReturn);
-            }
 
-            throw new Exception("Adding the eligibility failed on save");
-
-        }
-
-        [HttpGet("eligibilities/{id}", Name = "GetEligibility")]
-        public async Task<IActionResult> GetEligibilityById(int id)
-        {
-            //TODO: Implement Realistic Implementation
-            var eligibility = await _repo.GetById<Eligibility,int>(id);
-            var eligibilityToReturn = _mapper.Map<EligibilityDto>(eligibility);
-            return Ok(eligibilityToReturn);
-        }
     }
 }

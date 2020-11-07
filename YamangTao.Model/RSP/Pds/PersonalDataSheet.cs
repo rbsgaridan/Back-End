@@ -5,7 +5,7 @@ using YamangTao.Core.Document;
 
 namespace YamangTao.Model.RSP.Pds
 {
-    public class PersonalDataSheet: IIdentifyableEntity<int>
+    public class PersonalDataSheet: IIdentifyableEntity<int>, IOwnedEntity
     {
         public int Id { get; set; }
         public string EmployeeId { get; set; }
@@ -93,5 +93,7 @@ namespace YamangTao.Model.RSP.Pds
         public DateTime? DateLastPrinted { get; set; }
 
         public int EntityId => Id;
+
+        public string OwnerId => EmployeeId;
     }
 }

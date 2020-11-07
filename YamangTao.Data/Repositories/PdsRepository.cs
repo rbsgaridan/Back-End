@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using System;
 using System.Linq;
 using System.Collections.Generic;
@@ -45,7 +46,26 @@ namespace YamangTao.Data.Repositories
         {
             var entities = _context.Set<T>().AsQueryable();
 
-           
+            // TODO: Join Employee to all pds tables
+            switch (typeof(T))
+            {
+                case var type when type == typeof(PersonalDataSheet):
+                    
+                break;
+
+                case var type when type == typeof(Address):
+                    
+                break;
+                
+                default:
+                    // entities = entities.Join(_context.Employees, t => t.OwnerId, e => e.Id,)
+                    entities = entities.Include(p => EF.Property<PersonalDataSheet>(p,"Pds"));
+
+                    break;
+            }
+            
+
+       
 
             //Keyword
             if (!string.IsNullOrEmpty(pdsParams.Keyword) && !string.IsNullOrEmpty(pdsParams.Filter))
