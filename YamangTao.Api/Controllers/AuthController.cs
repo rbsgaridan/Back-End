@@ -39,21 +39,23 @@ namespace YamangTao.Api.Controllers
         private readonly RoleManager<Role> _roleManager;
         private readonly IEmployeeRepository _repo;
         private readonly IOrgUnitRepository _orgRepo;
+        private readonly IPdsRepository _pdsRepo;
 
         public AuthController(IConfiguration config, IMapper mapper,
                               UserManager<User> userManager, SignInManager<User> signInManager,
                               RoleManager<Role> roleManager,
                               IEmployeeRepository repo,
-                              IOrgUnitRepository orgRepo)
+                              IOrgUnitRepository orgRepo,
+                              IPdsRepository pdsRepo)
         {
             _signInManager = signInManager;
             _roleManager = roleManager;
             _repo = repo;
             _orgRepo = orgRepo;
+            _pdsRepo = pdsRepo;
             _userManager = userManager;
             _config = config;
             _mapper = mapper;
-
 
         }
 
@@ -123,10 +125,30 @@ namespace YamangTao.Api.Controllers
                     Street = userForRegisterDto.Street,
                     Purok = userForRegisterDto.Purok,
                     Barangay = userForRegisterDto.Barangay,
+                    BarangayCode = userForRegisterDto.BarangayCode,
                     Municipality = userForRegisterDto.Municipality,
+                    MunicipalityCode = userForRegisterDto.MunicipalityCode,
                     Province = userForRegisterDto.Province,
+                    ProvinceCode = userForRegisterDto.ProvinceCode,
+                    Region = userForRegisterDto.Region,
+                    RegionCode = userForRegisterDto.RegionCode,
                     DateCreated = DateTime.Now
                 };
+                var newPds = new PersonalDataSheet() {
+                    EmployeeId = employee.Id,
+                    Addresses = new List<Address>()
+                };
+                newPds.Addresses.Add(newAddress);
+                var pdsFromRepo = await _pdsRepo.GetPdsFullByEmployeeID(employee.Id);
+                if (pdsFromRepo == null)
+                {
+                    _pdsRepo.Add(newPds);
+                }
+                else
+                {
+                    pdsFromRepo.Addresses.Add(newAddress);
+                }
+                
                 
 
                 await _repo.SaveAllAsync();

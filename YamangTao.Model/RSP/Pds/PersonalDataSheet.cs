@@ -45,18 +45,18 @@ namespace YamangTao.Model.RSP.Pds
         public string DualCitizenType { get; set; }
         public string DualCitizenCountry { get; set; }
         
-        public IEnumerable<Address> Addresses { get; set; }
-        public IEnumerable<Identification> IdCards { get; set; }
-        // public IEnumerable<FamilyBackground> FamilyBackgrounds { get; set; }
-        public IEnumerable<EducationalBackground> EducationalBackgrounds { get; set; }
-        public IEnumerable<Child> Children { get; set; }
-        public IEnumerable<Eligibility> Eligibilities { get; set; }
-        public IEnumerable<WorkExperience> WorkExperiences { get; set; }
-        public IEnumerable<VoluntaryWork> VoluntaryWorks { get; set; }
-        public IEnumerable<TrainingAttended> TrainingsAttended { get; set; }
-        public IEnumerable<Skill> Skills { get; set; }
-        public IEnumerable<Recognition> Recognitions { get; set; }
-        public IEnumerable<Membership> Memberships { get; set; }
+        public List<Address> Addresses { get; set; }
+        public List<Identification> IdCards { get; set; }
+        // public List<FamilyBackground> FamilyBackgrounds { get; set; }
+        public List<EducationalBackground> EducationalBackgrounds { get; set; }
+        public List<Child> Children { get; set; }
+        public List<Eligibility> Eligibilities { get; set; }
+        public List<WorkExperience> WorkExperiences { get; set; }
+        public List<VoluntaryWork> VoluntaryWorks { get; set; }
+        public List<TrainingAttended> TrainingsAttended { get; set; }
+        public List<Skill> Skills { get; set; }
+        public List<Recognition> Recognitions { get; set; }
+        public List<Membership> Memberships { get; set; }
         public bool ConsanguinityThird { get; set; }
         public bool ConsanguinityFouth { get; set; }
         public string ConsanguinityFouthDetails { get; set; }
@@ -81,7 +81,7 @@ namespace YamangTao.Model.RSP.Pds
         public string PwdMemberDetails { get; set; }
         public bool SoloParent { get; set; }
         public string SoloParentId { get; set; }
-        public IEnumerable<CharacterReference> References { get; set; }
+        public List<CharacterReference> References { get; set; }
         public string GovIdType { get; set; }
         public string GovIdNumber { get; set; }
         public string GovIdDatePlaceIssued { get; set; }
