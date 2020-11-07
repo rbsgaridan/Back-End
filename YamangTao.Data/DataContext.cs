@@ -192,37 +192,57 @@ namespace YamangTao.Data
             builder.Entity<PersonalDataSheet>(pds => {
                 pds.HasMany(p => p.Addresses)
                     .WithOne(a => a.Pds)
-                    .HasForeignKey(a => a.PdsId);
+                    .HasForeignKey(a => a.PdsId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                    
                 pds.HasMany(p => p.Eligibilities)
                     .WithOne(a => a.Pds)
-                    .HasForeignKey(a => a.PdsId);
+                    .HasForeignKey(a => a.PdsId)
+                    .OnDelete(DeleteBehavior.Cascade);
+                    
                 pds.HasMany(p => p.IdCards)
                     .WithOne(a => a.Pds)
-                    .HasForeignKey(a => a.PdsId);
+                    .HasForeignKey(a => a.PdsId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
                 pds.HasMany(p => p.Children)
                     .WithOne(a => a.Pds)
-                    .HasForeignKey(a => a.PdsId);
+                    .HasForeignKey(a => a.PdsId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
                 pds.HasMany(p => p.EducationalBackgrounds)
                     .WithOne(a => a.Pds)
                     .HasForeignKey(a => a.PdsId);
+
                 pds.HasMany(p => p.Memberships)
                     .WithOne(a => a.Pds)
-                    .HasForeignKey(a => a.PdsId);
+                    .HasForeignKey(a => a.PdsId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
                 pds.HasMany(p => p.Recognitions)
                     .WithOne(a => a.Pds)
-                    .HasForeignKey(a => a.PdsId);
+                    .HasForeignKey(a => a.PdsId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
                 pds.HasMany(p => p.Skills)
                     .WithOne(a => a.Pds)
-                    .HasForeignKey(a => a.PdsId);
+                    .HasForeignKey(a => a.PdsId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
                 pds.HasMany(p => p.TrainingsAttended)
                     .WithOne(a => a.Pds)
-                    .HasForeignKey(a => a.PdsId);
+                    .HasForeignKey(a => a.PdsId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
                 pds.HasMany(p => p.VoluntaryWorks)
                     .WithOne(a => a.Pds)
-                    .HasForeignKey(a => a.PdsId);
+                    .HasForeignKey(a => a.PdsId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
                 pds.HasMany(p => p.WorkExperiences)
                     .WithOne(a => a.Pds)
-                    .HasForeignKey(a => a.PdsId);
+                    .HasForeignKey(a => a.PdsId)
+                    .OnDelete(DeleteBehavior.Cascade);
                 
 
                 
@@ -333,20 +353,7 @@ namespace YamangTao.Data
                 c.Property(p => p.Honors).HasMaxLength(30);
             });
 
-            //Educational Background
-            builder.Entity<EducationalBackground>(c => {
-                c.HasOne(p => p.Pds)
-                    .WithMany(p => p.EducationalBackgrounds)
-                    .HasForeignKey(cp => cp.PdsId);
-                c.Property(p => p.EmployeeId).HasMaxLength(30);
-                c.Property(p => p.OrderNumber).HasMaxLength(5);
-                c.Property(p => p.Level).HasMaxLength(30);
-                c.Property(p => p.School).HasMaxLength(150);
-                c.Property(p => p.Course).HasMaxLength(150);
-                c.Property(p => p.HighestLevel).HasMaxLength(15);
-                c.Property(p => p.YearGraduated).HasMaxLength(10);
-                c.Property(p => p.Honors).HasMaxLength(30);
-            });
+           
 
              // Eligibility
             builder.Entity<Eligibility>(e => {
