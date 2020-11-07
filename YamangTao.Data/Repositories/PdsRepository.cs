@@ -7,6 +7,7 @@ using YamangTao.Data.Core;
 using YamangTao.Data.Helpers;
 using YamangTao.Model.RSP.Pds;
 using Microsoft.EntityFrameworkCore;
+using YamangTao.Core.Common;
 
 namespace YamangTao.Data.Repositories
 {
@@ -32,6 +33,108 @@ namespace YamangTao.Data.Repositories
         {
             _context.RemoveRange(entities);
         }
+
+        public async Task<T> GetById<T, K>(K id) where T : class
+        {
+            
+            // _logger.LogInformation("Finding " + typeof(T) + " by ID:" + id);
+            return await _context.FindAsync<T>(id);
+        }
+
+        public async Task<PagedList<T>> GetPaged<T, K>(PdsParams pdsParams) where T : class, IIdentifyableEntity<K>
+        {
+            var entities = _context.Set<T>().AsQueryable();
+
+           
+
+            //Keyword
+            if (!string.IsNullOrEmpty(pdsParams.Keyword) && !string.IsNullOrEmpty(pdsParams.Filter))
+            {
+                if (!string.IsNullOrEmpty(pdsParams.Filter1))
+                {
+                    entities = entities.Where(a => EF.Property<string>(a, pdsParams.Filter).Contains(pdsParams.Keyword)
+                                                    || EF.Property<string>(a, pdsParams.Filter1).Contains(pdsParams.Keyword));
+                }
+                else
+                {
+                    entities = entities.Where(a => EF.Property<string>(a, pdsParams.Filter).Contains(pdsParams.Keyword));
+                }
+
+            }
+
+            if (!string.IsNullOrEmpty(pdsParams.FilterByKey))
+            {
+                if (pdsParams.KeyBool != null)
+                {
+                    entities = entities.Where(a => EF.Property<bool>(a, pdsParams.FilterByKey) == pdsParams.KeyBool);
+                }
+                if (pdsParams.KeyInt != null)
+                {
+                    entities = entities.Where(a => EF.Property<int>(a, pdsParams.FilterByKey) == pdsParams.KeyInt);
+                }
+                if (pdsParams.Keyword != null)
+                {
+                    entities = entities.Where(a => EF.Property<string>(a, pdsParams.FilterByKey) == pdsParams.Keyword);
+                }
+
+            }
+            // Sort
+            if (!string.IsNullOrEmpty(pdsParams.OrderBy))
+            {
+                entities = entities.OrderBy(a => EF.Property<string>(a, pdsParams.OrderBy));
+
+            }
+
+            return await PagedList<T>.CreateAsync(entities, pdsParams.PageNumber, pdsParams.PageSize);
+        }
+
+        public async Task<IEnumerable<T>> GetList<T, K>(PdsParams pdsParams) where T : class, IIdentifyableEntity<K>
+        {
+            var entities = _context.Set<T>().AsQueryable();
+
+
+            //Keyword
+            if (!string.IsNullOrEmpty(pdsParams.Keyword) && !string.IsNullOrEmpty(pdsParams.Filter))
+            {
+                if (!string.IsNullOrEmpty(pdsParams.Filter1))
+                {
+                    entities = entities.Where(a => EF.Property<string>(a, pdsParams.Filter).Contains(pdsParams.Keyword)
+                                                    || EF.Property<string>(a, pdsParams.Filter1).Contains(pdsParams.Keyword));
+                }
+                else
+                {
+                    entities = entities.Where(a => EF.Property<string>(a, pdsParams.Filter).Contains(pdsParams.Keyword));
+                }
+
+            }
+
+            if (!string.IsNullOrEmpty(pdsParams.FilterByKey))
+            {
+                if (pdsParams.KeyBool != null)
+                {
+                    entities = entities.Where(a => EF.Property<bool>(a, pdsParams.FilterByKey) == pdsParams.KeyBool);
+                }
+                if (pdsParams.KeyInt != null)
+                {
+                    entities = entities.Where(a => EF.Property<int>(a, pdsParams.FilterByKey) == pdsParams.KeyInt);
+                }
+                if (pdsParams.Keyword != null)
+                {
+                    entities = entities.Where(a => EF.Property<string>(a, pdsParams.FilterByKey) == pdsParams.Keyword);
+                }
+
+            }
+            // Sort
+            if (!string.IsNullOrEmpty(pdsParams.OrderBy))
+            {
+                entities = entities.OrderBy(a => EF.Property<string>(a, pdsParams.OrderBy));
+
+            }
+
+            return await entities.ToListAsync(); ;
+        }
+
+
 
         public async Task<PagedList<Address>> GetAddresses(PdsParams pdsParams)
         {
@@ -221,15 +324,38 @@ namespace YamangTao.Data.Repositories
             
         }
 
-        public async Task<PersonalDataSheet> GetPdsByID(int id)
+        public async Task<PersonalDataSheet> GetPdsFullByEmployeeID(string id)
         {
-            return await _context.PersonalDataSheets.FirstOrDefaultAsync(pds => pds.Id == id);
+            return  await _context.PersonalDataSheets
+                                .Include(p => p.Addresses)
+                                .Include(p => p.References)
+                                .Include(p => p.Children)
+                                .Include(p => p.EducationalBackgrounds)
+                                .Include(p => p.Eligibilities)
+                                .Include(p => p.IdCards)
+                                .Include(p => p.Memberships)
+                                .Include(p => p.Recognitions)
+                                .Include(p => p.Skills)
+                                .Include(p => p.TrainingsAttended)
+                                .Include(p => p.VoluntaryWorks)
+                                .FirstOrDefaultAsync(pds => id.Equals(pds.EmployeeId));
+            
         }
         public async Task<PersonalDataSheet> GetCompletePdsByID(int id)
         {
-            return await _context.PersonalDataSheets.Include(pds => pds.Addresses)
-                            .Include(pds => pds.Eligibilities)
-                            .Include(pds => pds.IdCards)
+            return  await _context.PersonalDataSheets
+                                .Include(p => p.Addresses)
+                                .Include(p => p.References)
+                                .Include(p => p.Children)
+                                .Include(p => p.EducationalBackgrounds)
+                                .Include(p => p.Eligibilities)
+                                .Include(p => p.IdCards)
+                                .Include(p => p.Memberships)
+                                .Include(p => p.Recognitions)
+                                .Include(p => p.Skills)
+                                .Include(p => p.TrainingsAttended)
+                                .Include(p => p.VoluntaryWorks)
+                                
                             .FirstOrDefaultAsync(pds => pds.Id == id);
         }
 
@@ -340,10 +466,6 @@ namespace YamangTao.Data.Repositories
                                             .ToListAsync();
         }
 
-        public async Task<T> GetById<T>(int id) where T : class
-        {
-            return await _context.FindAsync<T>(id);
-                            // .Where(x => EF.Property<int>(x, "Id") == id);
-        }
+       
     }
 }

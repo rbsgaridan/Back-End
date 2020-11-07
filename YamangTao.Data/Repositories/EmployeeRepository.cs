@@ -300,4 +300,6 @@ namespace YamangTao.Data.Repositories
             return newid;
         }
     }
+
+    
 }

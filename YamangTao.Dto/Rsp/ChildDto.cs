@@ -1,9 +1,8 @@
 using System;
-using YamangTao.Core.Common;
 
-namespace YamangTao.Model.RSP.Pds
+namespace YamangTao.Dto.Rsp
 {
-    public class Child : IIdentifyableEntity<int>
+    public class ChildDto
     {
         public int Id { get; set; }
         public int PdsId { get; set; }
@@ -15,8 +14,5 @@ namespace YamangTao.Model.RSP.Pds
         public string Suffix { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
-        public PersonalDataSheet Pds { get; set; }
-
-        public int EntityId => Id;
     }
 }

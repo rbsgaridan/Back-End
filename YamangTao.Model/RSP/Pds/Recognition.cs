@@ -1,6 +1,8 @@
+using YamangTao.Core.Common;
+
 namespace YamangTao.Model.RSP.Pds
 {
-    public class Recognition
+    public class Recognition : IIdentifyableEntity<long>
     {
         public long Id { get; set; }
         public int PdsId { get; set; }
@@ -10,5 +12,6 @@ namespace YamangTao.Model.RSP.Pds
         public string CertNumber { get; set; }
         public PersonalDataSheet Pds { get; set; }
 
+        public long EntityId => Id;
     }
 }

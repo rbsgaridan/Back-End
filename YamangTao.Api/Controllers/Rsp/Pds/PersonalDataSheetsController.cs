@@ -44,7 +44,7 @@ namespace YamangTao.Api.Controllers.Rsp.Pds
         public async Task<IActionResult> GetPdsById(int id)
         {
             //TODO: Implement Realistic Implementation
-            var pds = await _repo.GetPdsByID(id);
+            var pds = await _repo.GetCompletePdsByID(id);
             var pdsToReturn = _mapper.Map<PersonalDataSheetDto>(pds);
             return Ok(pdsToReturn);
         }
@@ -63,11 +63,11 @@ namespace YamangTao.Api.Controllers.Rsp.Pds
         {
              if (!HasValidRole(employeeId))
             {
-                return Unauthorized("You do not have clearance to update what is not yours!");
+                return Unauthorized("You do not have clearance to see what is not yours!");
             }
 
-            var pds = await _repo.GetAllPdsByEmployeeID(employeeId);
-            var pdsToReturn = _mapper.Map<IEnumerable<PersonalDataSheetDto>>(pds);
+            var pds = await _repo.GetPdsFullByEmployeeID(employeeId);
+            var pdsToReturn = _mapper.Map<PersonalDataSheetDto>(pds);
             return Ok(pdsToReturn);
         }
 
@@ -97,7 +97,7 @@ namespace YamangTao.Api.Controllers.Rsp.Pds
                 return Unauthorized("You do not have clearance to update what is not yours!");
             }
 
-            var pdsFromRepo = await _repo.GetPdsByID(pdsForUpdate.Id);
+            var pdsFromRepo = await _repo.GetById<PersonalDataSheet,int>(pdsForUpdate.Id);
             _mapper.Map(pdsForUpdate, pdsFromRepo);
 
             if (await _repo.SaveAllAsync())
@@ -130,7 +130,7 @@ namespace YamangTao.Api.Controllers.Rsp.Pds
         [HttpDelete("{id}")]
         public async Task<IActionResult> deletePds(int id)
         {
-            var pdsFromRepo = await _repo.GetPdsByID(id);
+            var pdsFromRepo = await _repo.GetById<PersonalDataSheet,int>(id);
             if (!HasValidRole(pdsFromRepo.EmployeeId))
             {
                 return Unauthorized("You do not have clearance to update what is not yours!");
@@ -168,7 +168,7 @@ namespace YamangTao.Api.Controllers.Rsp.Pds
         public async Task<IActionResult> GetAddressById(int id)
         {
             //TODO: Implement Realistic Implementation
-            var address = await _repo.GetById<Address>(id);
+            var address = await _repo.GetById<PersonalDataSheet,int>(id);
             var addressToReturn = _mapper.Map<AddressDto>(address);
             return Ok(addressToReturn);
         }
@@ -197,7 +197,7 @@ namespace YamangTao.Api.Controllers.Rsp.Pds
         public async Task<IActionResult> GetIdCardById(int id)
         {
             //TODO: Implement Realistic Implementation
-            var idCard = await _repo.GetById<Identification>(id);
+            var idCard = await _repo.GetById<Identification,int>(id);
             var idCardToReturn = _mapper.Map<IdentificationDto>(idCard);
             return Ok(idCardToReturn);
         }
@@ -226,7 +226,7 @@ namespace YamangTao.Api.Controllers.Rsp.Pds
         public async Task<IActionResult> GetEligibilityById(int id)
         {
             //TODO: Implement Realistic Implementation
-            var eligibility = await _repo.GetById<Eligibility>(id);
+            var eligibility = await _repo.GetById<Eligibility,int>(id);
             var eligibilityToReturn = _mapper.Map<EligibilityDto>(eligibility);
             return Ok(eligibilityToReturn);
         }

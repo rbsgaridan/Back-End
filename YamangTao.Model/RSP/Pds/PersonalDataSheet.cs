@@ -1,10 +1,11 @@
 using System;
 using System.Collections.Generic;
+using YamangTao.Core.Common;
 using YamangTao.Core.Document;
 
 namespace YamangTao.Model.RSP.Pds
 {
-    public class PersonalDataSheet
+    public class PersonalDataSheet: IIdentifyableEntity<int>
     {
         public int Id { get; set; }
         public string EmployeeId { get; set; }
@@ -90,8 +91,7 @@ namespace YamangTao.Model.RSP.Pds
         public DateTime? DateCreated { get; set; }
         public DateTime? DateLastModified { get; set; }
         public DateTime? DateLastPrinted { get; set; }
-        
 
-        
+        public int EntityId => Id;
     }
 }

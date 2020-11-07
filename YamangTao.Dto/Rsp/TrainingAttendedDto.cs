@@ -1,9 +1,8 @@
 using System;
-using YamangTao.Core.Common;
 
-namespace YamangTao.Model.RSP.Pds
+namespace YamangTao.Dto.Rsp
 {
-    public class TrainingAttended : IIdentifyableEntity<int>
+    public class TrainingAttendedDto
     {
         public int Id { get; set; }
         public int PdsId { get; set; }
@@ -19,8 +18,5 @@ namespace YamangTao.Model.RSP.Pds
         public bool Verified { get; set; }
         public DateTime? DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
-        public PersonalDataSheet Pds { get; set; }
-
-        public int EntityId => Id;
     }
 }

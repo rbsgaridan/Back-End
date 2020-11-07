@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using YamangTao.Core.Common;
 using YamangTao.Core.HttpParams;
 using YamangTao.Core.Repository;
 using YamangTao.Data.Helpers;
@@ -10,10 +11,13 @@ namespace YamangTao.Data.Core
 {
     public interface IPdsRepository : IRepositoryFlex
     {
-        Task<PagedList<PersonalDataSheet>> GetPdsPaged(PdsParams pdsParams);
+        Task<PagedList<T>> GetPaged<T,K>(PdsParams pmsParams) where T: class, IIdentifyableEntity<K>;
+        Task<IEnumerable<T>> GetList<T,K>(PdsParams pmsParams) where T: class, IIdentifyableEntity<K>;
+        Task<T> GetById<T,K>(K id) where T: class;
 
-        Task<PersonalDataSheet> GetPdsByID(int id);
-        Task<T> GetById<T>(int id) where T: class;
+        Task<PagedList<PersonalDataSheet>> GetPdsPaged(PdsParams pdsParams);
+        Task<PersonalDataSheet> GetPdsFullByEmployeeID(string id);
+        // Task<T> GetById<T>(int id) where T: class;
         Task<PersonalDataSheet> GetCompletePdsByID(int id);
         Task<IEnumerable<PersonalDataSheet>> GetAllPdsByEmployeeID(string employeeId);
         Task<PagedList<Address>> GetAddresses(PdsParams pdsParams);

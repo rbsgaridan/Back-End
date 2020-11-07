@@ -1,8 +1,6 @@
-using YamangTao.Core.Common;
-
-namespace YamangTao.Model.RSP.Pds
+namespace YamangTao.Dto.Rsp
 {
-    public class CharacterReference: IIdentifyableEntity<int>
+    public class CharacterReferenceDto
     {
         public int Id { get; set; }
         public int PdsId { get; set; }
@@ -10,8 +8,5 @@ namespace YamangTao.Model.RSP.Pds
         public string Name { get; set; }
         public string Address { get; set; }
         public string Mobile { get; set; }
-        public PersonalDataSheet Pds { get; set; }
-
-        public int EntityId => Id;
     }
 }

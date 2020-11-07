@@ -64,7 +64,7 @@ namespace YamangTao.Api.Controllers.Rsp.Pds
         public async Task<IActionResult> GetIdentificationById(int id)
         {
             //TODO: Implement Realistic Implementation
-            var identification = await _repo.GetById<Identification>(id);
+            var identification = await _repo.GetById<Identification,int>(id);
             var identificationToReturn = _mapper.Map<IdentificationDto>(identification);
             return Ok(identificationToReturn);
         }
@@ -95,7 +95,7 @@ namespace YamangTao.Api.Controllers.Rsp.Pds
                 return Unauthorized("You do not have clearance to update what is not yours!");
             }
 
-            var identificationFromRepo = await _repo.GetById<Identification>(identificationForUpdate.Id);
+            var identificationFromRepo = await _repo.GetById<Identification,int>(identificationForUpdate.Id);
             _mapper.Map(identificationForUpdate, identificationFromRepo);
 
             if (await _repo.SaveAllAsync())
@@ -109,7 +109,7 @@ namespace YamangTao.Api.Controllers.Rsp.Pds
         [HttpDelete("{id}")]
         public async Task<IActionResult> deleteIdentification(int id)
         {
-            var identificationFromRepo = await _repo.GetById<Identification>(id);
+            var identificationFromRepo = await _repo.GetById<Identification,int>(id);
             if (!HasValidRole(identificationFromRepo.EmployeeId))
             {
                 return Unauthorized("You do not have clearance to update what is not yours!");

@@ -1,8 +1,9 @@
 using System;
+using YamangTao.Core.Common;
 
 namespace YamangTao.Model.RSP.Pds
 {
-    public class Address
+    public class Address : IIdentifyableEntity<int>
     {
         public int Id { get; set; }
         public int? PdsId { get; set; }
@@ -20,5 +21,7 @@ namespace YamangTao.Model.RSP.Pds
         public DateTime? DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
         public PersonalDataSheet Pds { get; set; }
+
+        public int EntityId => Id;
     }
 }

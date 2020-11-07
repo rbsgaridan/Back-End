@@ -5,6 +5,7 @@ namespace YamangTao.Dto.Rsp
     {
         public int Id { get; set; }
         public int PdsId { get; set; }
+       
         public string EmployeeId { get; set; }
 
         public string Description {get; set;}
@@ -13,5 +14,7 @@ namespace YamangTao.Dto.Rsp
         public string ExamPlace {get; set;}
         public string LicenseNumber {get; set;}
         public DateTime? ValidityDate {get; set;}
+        public DateTime? DateCreated { get; set; }
+        public DateTime? DateModified { get; set; }
     }
 }

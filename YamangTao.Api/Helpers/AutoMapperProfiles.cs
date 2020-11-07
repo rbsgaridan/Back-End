@@ -75,11 +75,21 @@ namespace YamangTao.Api.Helpers
                 .ForMember(dto => dto.ApprovedBy, opt => opt.MapFrom(ipcr => ipcr.ApprovedBy.FullName));
 
             // PDS
-            CreateMap<Eligibility, EligibilityDto>().ReverseMap();
             CreateMap<Address, AddressDto>().ReverseMap();
+            CreateMap<CharacterReference, CharacterReferenceDto>().ReverseMap();
+            CreateMap<Child, ChildDto>().ReverseMap();
+            CreateMap<EducationalBackground, EducationalBackgroundDto>().ReverseMap();
+            CreateMap<Eligibility, EligibilityDto>().ReverseMap();
             CreateMap<Identification, IdentificationDto>().ReverseMap();
+            CreateMap<Membership, MembershipDto>().ReverseMap();
+            CreateMap<Recognition, RecognitionDto>().ReverseMap();
+            CreateMap<Skill, SkillDto>().ReverseMap();
+            CreateMap<TrainingAttended, TrainingAttendedDto>().ReverseMap();
+            CreateMap<VoluntaryWork, VoluntaryWorkDto>().ReverseMap();
+            CreateMap<WorkExperience, WorkExperienceDto>().ReverseMap();
             CreateMap<PersonalDataSheet, PersonalDataSheetDto>().ReverseMap();
             
+            //LND
             CreateMap<Activity, ActivityDto>().ForMember(src => src.ActivityType, opt => opt.MapFrom(act => act.ActivityType.Description));
             CreateMap<ActivityDto, Activity>().ForMember(src => src.ActivityType, opt => opt.Ignore());
             CreateMap<ActivityType, ActivityTypeDto>().ReverseMap();

@@ -1,7 +1,9 @@
 using System;
+using YamangTao.Core.Common;
+
 namespace YamangTao.Model.RSP.Pds
 {
-    public class Eligibility
+    public class Eligibility : IIdentifyableEntity<int>
     {
         public int Id { get; set; }
         public int PdsId { get; set; }
@@ -16,6 +18,7 @@ namespace YamangTao.Model.RSP.Pds
         public DateTime? ValidityDate {get; set;}
         public DateTime? DateCreated { get; set; }
         public DateTime? DateModified { get; set; }
-        
+
+        public int EntityId => Id;
     }
 }
