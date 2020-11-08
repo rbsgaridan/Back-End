@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using YamangTao.Api.Helpers;
 using YamangTao.Model;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace YamangTao.Api.Controllers
 {
@@ -26,9 +27,27 @@ namespace YamangTao.Api.Controllers
             _repo = repo;
         }
 
+        private bool HasValidRole(string employeeId)
+        {
+            var isCurrentUser = User.FindFirst(ClaimTypes.NameIdentifier).Value.Equals(employeeId);
+            if (!isCurrentUser)
+            {
+                if (!(User.IsInRole("Admin") || User.IsInRole("HR")))
+                    {
+                        return false;
+                    }
+            }
+            return true;
+        }
+
+
         [HttpGet("{id}", Name = "GetEmployee")]
         public async Task<IActionResult> GetEmployee(string id)
         {
+            if (!HasValidRole(id))
+            {
+                return Unauthorized("You do not have clearance to see what is not yours!");
+            }
             //TODO: Implement Realistic Implementation
             var employee = await _repo.GetEmployeeByID(id);
             var employeeToReturn = _mapper.Map<EmployeeDto>(employee);
@@ -111,6 +130,11 @@ namespace YamangTao.Api.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> deleteEmployee(string id)
         {
+            if (!HasValidRole(id))
+            {
+                return Unauthorized("You do not have clearance to see what is not yours!");
+            }
+
             var employeeFromRepo = await _repo.GetEmployeeByID(id);
             _repo.Delete(employeeFromRepo);
             if (await _repo.SaveAllAsync())

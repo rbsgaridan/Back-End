@@ -305,13 +305,13 @@ namespace YamangTao.Data
                     .HasForeignKey(el => el.PdsId);
                 e.Property(p => p.EmployeeId).HasMaxLength(30);
                 e.Property(p => p.Description).HasMaxLength(30);
-                e.Property(p => p.Block).HasMaxLength(30);
+                e.Property(p => p.Block).HasMaxLength(50);
                 e.Property(p => p.Street).HasMaxLength(50);
-                e.Property(p => p.Purok).HasMaxLength(30);
-                e.Property(p => p.Barangay).HasMaxLength(30);
-                e.Property(p => p.Municipality).HasMaxLength(30);
-                e.Property(p => p.Province).HasMaxLength(30);
-                e.Property(p => p.Region).HasMaxLength(15);
+                e.Property(p => p.Purok).HasMaxLength(50);
+                e.Property(p => p.Barangay).HasMaxLength(50);
+                e.Property(p => p.Municipality).HasMaxLength(50);
+                e.Property(p => p.Province).HasMaxLength(50);
+                e.Property(p => p.Region).HasMaxLength(50);
                 e.Property(p => p.ZipCode).HasMaxLength(10);
             });
 

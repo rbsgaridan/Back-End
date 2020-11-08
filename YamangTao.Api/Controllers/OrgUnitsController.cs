@@ -118,6 +118,7 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpGet("list/all")]
+        [AllowAnonymous]
         public async Task<IActionResult> ListAllOrgUnits()
         {
             //TODO: Implement Realistic Implementation

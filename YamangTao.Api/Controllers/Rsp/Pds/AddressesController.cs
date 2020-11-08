@@ -248,7 +248,7 @@ namespace YamangTao.Api.Controllers.Rsp.Pds
         {
             
             return Ok(_places.Where(p =>  p.GeographicLevel.Equals("Reg") )
-                                .OrderBy(p => p.Name));
+                                .OrderBy(p => p.Code));
         }
         
         [AllowAnonymous]
