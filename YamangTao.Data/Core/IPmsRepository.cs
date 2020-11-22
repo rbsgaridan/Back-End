@@ -14,10 +14,10 @@ namespace YamangTao.Data.Core
         Task<PagedList<T>> GetPaged<T,K>(PmsParams pmsParams) where T: class, IIdentifyableEntity<K>;
         Task<T> GetById<T,K>(K id) where T: class;
         
-        Task<List<T>> GetList<T,K>(PmsParams pmsParams) where T: class, IIdentifyableEntity<K>;
-        Task<Ipcr> GetIpcrWithCompleteKpisById(int id);
+        // Task<List<T>> GetList<T,K>(PmsParams pmsParams) where T: class, IIdentifyableEntity<K>;
+        // Task<Ipcr> GetIpcrWithCompleteKpisById(int id);
 
-        Task<Rating> GetRating(int rmId, sbyte rate);
+        // Task<Rating> GetRating(int rmId, sbyte rate);
 
     }
 }

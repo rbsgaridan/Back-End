@@ -2,7 +2,7 @@ using System;
 
 namespace YamangTao.Model.DocumentTracking
 {
-    public class DocumentLog
+    public class DocumentLog // History of document
     {
         public long Id { get; set; }
         public DateTime LogDate { get; set; } // Date and time of log

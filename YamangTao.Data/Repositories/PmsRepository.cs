@@ -96,22 +96,22 @@ namespace YamangTao.Data.Repositories
             return await PagedList<T>.CreateAsync(entities, pmsParams.PageNumber, pmsParams.PageSize);
         }
 
-        public async Task<Ipcr> GetIpcrWithCompleteKpisById(int id)
-        {
-            return await _context.Ipcrs.Include(i => i.Ratee)
-                                        .Include(i => i.ReviewedBy)
-                                        .Include(i => i.CompiledBy)
-                                        .Include(i => i.ApprovedBy)
-                                        .Include(i => i.Position)
-                                        .Include(i => i.Unit)
-                                        .Include(i => i.KPIs)
-                                        .ThenInclude(i => i.Kpis)
-                                        .ThenInclude(i => i.Kpis)
-                                        .ThenInclude(i => i.Kpis)
-                                        .ThenInclude(i => i.RatingMatrices)
-                                        .ThenInclude(i => i.Ratings)
-                                        .FirstOrDefaultAsync(i => i.Id == id);
-        }
+        // public async Task<Ipcr> GetIpcrWithCompleteKpisById(int id)
+        // {
+        //     return await _context.Ipcrs.Include(i => i.Ratee)
+        //                                 .Include(i => i.ReviewedBy)
+        //                                 .Include(i => i.CompiledBy)
+        //                                 .Include(i => i.ApprovedBy)
+        //                                 .Include(i => i.Position)
+        //                                 .Include(i => i.Unit)
+        //                                 .Include(i => i.KPIs)
+        //                                 .ThenInclude(i => i.Kpis)
+        //                                 .ThenInclude(i => i.Kpis)
+        //                                 .ThenInclude(i => i.Kpis)
+        //                                 .ThenInclude(i => i.RatingMatrices)
+        //                                 .ThenInclude(i => i.Ratings)
+        //                                 .FirstOrDefaultAsync(i => i.Id == id);
+        // }
 
         public async Task<List<T>> GetList<T, K>(PmsParams pmsParams) where T: class, IIdentifyableEntity<K>
         {
@@ -159,10 +159,10 @@ namespace YamangTao.Data.Repositories
             return await entities.ToListAsync();
         }
 
-        public async Task<Rating> GetRating(int rmId, sbyte rate)
-        {
-            var rating = await _context.Ratings.FirstOrDefaultAsync(r => r.RatingMatrixId == rmId && r.Rate == rate);
-            return rating;
-        }
+        // public async Task<Rating> GetRating(int rmId, sbyte rate)
+        // {
+        //     var rating = await _context.Ratings.FirstOrDefaultAsync(r => r.RatingMatrixId == rmId && r.Rate == rate);
+        //     return rating;
+        // }
     }
 }

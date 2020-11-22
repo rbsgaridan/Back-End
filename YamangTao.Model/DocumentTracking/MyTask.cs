@@ -3,7 +3,7 @@ using System;
 
 namespace YamangTao.Model.DocumentTracking
 {
-    public class MyTask
+    public class MyTask // Documents sent to a user
     {
         public long Id { get; set; } 
         public DateTime DateCreated { get; set; }
@@ -14,5 +14,6 @@ namespace YamangTao.Model.DocumentTracking
         public string Url { get; set; }
         public string DocumentType { get; set; }
         public int DocumentId { get; set; }
+        public bool Seen { get; set; }
     }
 }

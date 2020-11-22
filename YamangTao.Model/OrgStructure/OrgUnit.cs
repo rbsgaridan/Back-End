@@ -24,7 +24,7 @@ namespace YamangTao.Model.OrgStructure
         // Child Units
         public virtual List<OrgUnit> OrgUnitChildren { get; set; }
         public virtual List<Employee> Employees { get; set; }
-        public virtual List<Ipcr> IpcrsUnderThisUnit { get; set; }
+        // public virtual List<Ipcr> IpcrsUnderThisUnit { get; set; }
 
 
     }

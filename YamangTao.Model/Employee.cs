@@ -33,11 +33,11 @@ namespace YamangTao.Model
         public BranchCampus CurrentCampus { get; set; }
         public int? OrgUnitId { get; set; }
         public OrgUnit CurrentUnit { get; set; }
-        public virtual List<OrgUnit> HeadedUnits { get; set; }
-        public virtual List<Ipcr> IPCRs { get; set; }
-        public virtual List<Ipcr> ReviewedIpcrs { get; set; }
-        public virtual List<Ipcr> CompiledIpcrs { get; set; }
-        public virtual List<Ipcr> ApprovedIpcrs { get; set; }
+        public virtual List<OrgUnit> HeadedUnits { get; set; } // Home Department. If may designation pwede rin xa dun
+        // public virtual List<Ipcr> IPCRs { get; set; }
+        // public virtual List<Ipcr> ReviewedIpcrs { get; set; }
+        // public virtual List<Ipcr> CompiledIpcrs { get; set; }
+        // public virtual List<Ipcr> ApprovedIpcrs { get; set; }
 
         
         public string FullName { get; set; }

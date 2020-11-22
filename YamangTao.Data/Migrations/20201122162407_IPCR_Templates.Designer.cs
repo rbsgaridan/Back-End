@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YamangTao.Data;
 
 namespace YamangTao.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201122162407_IPCR_Templates")]
+    partial class IPCR_Templates
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -587,6 +589,213 @@ namespace YamangTao.Data.Migrations
                     b.ToTable("OrgUnits");
                 });
 
+            modelBuilder.Entity("YamangTao.Model.PM.Ipcr", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AdjectivalRating")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Approved")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ApprovedById")
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("ApproverDesignation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Compiled")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("CompiledById")
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("CompilerDesignation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CurrentHolder")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DateApproved")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateLastModified")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateLastPrinted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateReviewed")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateTargetApproved")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("EmployeeIdLocation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("FinalAverageRating")
+                        .HasColumnType("float");
+
+                    b.Property<double>("FinalErating")
+                        .HasColumnType("float");
+
+                    b.Property<double>("FinalQrating")
+                        .HasColumnType("float");
+
+                    b.Property<double>("FinalTrating")
+                        .HasColumnType("float");
+
+                    b.Property<bool>("IsTemplate")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("JobPositionId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("LandDRecommendation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NextUser")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrgUnitId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("PeriodFrom")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("PeriodTo")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PreviousHolder")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Reviewed")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ReviewedById")
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("ReviewerDesignation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("RnRRecommendation")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("isLocked")
+                        .HasColumnType("bit");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ApprovedById");
+
+                    b.HasIndex("CompiledById");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.HasIndex("JobPositionId");
+
+                    b.HasIndex("OrgUnitId");
+
+                    b.HasIndex("ReviewedById");
+
+                    b.ToTable("Ipcr");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.Kpi", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ActualAccomplishment")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("AverageRating")
+                        .HasColumnType("real");
+
+                    b.Property<string>("Code")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("EfficiencyRating")
+                        .HasColumnType("real");
+
+                    b.Property<string>("EmployeeId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("HasEfficiency")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasQuality")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("HasTimeliness")
+                        .HasColumnType("bit");
+
+                    b.Property<int?>("IpcrId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("IpcrOwnerId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("KpiTypeId")
+                        .HasColumnType("int");
+
+                    b.Property<float?>("MaxWeight")
+                        .HasColumnType("real");
+
+                    b.Property<float?>("MinWeight")
+                        .HasColumnType("real");
+
+                    b.Property<string>("OrderNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("ParentKpiId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("QualityRating")
+                        .HasColumnType("real");
+
+                    b.Property<string>("SuccessIndicator")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TaskId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("TimelinessRating")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Weight")
+                        .HasColumnType("real");
+
+                    b.Property<string>("mfoOO")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("IpcrId");
+
+                    b.HasIndex("KpiTypeId");
+
+                    b.HasIndex("ParentKpiId");
+
+                    b.ToTable("Kpi");
+                });
+
             modelBuilder.Entity("YamangTao.Model.PM.KpiType", b =>
                 {
                     b.Property<int>("Id")
@@ -601,6 +810,52 @@ namespace YamangTao.Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("KpiTypes");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.Rating", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<short>("Rate")
+                        .HasColumnType("smallint");
+
+                    b.Property<long>("RatingMatrixId")
+                        .HasColumnType("bigint");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("RatingMatrixId");
+
+                    b.ToTable("Rating");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.RatingMatrix", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("bigint")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Dimension")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("KpiId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MeansOfVerification")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("KpiId");
+
+                    b.ToTable("RatingMatrix");
                 });
 
             modelBuilder.Entity("YamangTao.Model.PM.Template.IpcrTemplate", b =>
@@ -1702,6 +1957,70 @@ namespace YamangTao.Data.Migrations
                         .WithMany("OrgUnitChildren")
                         .HasForeignKey("ParentUnitId")
                         .OnDelete(DeleteBehavior.NoAction);
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.Ipcr", b =>
+                {
+                    b.HasOne("YamangTao.Model.Employee", "ApprovedBy")
+                        .WithMany()
+                        .HasForeignKey("ApprovedById");
+
+                    b.HasOne("YamangTao.Model.Employee", "CompiledBy")
+                        .WithMany()
+                        .HasForeignKey("CompiledById");
+
+                    b.HasOne("YamangTao.Model.Employee", "Ratee")
+                        .WithMany()
+                        .HasForeignKey("EmployeeId");
+
+                    b.HasOne("YamangTao.Model.RSP.JobPosition", "Position")
+                        .WithMany("Ipcrs")
+                        .HasForeignKey("JobPositionId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("YamangTao.Model.OrgStructure.OrgUnit", "Unit")
+                        .WithMany()
+                        .HasForeignKey("OrgUnitId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("YamangTao.Model.Employee", "ReviewedBy")
+                        .WithMany()
+                        .HasForeignKey("ReviewedById");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.Kpi", b =>
+                {
+                    b.HasOne("YamangTao.Model.PM.Ipcr", "Ipcr")
+                        .WithMany("KPIs")
+                        .HasForeignKey("IpcrId");
+
+                    b.HasOne("YamangTao.Model.PM.KpiType", "KpiType")
+                        .WithMany("KPIs")
+                        .HasForeignKey("KpiTypeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("YamangTao.Model.PM.Kpi", "ParentKpi")
+                        .WithMany("Kpis")
+                        .HasForeignKey("ParentKpiId");
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.Rating", b =>
+                {
+                    b.HasOne("YamangTao.Model.PM.RatingMatrix", "Matrix")
+                        .WithMany("Ratings")
+                        .HasForeignKey("RatingMatrixId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("YamangTao.Model.PM.RatingMatrix", b =>
+                {
+                    b.HasOne("YamangTao.Model.PM.Kpi", "Kpi")
+                        .WithMany("RatingMatrices")
+                        .HasForeignKey("KpiId");
                 });
 
             modelBuilder.Entity("YamangTao.Model.PM.Template.KpiTemplate", b =>

@@ -16,6 +16,6 @@ namespace YamangTao.Model.PM
     {
         public int Id { get; set; }
         public string Description { get; set; }
-        public virtual List<Kpi> KPIs { get; set; }
+        // public virtual List<Kpi> KPIs { get; set; }
     }
 }

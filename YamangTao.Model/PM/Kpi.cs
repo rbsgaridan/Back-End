@@ -17,7 +17,7 @@ namespace YamangTao.Model.PM
         public string OrderNumber { get; set; } // 
         public string mfoOO { get; set; } // MFO or OO from the balanced scorecard
         public int? IpcrId { get; set; } // not null if core and support
-        public virtual Ipcr Ipcr { get; set; }
+        // public virtual Ipcr Ipcr { get; set; }
         public int KpiTypeId { get; set; }
         public virtual KpiType KpiType { get; set; }
         public float Weight { get; set; }

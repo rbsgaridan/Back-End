@@ -1,6 +1,6 @@
 namespace YamangTao.Model.DocumentTracking
 {
-    public class DocumentPath
+    public class DocumentPath //Default path of the document
     {
         public int Id { get; set; }
         public string DocumentType { get; set; }
