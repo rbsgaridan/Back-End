@@ -2,6 +2,7 @@
 // It should act as a node for the heirachy of the organizational structure.
 using System.Collections.Generic;
 using YamangTao.Model.PM;
+using YamangTao.Model.RSP;
 
 namespace YamangTao.Model.OrgStructure
 {
@@ -24,6 +25,7 @@ namespace YamangTao.Model.OrgStructure
         // Child Units
         public virtual List<OrgUnit> OrgUnitChildren { get; set; }
         public virtual List<Employee> Employees { get; set; }
+        // public virtual List<JobContract> CurrentPositions { get; set; }
         // public virtual List<Ipcr> IpcrsUnderThisUnit { get; set; }
 
 

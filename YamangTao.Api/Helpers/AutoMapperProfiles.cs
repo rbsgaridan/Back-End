@@ -54,11 +54,29 @@ namespace YamangTao.Api.Helpers
             CreateMap<OrgUnit, OrgUnitListDto>().ReverseMap();
             CreateMap<OrgUnit, OrgUnitDto>().ReverseMap();
             CreateMap<OrgUnitUpdateDto, OrgUnit>();
+            
 
+            //IPCR Templates
+            CreateMap<IpcrTemplateFullDto, IpcrTemplate>();
+                
             CreateMap<IpcrTemplate, IpcrTemplateDto>().ReverseMap();
-            CreateMap<KpiTemplate, KpiTemplateDto>().ReverseMap();
-            CreateMap<RatingMatrixTemplate, RatingMatrixTemplateDto>().ReverseMap();
-            CreateMap<RatingTemplate, RatingTemplateDto>().ReverseMap();
+            // CreateMap<KpiTemplate, KpiTemplateDto>().ReverseMap();
+            CreateMap<KpiTemplate, KpiTemplateDto>()
+                .ForMember(dest => dest.Path, opt => opt.MapFrom(src => src.Path.ToString()))
+                .ForMember(dest => dest.KpiType, opt => opt.MapFrom(src => src.KpiType.Description));
+                
+            CreateMap<KpiTemplateDto, KpiTemplate>()
+                .ForMember(dest => dest.Path, opt => opt.Ignore())
+                .ForMember(dest => dest.KpiType, opt => opt.Ignore());
+                
+            CreateMap<RatingMatrixTemplate, RatingMatrixTemplateDto>();
+            CreateMap<RatingMatrixTemplateDto, RatingMatrixTemplate>()
+                .ForMember(dest => dest.Kpi, opt => opt.Ignore());
+
+            CreateMap<RatingTemplate, RatingTemplateDto>();
+            CreateMap<RatingTemplateDto, RatingTemplate>()
+                .ForMember(dest => dest.Matrix, opt => opt.Ignore());
+            CreateMap<KpiType, KpiTypeDto>().ReverseMap();
 
                 
                 

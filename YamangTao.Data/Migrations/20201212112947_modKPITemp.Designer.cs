@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YamangTao.Data;
 
 namespace YamangTao.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201212112947_modKPITemp")]
+    partial class modKPITemp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -620,14 +622,8 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<string>("JobPosition")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("JobPositionId")
                         .HasColumnType("int");
-
-                    b.Property<string>("OrgUnit")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OrgUnitId")
                         .HasColumnType("int");
@@ -674,9 +670,6 @@ namespace YamangTao.Data.Migrations
                     b.Property<string>("OrderNumber")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ParentKpiId")
-                        .HasColumnType("int");
-
                     b.Property<HierarchyId>("Path")
                         .HasColumnType("hierarchyid")
                         .HasMaxLength(100);
@@ -694,9 +687,9 @@ namespace YamangTao.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("KpiTypeId");
+                    b.HasIndex("IpcrTemplateId");
 
-                    b.HasIndex("ParentKpiId");
+                    b.HasIndex("KpiTypeId");
 
                     b.HasIndex("Path");
 
@@ -1704,16 +1697,16 @@ namespace YamangTao.Data.Migrations
 
             modelBuilder.Entity("YamangTao.Model.PM.Template.KpiTemplate", b =>
                 {
+                    b.HasOne("YamangTao.Model.PM.Template.IpcrTemplate", "IpcrTemplateParent")
+                        .WithMany("Kpis")
+                        .HasForeignKey("IpcrTemplateId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("YamangTao.Model.PM.KpiType", "KpiType")
                         .WithMany()
                         .HasForeignKey("KpiTypeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("YamangTao.Model.PM.Template.KpiTemplate", "ParentKpi")
-                        .WithMany("Kpis")
-                        .HasForeignKey("ParentKpiId")
-                        .OnDelete(DeleteBehavior.NoAction);
                 });
 
             modelBuilder.Entity("YamangTao.Model.PM.Template.RatingMatrixTemplate", b =>

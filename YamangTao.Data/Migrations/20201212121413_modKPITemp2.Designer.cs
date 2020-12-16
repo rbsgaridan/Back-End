@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YamangTao.Data;
 
 namespace YamangTao.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201212121413_modKPITemp2")]
+    partial class modKPITemp2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -620,14 +622,8 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<string>("JobPosition")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("JobPositionId")
                         .HasColumnType("int");
-
-                    b.Property<string>("OrgUnit")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("OrgUnitId")
                         .HasColumnType("int");
@@ -1713,7 +1709,7 @@ namespace YamangTao.Data.Migrations
                     b.HasOne("YamangTao.Model.PM.Template.KpiTemplate", "ParentKpi")
                         .WithMany("Kpis")
                         .HasForeignKey("ParentKpiId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("YamangTao.Model.PM.Template.RatingMatrixTemplate", b =>

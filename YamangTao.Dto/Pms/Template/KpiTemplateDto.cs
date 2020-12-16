@@ -26,8 +26,8 @@ namespace YamangTao.Dto.Pms.Template
         public List<KpiTemplateDto> Kpis { get; set; }
         public float? MaxWeight { get; set; }
         public float? MinWeight { get; set; }
-        public int? IpcrOwnerId { get; set; } // extra FK for easier access in IPCR
-        public string EmployeeId { get; set; }// Owner
+        // public int? IpcrOwnerId { get; set; } // extra FK for easier access in IPCR
+        // public string EmployeeId { get; set; }// Owner
 
        
     }

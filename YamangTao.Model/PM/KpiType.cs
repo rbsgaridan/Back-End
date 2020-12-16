@@ -9,13 +9,16 @@
 // 8 - Success Indicator
 
 using System.Collections.Generic;
+using YamangTao.Core.Common;
 
 namespace YamangTao.Model.PM
 {
-    public class KpiType
+    public class KpiType : IIdentifyableEntity<int>
     {
         public int Id { get; set; }
         public string Description { get; set; }
+
+        public int EntityId => Id;
         // public virtual List<Kpi> KPIs { get; set; }
     }
 }

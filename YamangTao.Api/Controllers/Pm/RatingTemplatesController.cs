@@ -9,12 +9,14 @@ using YamangTao.Data.Core;
 using YamangTao.Model.PM;
 using YamangTao.Model.PM.Template;
 using YamangTao.Dto.Pms.Template;
+using System.Collections.Generic;
+using YamangTao.Api.Helpers;
 
 namespace YamangTao.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
+    [Authorize(Policy="RequirePMTRole")]
     public class RatingTemplatesController : ControllerBase
     {
         private readonly IPmsRepository _repo;
@@ -27,159 +29,72 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateNewRatingMatrixTemplate(RatingMatrixTemplateDto rmDto)
+        public async Task<IActionResult> CreateNewRatingTemplate(RatingTemplateDto rmDto)
         {
-            var kpiForCreate = _mapper.Map<RatingMatrixTemplate>(rmDto);
-            _repo.Add(kpiForCreate);
+            var ratingForCreate = _mapper.Map<RatingTemplate>(rmDto);
+            _repo.Add(ratingForCreate);
             if (await _repo.SaveAllAsync())
             {
-                var kpiToReturn = _mapper.Map<RatingMatrixTemplateDto>(kpiForCreate);
-                return CreatedAtRoute("GetRatingMatrixTemplateById", new { id = kpiForCreate.Id }, kpiToReturn);
+                var ratingToReturn = _mapper.Map<RatingTemplateDto>(ratingForCreate);
+                return CreatedAtRoute("GetRatingTemplateById", new { id = ratingForCreate.Id }, ratingToReturn);
             }
 
-            throw new Exception("Adding the kpi failed on save");
+            throw new Exception("Adding the rating failed on save");
 
         }
 
-        [HttpGet("{id}", Name = "GetRatingMatrixTemplateById")]
-        public async Task<IActionResult> GetRatingMatrixTemplateById(int id)
+        [HttpGet("{id}", Name = "GetRatingTemplateById")]
+        public async Task<IActionResult> GetRatingTemplateById(int id)
         {
             //TODO: Implement Realistic Implementation
-            var kpi = await _repo.GetById<RatingMatrixTemplate, int>(id);
-            var kpiToReturn = _mapper.Map<RatingMatrixTemplateDto>(kpi);
-            return Ok(kpiToReturn);
+            var rating = await _repo.GetById<RatingTemplate, long>(id);
+            var ratingToReturn = _mapper.Map<RatingTemplateDto>(rating);
+            return Ok(ratingToReturn);
         }
 
         [HttpGet("paged")]
-        public async Task<IActionResult> GetRatingMatrixTemplatePaged([FromQuery] PmsParams kpiParams)
+        public async Task<IActionResult> GetRatingTemplatePaged([FromQuery] PmsParams ratingParams)
         {
-             if (!HasValidRole(kpiParams.EmployeeId))
-            {
-                return Unauthorized("You do not have clearance to update what is not yours!");
-            }
-
-            var kpi = await _repo.GetRatingMatrixTemplatees(kpiParams);
-            var kpiToReturn = _mapper.Map<IEnumerable<RatingMatrixTemplateDto>>(kpi);
-            Response.AddPagination(kpi.CurrentPage, 
-                                    kpi.TotalCount, 
-                                    kpi.PageSize, 
-                                    kpi.TotalPages);
-            return Ok(kpiToReturn);
+            
+            var rating = await _repo.GetPaged<RatingTemplate, long>(ratingParams);
+            var ratingToReturn = _mapper.Map<IEnumerable<RatingTemplateDto>>(rating);
+            Response.AddPagination(rating.CurrentPage, 
+                                    rating.TotalCount, 
+                                    rating.PageSize, 
+                                    rating.TotalPages);
+            return Ok(ratingToReturn);
         }
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> UpdateRatingMatrixTemplate(int id, RatingMatrixTemplateDto kpiForUpdate)
+        public async Task<IActionResult> UpdateRatingTemplate(int id, RatingTemplateDto ratingForUpdate)
         {
 
-            if (!HasValidRole(kpiForUpdate.EmployeeId))
-            {
-                return Unauthorized("You do not have clearance to update what is not yours!");
-            }
-
-            var kpiFromRepo = await _repo.GetById<RatingMatrixTemplate>(kpiForUpdate.Id);
-            _mapper.Map(kpiForUpdate, kpiFromRepo);
+         
+            var ratingFromRepo = await _repo.GetById<RatingTemplate, long>(ratingForUpdate.Id);
+            _mapper.Map(ratingForUpdate, ratingFromRepo);
 
             if (await _repo.SaveAllAsync())
             {
                 return NoContent();
             }
 
-            throw new Exception($"Updating RatingMatrixTemplate of {kpiForUpdate.EmployeeId} failed on save.");
+            throw new Exception($"Updating rating failed on save.");
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> deleteRatingMatrixTemplate(int id)
+        public async Task<IActionResult> deleteRatingTemplate(int id)
         {
-            var kpiFromRepo = await _repo.GetById<RatingMatrixTemplate>(id);
-            if (!HasValidRole(kpiFromRepo.EmployeeId))
-            {
-                return Unauthorized("You do not have clearance to update what is not yours!");
-            }
+            var ratingFromRepo = await _repo.GetById<RatingTemplate, long>(id);
+            
             // ToDo Delete or children
-            _repo.Delete(kpiFromRepo);
+            _repo.Delete(ratingFromRepo);
             if (await _repo.SaveAllAsync())
             {
                 return NoContent();
             }
-            throw new Exception("Error deleting the kpi");
+            throw new Exception("Error deleting the rating");
         }
 
-        [AllowAnonymous]
-        [HttpGet("street")]
-        public async Task<IActionResult> SearchStreet(string search)
-        {
-            if (string.IsNullOrWhiteSpace(search))
-            {
-                return BadRequest("Invalid search parameter!");
-            }
-            //TODO: Implement Realistic Implementation
-            var streets = await _repo.SearchDistinctStreet(search);
-            return Ok(streets);
-        }
-
-        [AllowAnonymous]
-        [HttpGet("block")]
-        public async Task<IActionResult> SearchBlock(string search)
-        {
-            if (string.IsNullOrWhiteSpace(search))
-            {
-                return BadRequest("Invalid search parameter!");
-            }
-            //TODO: Implement Realistic Implementation
-            var blocks = await _repo.SearchDistinctBlock(search);
-            return Ok(blocks);
-        }
-
-        [AllowAnonymous]
-        [HttpGet("purok")]
-        public async Task<IActionResult> SearchPurok(string search)
-        {
-            if (string.IsNullOrWhiteSpace(search))
-            {
-                return BadRequest("Invalid search parameter!");
-            }
-            //TODO: Implement Realistic Implementation
-            var puroks = await _repo.SearchDistinctPurok(search);
-            return Ok(puroks);
-        }
-
-        [AllowAnonymous]
-        [HttpGet("barangay")]
-        public async Task<IActionResult> SearchBarangay(string search)
-        {
-            if (string.IsNullOrWhiteSpace(search))
-            {
-                return BadRequest("Invalid search parameter!");
-            }
-            //TODO: Implement Realistic Implementation
-            var barangays = await _repo.SearchDistinctBarangay(search);
-            return Ok(barangays);
-        }
-
-        [AllowAnonymous]
-        [HttpGet("municipality")]
-        public async Task<IActionResult> SearchMunicipality(string search)
-        {
-            if (string.IsNullOrWhiteSpace(search))
-            {
-                return BadRequest("Invalid search parameter!");
-            }
-            //TODO: Implement Realistic Implementation
-            var munis = await _repo.SearchDistinctMunicipality(search);
-            return Ok(munis);
-        }
-
-        [AllowAnonymous]
-        [HttpGet("province")]
-        public async Task<IActionResult> SearchProvince(string search)
-        {
-            if (string.IsNullOrWhiteSpace(search))
-            {
-                return BadRequest("Invalid search parameter!");
-            }
-            //TODO: Implement Realistic Implementation
-            var provinces = await _repo.SearchDistinctProvince(search);
-            return Ok(provinces);
-        }
+        
     }
 }

@@ -8,6 +8,7 @@ using YamangTao.Data.Helpers;
 using YamangTao.Model.PM;
 using System.Collections.Generic;
 using YamangTao.Core.Common;
+using YamangTao.Model.PM.Template;
 
 namespace YamangTao.Data.Repositories
 {
@@ -157,6 +158,36 @@ namespace YamangTao.Data.Repositories
             }
 
             return await entities.ToListAsync();
+        }
+
+        public async Task<KpiTemplate> GetKPITemplateFullById(int id)
+        {
+            return await _context.KpiTemplates
+                                .Include(p => p.RatingMatrixTemplates)
+                                    .ThenInclude(pp => pp.Ratings)
+                                .Include(p => p.Kpis)
+                                    .ThenInclude(pp => pp.Kpis)
+                                        .ThenInclude(p2 => p2.RatingMatrixTemplates)
+                                            .ThenInclude(p3 => p3.Ratings)
+                                    // .Include(pp => pp.Kpis)
+                                    //         .ThenInclude(pp => pp.RatingMatrixTemplates)
+                                    //             .ThenInclude(p3 => p3.Ratings)
+                                    //         .Include(pp => pp.Kpis)
+                                .FirstOrDefaultAsync(p => p.Id == id);
+                                
+        }
+
+        public async Task<List<KpiTemplate>> GetKPITemplateForIpcr(int id)
+        {
+            return await _context.KpiTemplates
+                                .Where(p => p.IpcrTemplateId == id && p.ParentKpiId == null)    
+                                .Include(p => p.RatingMatrixTemplates)
+                                    .ThenInclude(pp => pp.Ratings)
+                                .Include(p => p.Kpis)
+                                    .ThenInclude(pp => pp.Kpis)
+                                        .ThenInclude(p2 => p2.RatingMatrixTemplates)
+                                            .ThenInclude(p3 => p3.Ratings)
+                                .ToListAsync();
         }
 
         // public async Task<Rating> GetRating(int rmId, sbyte rate)

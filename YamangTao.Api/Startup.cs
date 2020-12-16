@@ -52,7 +52,11 @@ namespace YamangTao.Api
             // }
             // else
             // {
-                services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+                services.AddDbContext<DataContext>(x => x.UseSqlServer(Configuration.GetConnectionString("DefaultConnection"), conf => 
+                    {
+                        conf.UseHierarchyId(); 
+                    }
+                ));
             // }
 
             
@@ -115,7 +119,7 @@ namespace YamangTao.Api
                 opt.AddPolicy("RequireSupervisorRole", policy => policy.RequireRole("Admin", "Supervisor"));
                 opt.AddPolicy("RequireDirectorRole", policy => policy.RequireRole("Admin", "Director"));
                 opt.AddPolicy("RequireVPRole", policy => policy.RequireRole("Admin", "VP"));
-                opt.AddPolicy("RequirePMTRole", policy => policy.RequireRole("HR", "PMG", "Planning", "President"));
+                opt.AddPolicy("RequirePMTRole", policy => policy.RequireRole("HR", "PMG", "Planning", "President", "Admin"));
                 opt.AddPolicy("RequireHRrole", policy => policy.RequireRole("HR", "Admin", "President"));
                 opt.AddPolicy("RequirePresidentRole", policy => policy.RequireRole("Admin", "President"));
 

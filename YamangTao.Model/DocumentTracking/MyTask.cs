@@ -3,7 +3,7 @@ using System;
 
 namespace YamangTao.Model.DocumentTracking
 {
-    public class MyTask // Documents sent to a user
+    public class MyTask // Documents sent to a user, like a message
     {
         public long Id { get; set; } 
         public DateTime DateCreated { get; set; }

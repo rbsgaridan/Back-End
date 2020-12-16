@@ -3,6 +3,7 @@ using System;
 using YamangTao.Model.OrgStructure;
 using System.Collections.Generic;
 using YamangTao.Model.PM;
+using YamangTao.Model.RSP;
 
 namespace YamangTao.Model
 {
@@ -34,6 +35,7 @@ namespace YamangTao.Model
         public int? OrgUnitId { get; set; }
         public OrgUnit CurrentUnit { get; set; }
         public virtual List<OrgUnit> HeadedUnits { get; set; } // Home Department. If may designation pwede rin xa dun
+        // public List<JobContract> JobContracts { get; set; }
         // public virtual List<Ipcr> IPCRs { get; set; }
         // public virtual List<Ipcr> ReviewedIpcrs { get; set; }
         // public virtual List<Ipcr> CompiledIpcrs { get; set; }

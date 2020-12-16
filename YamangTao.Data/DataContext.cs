@@ -63,6 +63,14 @@ namespace YamangTao.Data
         public DbSet<VoluntaryWork> VoluntaryWorks { get; set; }
         public DbSet<WorkExperience> WorkExperiences { get; set; }
 
+        // protected override void OnConfiguring(DbContextOptionsBuilder options)
+        // {
+        //    options.UseSqlServer()
+        //     options.UseSqlServer(connectionString, conf =>
+        //     {
+        //         conf.UseHierarchyId();
+        //     });
+        // }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -200,10 +208,10 @@ namespace YamangTao.Data
             // IPCR Templates
             builder.Entity<IpcrTemplate>(ipcrTemplate => {
                 ipcrTemplate.HasKey(p => p.Id);
-                ipcrTemplate.HasMany(p => p.Kpis)
-                    .WithOne(p => p.IpcrTemplateParent)
-                    .HasForeignKey(p => p.IpcrTemplateId)
-                    .OnDelete(DeleteBehavior.Cascade);
+                // ipcrTemplate.HasMany(p => p.Kpis)
+                //     .WithOne(p => p.IpcrTemplateParent)
+                //     .HasForeignKey(p => p.IpcrTemplateId)
+                //     .OnDelete(DeleteBehavior.Cascade);
                 ipcrTemplate.Property(p => p.Description).HasMaxLength(50);
             });
             // KPI templates
@@ -211,13 +219,14 @@ namespace YamangTao.Data
                 kpiTemplate.HasKey(p => p.Id);
                 kpiTemplate.HasIndex(p => p.Path);
 
-                kpiTemplate.HasOne(p => p.IpcrTemplateParent)
-                            .WithMany(p => p.Kpis)
-                            .HasForeignKey(p => p.IpcrTemplateId);
+                // kpiTemplate.HasOne(p => p.IpcrTemplateParent)
+                //             .WithMany(p => p.Kpis)
+                //             .HasForeignKey(p => p.IpcrTemplateId);
                 
                 kpiTemplate.HasMany(p => p.Kpis)
                             .WithOne(p => p.ParentKpi)
                             .HasForeignKey(p => p.ParentKpiId)
+                            .IsRequired(false)
                             .OnDelete(DeleteBehavior.NoAction);
                 
                 kpiTemplate.HasMany(p => p.RatingMatrixTemplates)

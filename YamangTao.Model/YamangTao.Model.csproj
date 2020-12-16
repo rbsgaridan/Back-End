@@ -2,8 +2,11 @@
   <ItemGroup>
     <ProjectReference Include="..\YamangTao.Core\YamangTao.Core.csproj"/>
   </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="EntityFrameworkCore.SqlServer.HierarchyId" Version="1.1.1"/>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.10"/>
+  </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
   </PropertyGroup>
-
 </Project>

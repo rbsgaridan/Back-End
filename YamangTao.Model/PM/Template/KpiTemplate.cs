@@ -1,6 +1,6 @@
 using System.Collections.Generic;
+using Microsoft.EntityFrameworkCore;
 using YamangTao.Core.Common;
-using YamangTao.Model.RSP;
 
 namespace YamangTao.Model.PM.Template
 {
@@ -10,9 +10,9 @@ namespace YamangTao.Model.PM.Template
         public string Code { get; set; } // Indicator Code from indicator Inventory
         public string OrderNumber { get; set; } // 
         public string mfoOO { get; set; } // MFO or OO from the balanced scorecard
-        public string Path { get; set; }
+        public HierarchyId Path { get; set; }
         public int? IpcrTemplateId { get; set; } // not null if core and support
-        public virtual IpcrTemplate IpcrTemplateParent { get; set; }
+        // public virtual IpcrTemplate IpcrTemplateParent { get; set; }
         public int KpiTypeId { get; set; }
         public virtual KpiType KpiType { get; set; }
         public string SuccessIndicator { get; set; }
@@ -27,8 +27,8 @@ namespace YamangTao.Model.PM.Template
         public List<KpiTemplate> Kpis { get; set; }
         public float? MaxWeight { get; set; }
         public float? MinWeight { get; set; }
-        public int? IpcrOwnerId { get; set; } // extra FK for easier access in IPCR
-        public string EmployeeId { get; set; }// Owner
+        // public int? IpcrOwnerId { get; set; } // extra FK for easier access in IPCR
+        // public string EmployeeId { get; set; }// Owner
 
         public int EntityId => Id;
     }
