@@ -10,5 +10,6 @@ namespace YamangTao.Dto.Pms
         public string Dimension { get; set; } 
         public List<RatingDto> Ratings { get; set; }
         public string MeansOfVerification { get; set; }
+
     }
 }

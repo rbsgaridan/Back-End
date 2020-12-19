@@ -10,7 +10,6 @@ namespace YamangTao.Model.PM
     public class Ipcr : IDocument, IIdentifyableEntity<int>
     {
         public int Id { get; set; }
-        public bool IsTemplate { get; set; }
         public string EmployeeId { get; set; }
         public Employee Ratee { get; set; }
         public int JobPositionId { get; set; }
@@ -18,25 +17,37 @@ namespace YamangTao.Model.PM
         public int OrgUnitId { get; set; }
         public OrgUnit Unit { get; set; }
         public DateTime? DateTargetApproved { get; set; }
-        public string CompiledById { get; set; }
-        public Employee CompiledBy { get; set; }
-        public string CompilerDesignation { get; set; }
         public DateTime PeriodFrom { get; set; }
         public DateTime PeriodTo { get; set; } 
-        public List<Kpi> KPIs { get; set; }
         public double FinalQrating { get; set; }
         public double FinalErating { get; set; }
         public double FinalTrating { get; set; }
         public double FinalAverageRating { get; set; }
         public string AdjectivalRating { get; set; }
-        public string ReviewedById { get; set; }
-        public Employee ReviewedBy { get; set; }
-        public string ReviewerDesignation { get; set; }
-        public DateTime? DateReviewed { get; set; }
-        public string ApprovedById { get; set; }
-        public Employee ApprovedBy { get; set; }
-        public string ApproverDesignation { get; set; }
-        public DateTime? DateApproved { get; set; }
+        public string TargetReviewedById { get; set; }
+        public string TargetReviewedBy { get; set; }
+        public string TargetReviewerDesignation { get; set; }
+        public DateTime? TargetDateReviewed { get; set; }
+        public string TargetAssessedById { get; set; }
+        public string TargetAssessedBy { get; set; }
+        public string TargetAssessorDesignation { get; set; }
+        public DateTime? TargetDateAssessed { get; set; }
+        public string TargetApprovedById { get; set; }
+        public string TargetApprovedBy { get; set; }
+        public string TargetApproverDesignation { get; set; }
+        public DateTime? TargetDateApproved { get; set; }
+        public string AccompReviewedById { get; set; }
+        public string AccompReviewedBy { get; set; }
+        public string AccompReviewerDesignation { get; set; }
+        public DateTime? AccomptDateReviewed { get; set; }
+        public string AccomptAssessedById { get; set; }
+        public string AccompAssessedBy { get; set; }
+        public string AccompAssessorDesignation { get; set; }
+        public DateTime? AccomptDateAssessed { get; set; }
+        public string AccompApprovedById { get; set; }
+        public string AccompApprovedBy { get; set; }
+        public string AccompApproverDesignation { get; set; }
+        public DateTime? AccompDateApproved { get; set; }
         public string LandDRecommendation { get; set; }
         public string RnRRecommendation { get; set; }
         
@@ -48,7 +59,8 @@ namespace YamangTao.Model.PM
         public bool Reviewed { get; set; }
         public bool Compiled { get; set; }
         public bool Approved { get; set; }
-        public bool isLocked { get; set; }
+        public bool isTargetLocked { get; set; }
+        public bool isAccomplishmentLocked { get; set; }
         public string Status { get; set; }
         public string EmployeeIdLocation { get; set; }
         public int EntityId 

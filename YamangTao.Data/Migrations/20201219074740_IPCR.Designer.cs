@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YamangTao.Data;
 
 namespace YamangTao.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201219074740_IPCR")]
+    partial class IPCR
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -272,9 +274,6 @@ namespace YamangTao.Data.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Designation")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DocumentType")
@@ -597,57 +596,35 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("AccompApprovedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AccompApprovedById")
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("AccompApproverDesignation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AccompAssessedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AccompAssessorDesignation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("AccompDateApproved")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("AccompReviewedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AccompReviewedById")
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("AccompReviewerDesignation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AccomptAssessedById")
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
-
-                    b.Property<DateTime?>("AccomptDateAssessed")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("AccomptDateReviewed")
-                        .HasColumnType("datetime2");
-
                     b.Property<string>("AdjectivalRating")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Approved")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ApprovedById")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("ApproverDesignation")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Compiled")
                         .HasColumnType("bit");
+
+                    b.Property<string>("CompiledById")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("CompilerDesignation")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CurrentHolder")
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
+
+                    b.Property<DateTime?>("DateApproved")
+                        .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateCreated")
                         .HasColumnType("datetime2");
@@ -656,6 +633,9 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateLastPrinted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateReviewed")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("DateTargetApproved")
@@ -707,6 +687,13 @@ namespace YamangTao.Data.Migrations
                     b.Property<bool>("Reviewed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("ReviewedById")
+                        .HasColumnType("nvarchar(30)")
+                        .HasMaxLength(30);
+
+                    b.Property<string>("ReviewerDesignation")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("RnRRecommendation")
                         .HasColumnType("nvarchar(max)");
 
@@ -714,58 +701,22 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("nvarchar(50)")
                         .HasMaxLength(50);
 
-                    b.Property<string>("TargetApprovedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TargetApprovedById")
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("TargetApproverDesignation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TargetAssessedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TargetAssessedById")
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("TargetAssessorDesignation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime?>("TargetDateApproved")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("TargetDateAssessed")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("TargetDateReviewed")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("TargetReviewedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TargetReviewedById")
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("TargetReviewerDesignation")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("isAccomplishmentLocked")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("isTargetLocked")
+                    b.Property<bool>("isLocked")
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ApprovedById");
+
+                    b.HasIndex("CompiledById");
 
                     b.HasIndex("EmployeeId");
 
                     b.HasIndex("JobPositionId");
 
                     b.HasIndex("OrgUnitId");
+
+                    b.HasIndex("ReviewedById");
 
                     b.ToTable("Ipcrs");
                 });
@@ -833,8 +784,7 @@ namespace YamangTao.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("TaskId")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("TimelinessRating")
                         .HasColumnType("real");
@@ -872,24 +822,20 @@ namespace YamangTao.Data.Migrations
 
             modelBuilder.Entity("YamangTao.Model.PM.Rating", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                    b.Property<long>("RatingMatrixId")
+                        .HasColumnType("bigint");
 
                     b.Property<short>("Rate")
                         .HasColumnType("smallint");
 
-                    b.Property<long>("RatingMatrixId")
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<long>("Id")
                         .HasColumnType("bigint");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("RatingMatrixId");
+                    b.HasKey("RatingMatrixId", "Rate");
 
                     b.ToTable("Ratings");
                 });
@@ -2020,8 +1966,16 @@ namespace YamangTao.Data.Migrations
 
             modelBuilder.Entity("YamangTao.Model.PM.Ipcr", b =>
                 {
+                    b.HasOne("YamangTao.Model.Employee", "ApprovedBy")
+                        .WithMany()
+                        .HasForeignKey("ApprovedById");
+
+                    b.HasOne("YamangTao.Model.Employee", "CompiledBy")
+                        .WithMany()
+                        .HasForeignKey("CompiledById");
+
                     b.HasOne("YamangTao.Model.Employee", "Ratee")
-                        .WithMany("IPCRs")
+                        .WithMany()
                         .HasForeignKey("EmployeeId");
 
                     b.HasOne("YamangTao.Model.RSP.JobPosition", "Position")
@@ -2035,6 +1989,10 @@ namespace YamangTao.Data.Migrations
                         .HasForeignKey("OrgUnitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("YamangTao.Model.Employee", "ReviewedBy")
+                        .WithMany()
+                        .HasForeignKey("ReviewedById");
                 });
 
             modelBuilder.Entity("YamangTao.Model.PM.Kpi", b =>
@@ -2047,8 +2005,7 @@ namespace YamangTao.Data.Migrations
 
                     b.HasOne("YamangTao.Model.PM.Kpi", "ParentKpi")
                         .WithMany("Kpis")
-                        .HasForeignKey("ParentKpiId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("ParentKpiId");
                 });
 
             modelBuilder.Entity("YamangTao.Model.PM.Rating", b =>

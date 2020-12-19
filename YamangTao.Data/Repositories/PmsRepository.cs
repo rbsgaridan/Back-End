@@ -190,6 +190,39 @@ namespace YamangTao.Data.Repositories
                                 .ToListAsync();
         }
 
+        public async Task<Ipcr> GetIpcrFullById(int id)
+        {
+            return await _context.Ipcrs.Include(p => p.Ratee)
+                                        .Include(p => p.Position)
+                                        .Include(p => p.Unit)
+                                        .FirstOrDefaultAsync(p => p.Id == id);
+        }
+
+        public async Task<List<Kpi>> GetKpisForIpcr(int id)
+        {
+            return await _context.KPIs
+                                .Where(p => p.IpcrId == id && p.ParentKpiId == null)    
+                                .Include(p => p.RatingMatrices)
+                                    .ThenInclude(pp => pp.Ratings)
+                                .Include(p => p.Kpis)
+                                    .ThenInclude(pp => pp.Kpis)
+                                        .ThenInclude(p2 => p2.RatingMatrices)
+                                            .ThenInclude(p3 => p3.Ratings)
+                                .ToListAsync();
+        }
+
+        public async Task<Kpi> GetKPIFullById(int id)
+        {
+            return await _context.KPIs
+                                .Include(p => p.RatingMatrices)
+                                    .ThenInclude(pp => pp.Ratings)
+                                .Include(p => p.Kpis)
+                                    .ThenInclude(pp => pp.Kpis)
+                                        .ThenInclude(p2 => p2.RatingMatrices)
+                                            .ThenInclude(p3 => p3.Ratings)
+                                .FirstOrDefaultAsync(p => p.Id == id);
+        }
+
         // public async Task<Rating> GetRating(int rmId, sbyte rate)
         // {
         //     var rating = await _context.Ratings.FirstOrDefaultAsync(r => r.RatingMatrixId == rmId && r.Rate == rate);

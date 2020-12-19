@@ -64,7 +64,7 @@ namespace YamangTao.Api.Controllers
                 Id = ipcrTemplate.Id,
                 Description = ipcrTemplate.Description,
                 JobPositionId = ipcrTemplate.JobPositionId,
-                JobPosition = ipcrTemplate.Description,
+                JobPosition = ipcrTemplate.JobPosition,
                 OrgUnitId = ipcrTemplate.OrgUnitId,
                 Kpis = _mapper.Map<List<KpiTemplateDto>>(kpiTemplates),
                 DateCreated = ipcrTemplate.DateCreated,

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YamangTao.Data;
 
 namespace YamangTao.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201219131932_modIPCR3")]
+    partial class modIPCR3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -872,7 +874,7 @@ namespace YamangTao.Data.Migrations
 
             modelBuilder.Entity("YamangTao.Model.PM.Rating", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long>("Pid")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("bigint")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -887,7 +889,7 @@ namespace YamangTao.Data.Migrations
                     b.Property<long>("RatingMatrixId")
                         .HasColumnType("bigint");
 
-                    b.HasKey("Id");
+                    b.HasKey("Pid");
 
                     b.HasIndex("RatingMatrixId");
 

@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YamangTao.Data;
 
 namespace YamangTao.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201219084724_ModIPCR2")]
+    partial class ModIPCR2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -833,8 +835,7 @@ namespace YamangTao.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("TaskId")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("TimelinessRating")
                         .HasColumnType("real");
@@ -872,24 +873,20 @@ namespace YamangTao.Data.Migrations
 
             modelBuilder.Entity("YamangTao.Model.PM.Rating", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                    b.Property<long>("RatingMatrixId")
+                        .HasColumnType("bigint");
 
                     b.Property<short>("Rate")
                         .HasColumnType("smallint");
 
-                    b.Property<long>("RatingMatrixId")
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<long>("Id")
                         .HasColumnType("bigint");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("RatingMatrixId");
+                    b.HasKey("RatingMatrixId", "Rate");
 
                     b.ToTable("Ratings");
                 });
@@ -2047,8 +2044,7 @@ namespace YamangTao.Data.Migrations
 
                     b.HasOne("YamangTao.Model.PM.Kpi", "ParentKpi")
                         .WithMany("Kpis")
-                        .HasForeignKey("ParentKpiId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("ParentKpiId");
                 });
 
             modelBuilder.Entity("YamangTao.Model.PM.Rating", b =>

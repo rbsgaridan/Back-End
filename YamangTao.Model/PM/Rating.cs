@@ -1,6 +1,8 @@
+using YamangTao.Core.Common;
+
 namespace YamangTao.Model.PM
 {
-    public class Rating
+    public class Rating : IIdentifyableEntity<long>
     {
         // public uint id { get; set; }
         public long Id { get; set; }
@@ -8,5 +10,7 @@ namespace YamangTao.Model.PM
         public RatingMatrix Matrix { get; set; }
         public sbyte Rate { get; set; }
         public string Description { get; set; }
+
+        public long EntityId => Id;
     }
 }

@@ -36,9 +36,8 @@ namespace YamangTao.Model
         public OrgUnit CurrentUnit { get; set; }
         public virtual List<OrgUnit> HeadedUnits { get; set; } // Home Department. If may designation pwede rin xa dun
         // public List<JobContract> JobContracts { get; set; }
-        // public virtual List<Ipcr> IPCRs { get; set; }
+        public virtual List<Ipcr> IPCRs { get; set; }
         // public virtual List<Ipcr> ReviewedIpcrs { get; set; }
-        // public virtual List<Ipcr> CompiledIpcrs { get; set; }
         // public virtual List<Ipcr> ApprovedIpcrs { get; set; }
 
         

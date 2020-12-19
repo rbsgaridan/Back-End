@@ -17,7 +17,13 @@ namespace YamangTao.Data.Core
         Task<List<T>> GetList<T,K>(PmsParams pmsParams) where T: class, IIdentifyableEntity<K>;
 
         Task<KpiTemplate> GetKPITemplateFullById(int id);
+        
         Task<List<KpiTemplate>> GetKPITemplateForIpcr(int id);
+
+        Task<Ipcr> GetIpcrFullById(int id);
+        Task<Kpi> GetKPIFullById(int id);
+        Task<List<Kpi>> GetKpisForIpcr(int id);
+
 
         // Task<Ipcr> GetIpcrWithCompleteKpisById(int id);
 

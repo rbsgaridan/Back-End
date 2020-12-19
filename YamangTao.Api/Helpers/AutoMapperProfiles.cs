@@ -78,15 +78,28 @@ namespace YamangTao.Api.Helpers
                 .ForMember(dest => dest.Matrix, opt => opt.Ignore());
             CreateMap<KpiType, KpiTypeDto>().ReverseMap();
 
-                
-                
-
-               
             
-            // CreateMap<RatingDto, Rating>().ReverseMap();
-            // CreateMap<RatingMatrixDto, RatingMatrix>().ReverseMap();
-            // CreateMap<KpiDto, Kpi>().ReverseMap();
-            // CreateMap<IpcrDto, Ipcr>();
+            CreateMap<RatingDto, Rating>().ReverseMap();
+            CreateMap<RatingMatrixDto, RatingMatrix>().ReverseMap();
+            CreateMap<KpiDto, Kpi>()
+                .ForMember(m => m.KpiType, opt =>  opt.Ignore());
+                
+            CreateMap<Kpi, KpiDto>()
+                .ForMember(m => m.KpiType, opt =>  opt.MapFrom(src => src.KpiType.Description));
+
+            CreateMap<IpcrDto, Ipcr>()
+                .ForMember(m => m.Ratee, opt => opt.Ignore())
+                .ForMember(m => m.Unit, opt => opt.Ignore())
+                .ForMember(m => m.Position, opt => opt.Ignore());
+                
+            
+            CreateMap<Ipcr, IpcrDto>()
+                .ForMember(m => m.Ratee, opt => opt.MapFrom(src => src.Ratee.FullName))
+                .ForMember(m => m.Position, opt => opt.MapFrom(src => src.Position.Name))
+                .ForMember(m => m.Unit, opt => opt.MapFrom(src => src.Unit.UnitName));
+                
+            
+            
             // CreateMap<IpcrForCreateDto, Ipcr>();
             // CreateMap<Ipcr, IpcrDto>()
             //     .ForMember(dto => dto.Ratee, opt => opt.MapFrom(ipcr => ipcr.Ratee.FullName))

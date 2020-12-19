@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
+using YamangTao.Core.Common;
 
 namespace YamangTao.Model.PM
 {
-    public class RatingMatrix
+    public class RatingMatrix : IIdentifyableEntity<long>
     {
         public long Id { get; set; }
         public int? KpiId { get; set; }
@@ -12,5 +13,6 @@ namespace YamangTao.Model.PM
         public string Dimension { get; set; } 
         public List<Rating> Ratings { get; set; }
         public string MeansOfVerification { get; set; }
+        public long EntityId => Id;
     }
 }

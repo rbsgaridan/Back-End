@@ -28,11 +28,11 @@ namespace YamangTao.Data
 
 
         // //IPCR
-        // public DbSet<Ipcr> Ipcrs { get; set; } // Actual IPCR of Faculty
-        // public DbSet<Rating> Ratings { get; set; } // Actual IPCR of Faculty
-        // public DbSet<RatingMatrix> RatingMatrix { get; set; } // Actual IPCR of Faculty
-        // public DbSet<Kpi> KPIs { get; set; } // Actual IPCR of Faculty
-        public DbSet<KpiType> KpiTypes { get; set; }
+        public DbSet<Ipcr> Ipcrs { get; set; } // Actual IPCR of Faculty
+        public DbSet<Rating> Ratings { get; set; } // Actual IPCR of Faculty
+        public DbSet<RatingMatrix> RatingMatrix { get; set; } // Actual IPCR of Faculty
+        public DbSet<Kpi> KPIs { get; set; } // Actual IPCR of Faculty
+        public DbSet<KpiType> KpiTypes { get; set; } 
 
         // Templates
         public DbSet<IpcrTemplate> IpcrTemplates { get; set; }
@@ -94,6 +94,12 @@ namespace YamangTao.Data
                     .WithMany(o => o.Employees)
                     .HasForeignKey(e => e.OrgUnitId)
                     .OnDelete(DeleteBehavior.NoAction);
+
+                emp.HasMany(p => p.IPCRs)
+                    .WithOne(p => p.Ratee)
+                    .HasForeignKey(p => p.EmployeeId);
+                
+                
             });
             builder.Entity<Employee>().Property(e => e.Id).HasMaxLength(30);
             builder.Entity<Employee>().Property(e => e.EmployeeGroup).HasMaxLength(30);
@@ -134,76 +140,77 @@ namespace YamangTao.Data
             builder.Entity<OrgUnit>().Property(o => o.CurrentHeadId).HasMaxLength(30);
             
             // Rating Matrix
-            // builder.Entity<RatingMatrix>(matrix => {
-                
-            //     matrix.Property(m => m.Dimension).HasMaxLength(15);
-            //     matrix.Property(m => m.MeansOfVerification).HasMaxLength(150);
-            // });
+            builder.Entity<RatingMatrix>(matrix => {
+                matrix.HasKey(p => p.Id);
+                matrix.HasMany(m => m.Ratings)
+                    .WithOne(r => r.Matrix)
+                    .HasForeignKey(f => f.RatingMatrixId)
+                    .OnDelete(DeleteBehavior.Cascade);
 
-            // // Rating
-            // builder.Entity<Rating>(rating => {
-            //     rating.HasKey("RatingMatrixId", "Rate");
-            //     rating.HasOne(r => r.Matrix)
-            //     .WithMany(m => m.Ratings)
-            //     .HasForeignKey(r => r.RatingMatrixId)
-            //     .OnDelete(DeleteBehavior.Cascade);
+                matrix.HasOne(m => m.Kpi)
+                    .WithMany(k => k.RatingMatrices)
+                    .HasForeignKey(f => f.KpiId);
 
-            //     rating.Property(r => r.Description).HasMaxLength(100);
-            // });
+                matrix.Property(m => m.Dimension).HasMaxLength(15);
+                matrix.Property(m => m.MeansOfVerification).HasMaxLength(150);
+            });
+
+            // Rating
+            builder.Entity<Rating>(rating => {
+                rating.HasKey(r => r.Id);
+                rating.HasOne(r => r.Matrix)
+                    .WithMany(m => m.Ratings)
+                    .HasForeignKey(r => r.RatingMatrixId);
+
+                rating.Property(r => r.Description).HasMaxLength(150);
+            });
             
-            // // KPI
-            // builder.Entity<Kpi>(k => {
-            //     k.HasMany(p => p.RatingMatrices).WithOne(m => m.Kpi).HasForeignKey(m => m.KpiId).OnDelete(DeleteBehavior.Cascade);
-            //     k.HasMany(p => p.Kpis).WithOne(k => k.ParentKpi).HasForeignKey(p => p.ParentKpiId);
-            //     k.Property(p => p.SuccessIndicator).HasMaxLength(256);
-            //     k.Property(p => p.ActualAccomplishment).HasMaxLength(256);
-            //     k.Property(p => p.OrderNumber).HasMaxLength(10);
-            //     k.Property(p => p.Code).HasMaxLength(20);
-            // });
+            // KPI
+            builder.Entity<Kpi>(k => {
+                k.HasKey(p => p.Id);
+                k.HasMany(p => p.Kpis)
+                    .WithOne(k => k.ParentKpi)
+                    .HasForeignKey(p => p.ParentKpiId)
+                    .IsRequired(false)
+                    .OnDelete(DeleteBehavior.NoAction);
+                
+                k.HasMany(p => p.RatingMatrices)
+                    .WithOne(m => m.Kpi)
+                    .HasForeignKey(m => m.KpiId)
+                    .OnDelete(DeleteBehavior.Cascade);
+
+                k.Property(p => p.SuccessIndicator).HasMaxLength(256);
+                k.Property(p => p.ActualAccomplishment).HasMaxLength(256);
+                k.Property(p => p.OrderNumber).HasMaxLength(10);
+                k.Property(p => p.Code).HasMaxLength(20);
+                k.Property(p => p.TaskId).HasMaxLength(50);
+            });
 
             // KpiType
             builder.Entity<KpiType>(k => {
                 k.Property(p => p.Description).HasMaxLength(30);
             });
 
-            // IPCR
-            // builder.Entity<Ipcr>(ipcr => {
-            //     ipcr.HasOne(e => e.Ratee)
-            //         .WithMany(r => r.IPCRs)
-            //         .HasForeignKey(i => i.EmployeeId);
-                
-            //     ipcr.HasOne(i => i.Position)
-            //         .WithMany(p => p.Ipcrs)
-            //         .HasForeignKey(i => i.JobPositionId);
-                
-            //     ipcr.HasOne(i => i.Unit)
-            //         .WithMany(p => p.IpcrsUnderThisUnit)
-            //         .HasForeignKey(i => i.OrgUnitId);
-                
-            //     ipcr.HasOne(i => i.CompiledBy)
-            //         .WithMany(p => p.CompiledIpcrs)
-            //         .HasForeignKey(i => i.CompiledById);
-                
-            //     ipcr.HasOne(i => i.ReviewedBy)
-            //         .WithMany(p => p.ReviewedIpcrs)
-            //         .HasForeignKey(i => i.ReviewedById);
-                
-            //     ipcr.HasOne(i => i.ApprovedBy)
-            //         .WithMany(p => p.ApprovedIpcrs)
-            //         .HasForeignKey(i => i.ApprovedById);
-                
-            //     ipcr.HasMany(i => i.KPIs)
-            //         .WithOne(p => p.Ipcr)
-            //         .HasForeignKey(i => i.IpcrId);
 
-            //     ipcr.Property(i => i.EmployeeId).HasMaxLength(30);
-            //     ipcr.Property(i => i.ReviewedById).HasMaxLength(30);
-            //     ipcr.Property(i => i.CompiledById).HasMaxLength(30);
-            //     ipcr.Property(i => i.ApprovedById).HasMaxLength(30);
-            //     ipcr.Property(i => i.ApprovedById).HasMaxLength(30);
-            //     ipcr.Property(i => i.EmployeeIdLocation).HasMaxLength(30);
-            //     ipcr.Property(i => i.Status).HasMaxLength(50);
-            // });
+
+            // IPCR
+            builder.Entity<Ipcr>(ipcr => {
+                ipcr.Property(i => i.EmployeeId).HasMaxLength(30);
+
+                ipcr.Property(i => i.TargetReviewedById).HasMaxLength(30);
+                ipcr.Property(i => i.TargetAssessedById).HasMaxLength(30);
+                ipcr.Property(i => i.TargetApprovedById).HasMaxLength(30);
+                
+                ipcr.Property(i => i.AccompReviewedById).HasMaxLength(30);
+                ipcr.Property(i => i.AccomptAssessedById).HasMaxLength(30);
+                ipcr.Property(i => i.AccompApprovedById).HasMaxLength(30);
+
+                ipcr.Property(i => i.EmployeeIdLocation).HasMaxLength(30);
+                ipcr.Property(i => i.Status).HasMaxLength(50);
+                ipcr.Property(i => i.PreviousHolder).HasMaxLength(50);
+                ipcr.Property(i => i.CurrentHolder).HasMaxLength(50);
+                ipcr.Property(i => i.NextUser).HasMaxLength(50);
+            });
 
             // IPCR Templates
             builder.Entity<IpcrTemplate>(ipcrTemplate => {
@@ -214,6 +221,7 @@ namespace YamangTao.Data
                 //     .OnDelete(DeleteBehavior.Cascade);
                 ipcrTemplate.Property(p => p.Description).HasMaxLength(50);
             });
+
             // KPI templates
             builder.Entity<KpiTemplate>(kpiTemplate => {
                 kpiTemplate.HasKey(p => p.Id);
@@ -233,8 +241,6 @@ namespace YamangTao.Data
                     .WithOne(p => p.Kpi)
                     .HasForeignKey(p => p.KpiId)
                     .OnDelete(DeleteBehavior.Cascade);
-                
-
                 
                 kpiTemplate.Property(p => p.SuccessIndicator).HasMaxLength(500);
                 kpiTemplate.Property(p => p.Path).HasMaxLength(100);

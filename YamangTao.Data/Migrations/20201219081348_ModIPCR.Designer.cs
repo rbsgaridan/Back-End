@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YamangTao.Data;
 
 namespace YamangTao.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201219081348_ModIPCR")]
+    partial class ModIPCR
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -607,12 +609,6 @@ namespace YamangTao.Data.Migrations
                     b.Property<string>("AccompApproverDesignation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AccompAssessedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("AccompAssessorDesignation")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("AccompDateApproved")
                         .HasColumnType("datetime2");
 
@@ -626,13 +622,6 @@ namespace YamangTao.Data.Migrations
                     b.Property<string>("AccompReviewerDesignation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("AccomptAssessedById")
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
-
-                    b.Property<DateTime?>("AccomptDateAssessed")
-                        .HasColumnType("datetime2");
-
                     b.Property<DateTime?>("AccomptDateReviewed")
                         .HasColumnType("datetime2");
 
@@ -644,6 +633,12 @@ namespace YamangTao.Data.Migrations
 
                     b.Property<bool>("Compiled")
                         .HasColumnType("bit");
+
+                    b.Property<string>("CompiledById")
+                        .HasColumnType("nvarchar(30)");
+
+                    b.Property<string>("CompilerDesignation")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CurrentHolder")
                         .HasColumnType("nvarchar(50)")
@@ -724,20 +719,7 @@ namespace YamangTao.Data.Migrations
                     b.Property<string>("TargetApproverDesignation")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("TargetAssessedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TargetAssessedById")
-                        .HasColumnType("nvarchar(30)")
-                        .HasMaxLength(30);
-
-                    b.Property<string>("TargetAssessorDesignation")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTime?>("TargetDateApproved")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("TargetDateAssessed")
                         .HasColumnType("datetime2");
 
                     b.Property<DateTime?>("TargetDateReviewed")
@@ -760,6 +742,8 @@ namespace YamangTao.Data.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("CompiledById");
 
                     b.HasIndex("EmployeeId");
 
@@ -833,8 +817,7 @@ namespace YamangTao.Data.Migrations
                         .HasMaxLength(256);
 
                     b.Property<string>("TaskId")
-                        .HasColumnType("nvarchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<float>("TimelinessRating")
                         .HasColumnType("real");
@@ -872,24 +855,20 @@ namespace YamangTao.Data.Migrations
 
             modelBuilder.Entity("YamangTao.Model.PM.Rating", b =>
                 {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(150)")
-                        .HasMaxLength(150);
+                    b.Property<long>("RatingMatrixId")
+                        .HasColumnType("bigint");
 
                     b.Property<short>("Rate")
                         .HasColumnType("smallint");
 
-                    b.Property<long>("RatingMatrixId")
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<long>("Id")
                         .HasColumnType("bigint");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("RatingMatrixId");
+                    b.HasKey("RatingMatrixId", "Rate");
 
                     b.ToTable("Ratings");
                 });
@@ -2020,6 +1999,10 @@ namespace YamangTao.Data.Migrations
 
             modelBuilder.Entity("YamangTao.Model.PM.Ipcr", b =>
                 {
+                    b.HasOne("YamangTao.Model.Employee", "CompiledBy")
+                        .WithMany()
+                        .HasForeignKey("CompiledById");
+
                     b.HasOne("YamangTao.Model.Employee", "Ratee")
                         .WithMany("IPCRs")
                         .HasForeignKey("EmployeeId");
@@ -2047,8 +2030,7 @@ namespace YamangTao.Data.Migrations
 
                     b.HasOne("YamangTao.Model.PM.Kpi", "ParentKpi")
                         .WithMany("Kpis")
-                        .HasForeignKey("ParentKpiId")
-                        .OnDelete(DeleteBehavior.NoAction);
+                        .HasForeignKey("ParentKpiId");
                 });
 
             modelBuilder.Entity("YamangTao.Model.PM.Rating", b =>
