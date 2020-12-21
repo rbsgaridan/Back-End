@@ -70,6 +70,11 @@ namespace YamangTao.Data.Repositories
                 }
                 
             }
+
+            if (!string.IsNullOrEmpty(pmsParams.EmployeeId))
+            {
+                entities = entities.Where(a => EF.Property<string>(a, "EmployeeId").Equals(pmsParams.EmployeeId));
+            }
             
             if (!string.IsNullOrEmpty(pmsParams.FilterByKey))
             {

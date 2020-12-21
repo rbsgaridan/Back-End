@@ -16,6 +16,7 @@ namespace YamangTao.Model.PM
         public JobPosition Position { get; set; }
         public int OrgUnitId { get; set; }
         public OrgUnit Unit { get; set; }
+        public string Description { get; set; }
         public DateTime? DateTargetApproved { get; set; }
         public DateTime PeriodFrom { get; set; }
         public DateTime PeriodTo { get; set; } 

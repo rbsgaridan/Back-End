@@ -154,7 +154,8 @@ namespace YamangTao.Api.Controllers
                 {
                     return Unauthorized("You do not have clearance to update what is not yours!");
                 }
-
+            newIpcrDto.DateCreated = DateTime.Now;
+            newIpcrDto.DateLastModified = DateTime.Now;
             var ipcrToCreate = _mapper.Map<Ipcr>(newIpcrDto);
             _repo.Add(ipcrToCreate);
              if (await _repo.SaveAllAsync())

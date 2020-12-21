@@ -12,6 +12,7 @@ namespace YamangTao.Dto.Pms
         public string Position { get; set; }
         public int OrgUnitId { get; set; }
         public string Unit { get; set; }
+        public string Description { get; set; }
         public DateTime? DateTargetApproved { get; set; }
         public string CompiledById { get; set; }
         public string CompiledBy { get; set; }
@@ -65,20 +66,11 @@ namespace YamangTao.Dto.Pms
         public bool isAccomplishmentLocked { get; set; }
         public string Status { get; set; }
         public string EmployeeIdLocation { get; set; }
-        public int EntityId 
-        { 
-            get {
-                    return Id;
-                } 
-        }
-
         public string PreviousHolder { get; set; }
         public string CurrentHolder { get; set; }
         public string NextUser { get; set; }
 
-        public string GetDocumentType()
-        {
-            return "IPCR";
-        }
+        public string DocumentType { get; set; } = "IPCR";
+
     }
 }
