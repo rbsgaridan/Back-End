@@ -55,7 +55,11 @@ namespace YamangTao.Api.Helpers
             CreateMap<OrgUnit, OrgUnitDto>().ReverseMap();
             CreateMap<OrgUnitUpdateDto, OrgUnit>();
             
-
+            // Rating Period
+            CreateMap<RatingPeriod, RatingPeriodDto>();
+            CreateMap<RatingPeriodDto, RatingPeriod>()
+                .ForMember(dest => dest.Ipcrs, opt => opt.Ignore());
+            
             //IPCR Templates
             CreateMap<IpcrTemplateFullDto, IpcrTemplate>();
                 
@@ -88,12 +92,14 @@ namespace YamangTao.Api.Helpers
                 .ForMember(m => m.KpiType, opt =>  opt.MapFrom(src => src.KpiType.Description));
 
             CreateMap<IpcrDto, Ipcr>()
+                .ForMember(m => m.RatingPeriod, opt => opt.Ignore())
                 .ForMember(m => m.Ratee, opt => opt.Ignore())
                 .ForMember(m => m.Unit, opt => opt.Ignore())
                 .ForMember(m => m.Position, opt => opt.Ignore());
                 
             
             CreateMap<Ipcr, IpcrDto>()
+                .ForMember(m => m.RatingPeriod, opt => opt.MapFrom(src => src.RatingPeriod.Description))
                 .ForMember(m => m.Ratee, opt => opt.MapFrom(src => src.Ratee.FullName))
                 .ForMember(m => m.Position, opt => opt.MapFrom(src => src.Position.Name))
                 .ForMember(m => m.Unit, opt => opt.MapFrom(src => src.Unit.UnitName));

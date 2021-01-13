@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YamangTao.Data;
 
 namespace YamangTao.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20201227112015_ModRatingPeriod")]
+    partial class ModRatingPeriod
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -817,14 +819,11 @@ namespace YamangTao.Data.Migrations
                     b.Property<float?>("MaxWeight")
                         .HasColumnType("real");
 
-                    b.Property<int?>("MinIndicators")
-                        .HasColumnType("int");
-
                     b.Property<float?>("MinWeight")
                         .HasColumnType("real");
 
-                    b.Property<int?>("OrderNumber")
-                        .HasColumnType("int")
+                    b.Property<string>("OrderNumber")
+                        .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
                     b.Property<int?>("ParentKpiId")
@@ -832,12 +831,6 @@ namespace YamangTao.Data.Migrations
 
                     b.Property<float>("QualityRating")
                         .HasColumnType("real");
-
-                    b.Property<bool?>("Required")
-                        .HasColumnType("bit");
-
-                    b.Property<bool?>("Selected")
-                        .HasColumnType("bit");
 
                     b.Property<string>("SuccessIndicator")
                         .HasColumnType("nvarchar(256)")
@@ -849,9 +842,6 @@ namespace YamangTao.Data.Migrations
 
                     b.Property<float>("TimelinessRating")
                         .HasColumnType("real");
-
-                    b.Property<int?>("TotalIndicators")
-                        .HasColumnType("int");
 
                     b.Property<float>("Weight")
                         .HasColumnType("real");
@@ -1029,14 +1019,11 @@ namespace YamangTao.Data.Migrations
                     b.Property<float?>("MaxWeight")
                         .HasColumnType("real");
 
-                    b.Property<int?>("MinIndicators")
-                        .HasColumnType("int");
-
                     b.Property<float?>("MinWeight")
                         .HasColumnType("real");
 
-                    b.Property<int?>("OrderNumber")
-                        .HasColumnType("int");
+                    b.Property<string>("OrderNumber")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int?>("ParentKpiId")
                         .HasColumnType("int");
@@ -1044,9 +1031,6 @@ namespace YamangTao.Data.Migrations
                     b.Property<HierarchyId>("Path")
                         .HasColumnType("hierarchyid")
                         .HasMaxLength(100);
-
-                    b.Property<bool?>("Required")
-                        .HasColumnType("bit");
 
                     b.Property<string>("SuccessIndicator")
                         .HasColumnType("nvarchar(500)")

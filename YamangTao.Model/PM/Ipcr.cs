@@ -18,8 +18,8 @@ namespace YamangTao.Model.PM
         public OrgUnit Unit { get; set; }
         public string Description { get; set; }
         public DateTime? DateTargetApproved { get; set; }
-        public DateTime PeriodFrom { get; set; }
-        public DateTime PeriodTo { get; set; } 
+        public int? RatingPeriodId { get; set; }
+        public RatingPeriod RatingPeriod { get; set; }
         public double FinalQrating { get; set; }
         public double FinalErating { get; set; }
         public double FinalTrating { get; set; }

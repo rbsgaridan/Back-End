@@ -62,6 +62,7 @@ namespace YamangTao.Data
         public DbSet<TrainingAttended> TrainingsAttented { get; set; }
         public DbSet<VoluntaryWork> VoluntaryWorks { get; set; }
         public DbSet<WorkExperience> WorkExperiences { get; set; }
+        public DbSet<RatingPeriod> RatingPeriods { get; set; }
 
         // protected override void OnConfiguring(DbContextOptionsBuilder options)
         // {
@@ -97,7 +98,8 @@ namespace YamangTao.Data
 
                 emp.HasMany(p => p.IPCRs)
                     .WithOne(p => p.Ratee)
-                    .HasForeignKey(p => p.EmployeeId);
+                    .HasForeignKey(p => p.EmployeeId)
+                    .OnDelete(DeleteBehavior.Cascade);
                 
                 
             });
@@ -138,6 +140,18 @@ namespace YamangTao.Data
             builder.Entity<OrgUnit>().Property(o => o.NameOfHead).HasMaxLength(100);
             builder.Entity<OrgUnit>().Property(o => o.Location).HasMaxLength(150);
             builder.Entity<OrgUnit>().Property(o => o.CurrentHeadId).HasMaxLength(30);
+            
+
+            //Rating Period
+            builder.Entity<RatingPeriod>(rp => {
+                rp.HasKey(p => p.Id);
+                rp.HasMany(p => p.Ipcrs)
+                    .WithOne(p => p.RatingPeriod)
+                    .HasForeignKey(p => p.RatingPeriodId)
+                    .IsRequired(false)
+                    .OnDelete(DeleteBehavior.Restrict);
+                rp.Property(p => p.Description).HasMaxLength(256);
+            });
             
             // Rating Matrix
             builder.Entity<RatingMatrix>(matrix => {
@@ -195,6 +209,17 @@ namespace YamangTao.Data
 
             // IPCR
             builder.Entity<Ipcr>(ipcr => {
+                ipcr.HasOne(p => p.Ratee)
+                    .WithMany(p => p.IPCRs)
+                    .HasForeignKey(p => p.EmployeeId)
+                    .OnDelete(DeleteBehavior.NoAction);
+
+                ipcr.HasOne(p => p.RatingPeriod)
+                    .WithMany(p => p.Ipcrs)
+                    .HasForeignKey( p => p.RatingPeriodId)
+                    .IsRequired(false)
+                    .OnDelete(DeleteBehavior.NoAction);
+
                 ipcr.Property(i => i.EmployeeId).HasMaxLength(30);
 
                 ipcr.Property(i => i.TargetReviewedById).HasMaxLength(30);
@@ -566,7 +591,7 @@ namespace YamangTao.Data
                 a.Property(p => p.Suffix).HasMaxLength(10);
                 a.Property(p => p.ActivityId).HasMaxLength(30);
             });
-
+        
 
             
             

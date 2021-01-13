@@ -221,11 +221,19 @@ namespace YamangTao.Api.Controllers
                 appUser.LastActive = DateTime.Now;
                 _userManager.UpdateAsync(appUser).Wait();
                 var userToReturn = _mapper.Map<UserForListDto>(appUser);
+                var employeeDetails = await _repo.GetEmployeeByID(appUser.EmployeeId);
+                var currentOrgInit = await _orgRepo.GetOrgUnit(employeeDetails.OrgUnitId);
                 
                 return Ok(new
                 {
                     token = GenerateJwtTokenAsync(appUser).Result,
-                    user = userToReturn
+                    user = userToReturn,
+                    detail = new {
+                        group = employeeDetails.EmployeeGroup,
+                        status = employeeDetails.CurrentStatus,
+                        orgunit = employeeDetails.OrgUnitId,
+                        supervisor = currentOrgInit.CurrentHeadId
+                    }
                 });
             }
 

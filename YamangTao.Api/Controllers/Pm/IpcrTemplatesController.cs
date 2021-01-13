@@ -16,7 +16,7 @@ namespace YamangTao.Api.Controllers
 {
     [ApiController]
     [Route("api/v1/[controller]")]
-    [Authorize(Policy="RequireAdminRole")]
+    [Authorize]
     public class IpcrTemplatesController : ControllerBase
     {
         private readonly IPmsRepository _repo;
@@ -29,6 +29,7 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy="RequireHRrole")]
         public async Task<IActionResult> CreateNewIpcrTemplate(IpcrTemplateDto rmDto)
         {
             rmDto.DateCreated = DateTime.Now;
@@ -89,6 +90,7 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [Authorize(Policy="RequireHRrole")]
         public async Task<IActionResult> UpdateIpcrTemplate(int id, IpcrTemplateDto ipcrTemplateForUpdate)
         {
 
@@ -105,17 +107,19 @@ namespace YamangTao.Api.Controllers
         }
 
         [HttpPut("{id}/full")]
+        [Authorize(Policy="RequireHRrole")]
         public async Task<IActionResult> UpdateIpcrTemplateFull(int id, IpcrTemplateFullDto ipcrTemplateForUpdate)
         {
 
             var ipcrTemplateFromRepo = await _repo.GetById<IpcrTemplate, int>(ipcrTemplateForUpdate.Id);
             _mapper.Map(ipcrTemplateForUpdate, ipcrTemplateFromRepo);
 
-            foreach (var kpiTemplateDto in ipcrTemplateForUpdate.Kpis)
-            {
-                var kpiTemplateFromRepo = await _repo.GetKPITemplateFullById(kpiTemplateDto.Id);
-                 _mapper.Map(kpiTemplateDto, kpiTemplateFromRepo);
-            }
+            UpdateKpiTemplates(ipcrTemplateForUpdate.Kpis);
+            // foreach (var kpiTemplateDto in ipcrTemplateForUpdate.Kpis)
+            // {
+            //     var kpiTemplateFromRepo = await _repo.GetKPITemplateFullById(kpiTemplateDto.Id);
+            //      _mapper.Map(kpiTemplateDto, kpiTemplateFromRepo);
+            // }
 
             if (await _repo.SaveAllAsync())
             {
@@ -125,7 +129,20 @@ namespace YamangTao.Api.Controllers
             throw new Exception($"Updating IPCR Template failed on save.");
         }
 
+        private async void UpdateKpiTemplates(IEnumerable<KpiTemplateDto> kpiTemplates)
+        {
+            foreach (var kpiTemplate in kpiTemplates)
+            {
+                var kpiTemplateFromRepo = await _repo.GetById<KpiTemplate, int>(kpiTemplate.Id);
+                 _mapper.Map(kpiTemplate, kpiTemplateFromRepo);
+                 if (kpiTemplate.Kpis.Count > 0){
+                     UpdateKpiTemplates(kpiTemplate.Kpis);
+                 }
+            }
+        }
+
         [HttpDelete("{id}")]
+        [Authorize(Policy="RequireHRrole")]
         public async Task<IActionResult> deleteIpcrTemplate(int id)
         {
             var ipcrTemplateFromRepo = await _repo.GetById<IpcrTemplate, int>(id);

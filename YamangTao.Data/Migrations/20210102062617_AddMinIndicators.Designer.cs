@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using YamangTao.Data;
 
 namespace YamangTao.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20210102062617_AddMinIndicators")]
+    partial class AddMinIndicators
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -833,9 +835,6 @@ namespace YamangTao.Data.Migrations
                     b.Property<float>("QualityRating")
                         .HasColumnType("real");
 
-                    b.Property<bool?>("Required")
-                        .HasColumnType("bit");
-
                     b.Property<bool?>("Selected")
                         .HasColumnType("bit");
 
@@ -1044,9 +1043,6 @@ namespace YamangTao.Data.Migrations
                     b.Property<HierarchyId>("Path")
                         .HasColumnType("hierarchyid")
                         .HasMaxLength(100);
-
-                    b.Property<bool?>("Required")
-                        .HasColumnType("bit");
 
                     b.Property<string>("SuccessIndicator")
                         .HasColumnType("nvarchar(500)")
